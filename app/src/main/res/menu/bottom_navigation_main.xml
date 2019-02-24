@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/activiteBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_directions_run_black_24dp"
+        android:title="Activites"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/feedBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:title="Feed"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/calendarBar"
+        android:enabled="true"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="Calendar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/Profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
+</menu>
