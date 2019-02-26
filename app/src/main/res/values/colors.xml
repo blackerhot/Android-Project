@@ -6,4 +6,7 @@
     <color name="color2">#4286f4</color>
     <color name="white">#ffffff</color>
     <color name="navcolor2">#385444</color>
+    <color name="black">#000000</color>
+    <color name="Orange">#ff7c00</color>
+    <color name="transparent">#00000000</color>
 </resources>
