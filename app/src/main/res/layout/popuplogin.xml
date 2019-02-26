@@ -34,6 +34,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/pass"/>
             <Button
+                android:id="@+id/but_login"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
