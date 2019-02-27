@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Project</string>
+    <string name="app_name">project</string>
+    <string name="login">Login</string>
 </resources>
