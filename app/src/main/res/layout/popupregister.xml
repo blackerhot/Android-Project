@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bb"
+            android:layout_width="100dp"
+            android:layout_height="89dp"
+            android:layout_marginLeft="150dp"
+            android:background="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/rectangle"
+            android:layout_below="@+id/bb"
+            >
+
+            <EditText
+                android:id="@+id/user"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/email"
+                android:layout_marginTop="50dp"/>
+            <EditText
+                android:id="@+id/password1"
+                android:inputType="textPassword"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/pass"/>
+            <EditText
+                android:id="@+id/password2"
+                android:inputType="textPassword"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/pass"/>
+            <Button
+                android:id="@+id/but_register"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_login2"
+                android:padding="16dp"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:textColor="@drawable/btn_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Or"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+                    <ImageButton
+                        android:id="@+id/imbutface"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/face"
+                        android:background="@color/transparent"
+
+                        />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/google"
+                        android:background="@color/transparent"
+                        android:layout_toRightOf="@id/imbutface"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
