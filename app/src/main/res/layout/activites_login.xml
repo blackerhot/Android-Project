@@ -44,11 +44,21 @@
 
 
                     <Button
-                        android:id="@+id/btn"
+                        android:id="@+id/btnlogin"
                         android:layout_width="120dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:text="@string/login"
+                        android:padding="16dp"
+                        android:textColor="@drawable/btn_text"
+                        android:background="@drawable/btn_login"
+                        android:textAllCaps="false"/>
+                    <Button
+                        android:id="@+id/btnregister"
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:text="@string/register"
                         android:padding="16dp"
                         android:textColor="@drawable/btn_text"
                         android:background="@drawable/btn_login"

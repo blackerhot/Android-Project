@@ -1,20 +1,32 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "238471519537",
     "firebase_url": "https://testfirebase-acdde.firebaseio.com",
     "project_id": "testfirebase-acdde",
     "storage_bucket": "testfirebase-acdde.appspot.com"
+=======
+    "project_number": "635590935",
+    "firebase_url": "https://project-615dc.firebaseio.com",
+    "project_id": "project-615dc",
+    "storage_bucket": "project-615dc.appspot.com"
+>>>>>>> origin/master
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:238471519537:android:b5dd615c42ac4cb5",
+=======
+        "mobilesdk_app_id": "1:635590935:android:a06d4d2d6e286bc4",
+>>>>>>> origin/master
         "android_client_info": {
           "package_name": "th.ac.kku.asayaporn.project"
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "238471519537-i7ap7kq0aatv0dimda910gm03bmua3e1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -24,12 +36,27 @@
         },
         {
           "client_id": "238471519537-ni6ol8a0pgbh8nsmrun8i1qd260uqvda.apps.googleusercontent.com",
+=======
+          "client_id": "635590935-8gpf9tp1lulne3n2k99lvu4gqmrha0oa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "th.ac.kku.asayaporn.project",
+            "certificate_hash": "e1d0c78528ea6df314b0d60fae18d9c1b5d54205"
+          }
+        },
+        {
+          "client_id": "635590935-1stuu0imr4n1d1cosdps0919enbqggti.apps.googleusercontent.com",
+>>>>>>> origin/master
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyCCAVeACLdIqBBy6ogXn0WtSelhSXxvD5o"
+=======
+          "current_key": "AIzaSyBjynzMm4DhTy_vfYfXBcbC_pFggLcRtqk"
+>>>>>>> origin/master
         }
       ],
       "services": {
@@ -40,7 +67,11 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "238471519537-ni6ol8a0pgbh8nsmrun8i1qd260uqvda.apps.googleusercontent.com",
+=======
+              "client_id": "635590935-1stuu0imr4n1d1cosdps0919enbqggti.apps.googleusercontent.com",
+>>>>>>> origin/master
               "client_type": 3
             }
           ]

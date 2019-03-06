@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    String email="gg55@gmail.com";
+    String email="gg@gmail.com";
     String password="123456";
     String TAG = "LogtestLogin";
     @Override
