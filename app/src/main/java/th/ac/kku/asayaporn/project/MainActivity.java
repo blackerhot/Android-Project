@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         createAccount();
         signIn();
 
-        Button next = (Button) findViewById(R.id.btn);
+        Button next = (Button) findViewById(R.id.btnlogin);
         next.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, Login.class);
