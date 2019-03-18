@@ -28,8 +28,8 @@ public class Login extends Activity {
     String email="g1g@gmail.com";
     String password="123456";
     String TAG = "LogtestLogin";
-    EditText user;
-    EditText pass;
+    EditText user = null;
+    EditText pass = null;
 
     protected void parameter(){
         user = (EditText) findViewById(R.id.user_login);
