@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,12 +28,19 @@ public class Login extends Activity {
     String email="g1g@gmail.com";
     String password="123456";
     String TAG = "LogtestLogin";
+    EditText user;
+    EditText pass;
+
+    protected void parameter(){
+        user = (EditText) findViewById(R.id.user_login);
+        pass = (EditText) findViewById(R.id.pass_login);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popuplogin);
-
+        parameter();
         mAuth = FirebaseAuth.getInstance();
 
         createAccount();
@@ -130,6 +138,20 @@ public class Login extends Activity {
                         // ...
                     }
                 });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("user",user.getText().toString());
+        outState.putString("pass",pass.getText().toString());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle saveInstanceState){
+        super.onRestoreInstanceState(saveInstanceState);
+        user.setText(saveInstanceState.getString("user"));
+        pass.setText(saveInstanceState.getString("pass"));
     }
 }
 
