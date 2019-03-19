@@ -1,6 +1,6 @@
 package th.ac.kku.asayaporn.project;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -19,10 +19,14 @@ public class InsideMainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new activitesFragment()).commit();
+        }
 
     }
-    private  BottomNavigationView.OnNavigationItemSelectedListener navListener =
+
+    private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -42,10 +46,10 @@ public class InsideMainActivity extends AppCompatActivity {
                             break;
                     }
 
-                   getSupportFragmentManager().
-                           beginTransaction().
-                           replace(R.id.fragment_container,selectedFragment).
-                           commit();
+                    getSupportFragmentManager().
+                            beginTransaction().
+                            replace(R.id.fragment_container, selectedFragment).
+                            commit();
                     return true;
 
 
