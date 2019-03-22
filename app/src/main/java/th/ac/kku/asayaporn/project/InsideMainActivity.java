@@ -9,6 +9,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class InsideMainActivity extends AppCompatActivity {
 
@@ -16,6 +17,8 @@ public class InsideMainActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inside_main);
+
+
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -36,6 +39,7 @@ public class InsideMainActivity extends AppCompatActivity {
                             selectedFragment = new activitesFragment();
                             break;
                         case R.id.feedBar:
+
                             selectedFragment = new feedFragment();
                             break;
                         case R.id.calendarBar:
@@ -43,6 +47,14 @@ public class InsideMainActivity extends AppCompatActivity {
                             break;
                         case R.id.Profile:
                             selectedFragment = new profileFragment();
+                            Bundle extras = getIntent().getExtras();
+                            String email = extras.getString("email");
+                            String uid = extras.getString("uid");
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("email", email);
+                            bundle.putString("uid", uid);
+                            selectedFragment.setArguments(bundle);
                             break;
                     }
 

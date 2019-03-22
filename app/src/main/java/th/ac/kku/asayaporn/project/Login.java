@@ -23,28 +23,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends Activity {
-
+    private static final int REQUEST_CODE = 10;
     private FirebaseAuth mAuth;
-    String email="g1g@gmail.com";
-    String password="123456";
     String TAG = "LogtestLogin";
-    EditText user = null;
+    EditText id = null;
     EditText pass = null;
 
-    protected void parameter(){
-        user = (EditText) findViewById(R.id.user_login);
-        pass = (EditText) findViewById(R.id.pass_login);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popuplogin);
-        parameter();
-        mAuth = FirebaseAuth.getInstance();
 
-        createAccount();
-//        signIn();
+        mAuth = FirebaseAuth.getInstance();
+        id = (EditText) findViewById(R.id.user_login);
+        pass = (EditText) findViewById(R.id.pass_login);
 
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -56,11 +49,18 @@ public class Login extends Activity {
         getWindow().setLayout((int)(width),(int)(height));
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        Button next = (Button) findViewById(R.id.but_login);
-        next.setOnClickListener(new View.OnClickListener() {
+        Button login = (Button) findViewById(R.id.but_login);
+        login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
-                startActivity(myIntent);
+
+                if(id.getText().length()==0 || pass.getText().length()==0){
+                    Toast.makeText(Login.this, "Enter a id or password",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    signIn(String.valueOf(id.getText()),String.valueOf(pass.getText()));
+                }
+
+
             }
 
         });
@@ -93,49 +93,36 @@ public class Login extends Activity {
         }
     }
 
-    private void createAccount(){
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
 
-                        // ...
-                    }
-                });
-    }
-
-    private void signIn(){
+    private void signIn(String email , String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Toast.makeText(Login.this, "Success!",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
+                            myIntent.putExtra("email",user.getEmail());
+                            myIntent.putExtra("uid",user.getUid());
+                            startActivityForResult(myIntent ,REQUEST_CODE);
+
                         } else {
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.makeText(Login.this, "Please check your ID , Password",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
 
-                        // ...
+
                     }
                 });
     }
@@ -143,14 +130,14 @@ public class Login extends Activity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("user",user.getText().toString());
+        outState.putString("user",id.getText().toString());
         outState.putString("pass",pass.getText().toString());
     }
 
     @Override
     public void onRestoreInstanceState(Bundle saveInstanceState){
         super.onRestoreInstanceState(saveInstanceState);
-        user.setText(saveInstanceState.getString("user"));
+        id.setText(saveInstanceState.getString("user"));
         pass.setText(saveInstanceState.getString("pass"));
     }
 }

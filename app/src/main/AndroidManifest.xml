@@ -21,6 +21,9 @@
             android:theme="@style/AppTheme.CustomTheme"></activity>
         <activity android:name=".CalendarActivity"></activity>
         <activity android:name=".InsideMainActivity"></activity>
+        <activity android:name=".Register"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+
 
     </application>
 
