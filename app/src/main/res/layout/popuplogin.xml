@@ -6,24 +6,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/bb"
-            android:layout_width="100dp"
-            android:layout_height="89dp"
-            android:layout_marginLeft="150dp"
-            android:background="@drawable/logo" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:background="@drawable/rectangle"
-            android:layout_below="@+id/bb"
-            >
-
+            android:background="@drawable/rectangle">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/logo" />
             <EditText
                 android:id="@+id/user_login"
+                android:inputType="textEmailAddress"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,6 +29,7 @@
                 android:layout_marginTop="50dp"/>
             <EditText
                 android:id="@+id/pass_login"
+                android:inputType="textPassword"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

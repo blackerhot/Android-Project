@@ -6,29 +6,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/bb"
-            android:layout_width="100dp"
-            android:layout_height="89dp"
-            android:layout_marginLeft="150dp"
-            android:background="@drawable/logo" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:background="@drawable/rectangle"
-            android:layout_below="@+id/bb"
             >
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+            android:background="@drawable/logo" />
 
             <EditText
                 android:id="@+id/user"
+                android:inputType="textEmailAddress"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/email"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="10dp"/>
             <EditText
                 android:id="@+id/password1"
                 android:inputType="textPassword"
