@@ -1,26 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <RelativeLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="25dip"
+    android:background="@drawable/bgact">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
-        <Button
-            android:id="@+id/but_google_calen"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/menu"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right">
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/store"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Search"
+                android:background="@drawable/search"
+                android:gravity="center"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="googlecalendar"
-            android:layout_centerInParent="true"
-            />
-        <TextView
-            android:id="@+id/tv_id_testtv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/but_google_calen"
-            android:text="Test"
-            android:layout_centerInParent="true"
-            android:textSize="50sp"
-            />
-    </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+            android:textColor="@color/white"
+            android:background="@drawable/notify"
+            android:layout_marginTop= "16dip"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                </ListView>
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
