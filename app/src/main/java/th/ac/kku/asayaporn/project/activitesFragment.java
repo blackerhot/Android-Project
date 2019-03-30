@@ -8,20 +8,24 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class activitesFragment extends Fragment {
+import java.util.ArrayList;
+
+public class activitesFragment extends  Fragment {
     public TextView testtv;
     public Button btn_go_calen;
     Intent intentother = null;
+
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites,container,false);
-        testtv = (TextView) view.findViewById(R.id.tv_id_testtv);
-        btn_go_calen = (Button) view.findViewById(R.id.but_google_calen);
-
+        /*
         btn_go_calen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,9 +34,14 @@ public class activitesFragment extends Fragment {
                 startActivity(intentother);
                 testtv.setText("5555");
             }
-        });
+        }); */
+        String[] lst = {"1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        ListView listView = (ListView) view.findViewById(R.id.lst);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,lst
+        );
+        listView.setAdapter(listViewAdapter);
         return view;
     }
-
-
 }

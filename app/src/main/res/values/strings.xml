@@ -2,4 +2,5 @@
     <string name="app_name">project</string>
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
+    <string name="title_activity_list">List</string>
 </resources>
