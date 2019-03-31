@@ -19,23 +19,23 @@ public class profileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile,
                     container, false);
-
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
-        TextView uidtv = (TextView) view.findViewById(R.id.uidTv);
+
         Button btn = (Button) view.findViewById(R.id.buttonlogout);
 
-            String email = getArguments().getString("email");
-            String uid = getArguments().getString("uid");
+        String email = getArguments().getString("email");
+        String uid = getArguments().getString("uid");
 
-            emailtv.setText(email);
-            uidtv.setText(uid);
+        emailtv.setText(email);
 
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(),MainActivity.class));
-                }
-            });
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),MainActivity.class));
+            }
+        });
+
 
 
         return view;
