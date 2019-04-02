@@ -3,10 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<RelativeLayout
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
         android:layout_height="210dp"
@@ -157,5 +162,5 @@
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
-
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
