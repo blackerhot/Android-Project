@@ -1,63 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="25dip"
-    android:background="@drawable/bgact">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp">
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Search"
-                android:background="@drawable/search"
-                android:gravity="center"
-                android:focusable="false"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:hint="Search"
+            android:background="@drawable/search"
+            android:gravity="center"
+            android:focusable="false"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:background="@drawable/notify"
-            android:layout_marginTop= "16dip"/>
-        <FrameLayout
+            android:padding="20dp"/>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:background="@drawable/bgactivities">
+            <ListView
+                android:id="@+id/lst"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/lst"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
-
-
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
