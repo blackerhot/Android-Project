@@ -1,15 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="#E9EFFE">
 
-</android.support.constraint.ConstraintLayout>
+
+<ImageView
+    android:id="@+id/post_pic"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:adjustViewBounds="false" />
+
+<TextView
+    android:id="@+id/post_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/post_pic"
+    android:fontFamily="sans-serif-light"
+    android:text="Title"
+    android:textSize="19sp" />
+
+<TextView
+    android:id="@+id/post_detail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/post_date"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:text="details"
+    android:textSize="13sp" />
+
+<TextView
+    android:id="@+id/post_address"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/post_title"
+    android:text="Address"
+    android:textSize="17sp" />
+<TextView
+    android:id="@+id/post_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/post_address"
+    android:layout_marginLeft="10dp"
+    android:text="Date"
+    android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/post_dateend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/post_date"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/post_date"
+        android:text="DateEnd"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/post_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/post_detail"
+        android:text="website"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/post_sponser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_below="@id/post_website"
+        android:layout_marginLeft="10dp"
+        android:text="sponser"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/post_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_sponser"
+        android:layout_marginLeft="10dp"
+        android:text="phone"
+        android:textSize="17sp" />
+
+
+</RelativeLayout>

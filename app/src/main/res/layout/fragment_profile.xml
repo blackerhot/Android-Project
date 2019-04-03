@@ -30,7 +30,7 @@
       <de.hdodenhof.circleimageview.CircleImageView
           android:layout_width="150dp"
           android:layout_height="150dp"
-          android:src="@drawable/profile"
+          android:src="@drawable/face"
           app:civ_border_width="2dp"
           app:civ_border_color="@color/white"
           android:layout_centerHorizontal="true"

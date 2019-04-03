@@ -10,37 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="16dp">
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/menu"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right">
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/store"
-                    android:layout_gravity="right"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -51,6 +21,7 @@
                 android:hint="Search"
                 android:background="@drawable/search"
                 android:gravity="center"
+                android:focusable="false"
                 android:textColor="@color/white"/>
         </LinearLayout>
 
@@ -77,9 +48,7 @@
                     android:id="@+id/lst"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                </ListView>
+                    android:layout_gravity="center"/>
 
 
 

@@ -1,0 +1,135 @@
+package th.ac.kku.asayaporn.project;
+
+import com.google.gson.JsonObject;
+
+public class ActivityKKU {
+
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public JsonObject getContact() {
+        return contact;
+    }
+
+    public void setContact(JsonObject contact) {
+        this.contact = contact;
+    }
+
+    JsonObject contact;
+    String url;
+    String image;
+    String title;
+
+    public ActivityKKU(JsonObject contact,String url, String image, String title, String place, String content, String dateSt, String dateEd, String phone, String website, String sponsor) {
+        this.contact=contact;
+        this.url = url;
+        this.image = image;
+        this.title = title;
+        this.place = place;
+        this.content = content;
+        this.dateSt = dateSt;
+        this.dateEd = dateEd;
+        this.phone = phone;
+        this.website = website;
+        this.sponsor = sponsor;
+    }
+
+    String place;
+
+    String content;
+    String dateSt;
+    String dateEd;
+    String phone;
+    String website;
+    String sponsor;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getDateSt() {
+        return dateSt;
+    }
+
+    public void setDateSt(String dateSt) {
+        this.dateSt = dateSt;
+    }
+
+    public String getDateEd() {
+        return dateEd;
+    }
+
+    public void setDateEd(String dateEd) {
+        this.dateEd = dateEd;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+}

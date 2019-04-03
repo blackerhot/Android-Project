@@ -11,8 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class profileFragment extends Fragment {
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
+public class profileFragment extends Fragment {
+    private FirebaseAuth mAuth;
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -29,12 +32,16 @@ public class profileFragment extends Fragment {
         emailtv.setText(email);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MainActivity.class));
-            }
-        });
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAuth = FirebaseAuth.getInstance();
+                    mAuth.signOut();
+                    LoginManager.getInstance().logOut(); //logout facebook
+
+                    startActivity(new Intent(getActivity(),MainActivity.class));
+                }
+            });
 
 
 

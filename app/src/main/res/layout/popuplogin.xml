@@ -44,6 +44,16 @@
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@drawable/btn_text" />
+            <Button
+                android:id="@+id/but_signup"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_login2"
+                android:padding="16dp"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="@drawable/btn_text" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,24 +67,26 @@
                 android:layout_height="wrap_content"
                 >
                 <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
-                    <ImageButton
-                        android:id="@+id/imbutface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/face"
-                        android:background="@color/transparent"
 
-                        />
-                    <ImageButton
+                    <com.facebook.login.widget.LoginButton
+                        xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/loginFace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/google"
-                        android:background="@color/transparent"
-                        android:layout_toRightOf="@id/imbutface"
+                        facebook:com_facebook_login_text="Login with facebook" />
+
+                    <com.google.android.gms.common.SignInButton
+                        android:layout_toRightOf="@id/loginFace"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/loginGoo"
+                       android:layout_gravity="center"
                         />
+
                 </LinearLayout>
 
             </RelativeLayout>
