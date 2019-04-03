@@ -37,6 +37,7 @@ public class activitesFragment extends  Fragment {
         }); */
         String[] lst = {"1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         ListView listView = (ListView) view.findViewById(R.id.lst);
+        listView.requestFocus();
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,lst
