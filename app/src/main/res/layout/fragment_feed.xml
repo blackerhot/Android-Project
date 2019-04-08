@@ -20,10 +20,10 @@ android:background="@color/white">
         android:background="@color/white"
         android:layout_marginBottom="20dp">
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:hint="Search"
-            android:background="@drawable/search"
+            android:background="@mipmap/search"
             android:gravity="center"
             android:focusable="false"
             android:textColor="@color/white"/>

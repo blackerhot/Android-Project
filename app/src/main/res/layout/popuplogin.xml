@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:background="@drawable/rectangle">
+            android:background="@mipmap/rectangle">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
