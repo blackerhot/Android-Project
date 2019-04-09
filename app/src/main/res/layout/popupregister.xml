@@ -53,14 +53,7 @@
                 android:text="@string/register"
                 android:textAllCaps="false"
                 android:textColor="@drawable/btn_text" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Or"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"
-                android:layout_gravity="center"
-                android:textColor="@color/white"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,23 +61,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
-                    <ImageButton
-                        android:id="@+id/imbutface"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/face"
-                        android:background="@color/transparent"
-
-                        />
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/google"
-                        android:background="@color/transparent"
-                        android:layout_toRightOf="@id/imbutface"
-                        />
-                </LinearLayout>
+                    android:layout_centerHorizontal="true"/>
 
             </RelativeLayout>
 

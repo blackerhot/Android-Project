@@ -3,4 +3,8 @@
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="title_activity_list">List</string>
+    <string name="Open">project</string>
+    <string name="Close">project</string>
+
+
 </resources>

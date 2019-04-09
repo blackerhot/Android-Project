@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button login = (Button) findViewById(R.id.btnlogin);
-        Button register = (Button) findViewById(R.id.btnregister);
+
+        TextView tvskip = (TextView) findViewById(R.id.tvskip) ;
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, Login.class);
@@ -38,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+
+
+        tvskip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, Register.class);
+                Intent myIntent = new Intent(MainActivity.this, InsideMainActivity.class);
                 startActivity(myIntent);
-
             }
         });
 
