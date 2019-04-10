@@ -187,8 +187,8 @@ public class Login extends Activity {
                             Toast.makeText(Login.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
-                            myIntent.putExtra("email",user.getEmail());
-                            myIntent.putExtra("uid",user.getUid());
+                            myIntent.putExtra("email",""+user.getEmail());
+                            myIntent.putExtra("uid",""+user.getUid());
 
 
                             startActivityForResult(myIntent ,REQUEST_CODE);
@@ -279,8 +279,8 @@ public class Login extends Activity {
                             Toast.makeText(Login.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
-                            myIntent.putExtra("email",user.getEmail());
-                            myIntent.putExtra("uid",user.getUid());
+                            myIntent.putExtra("email",""+user.getEmail());
+                            myIntent.putExtra("uid",""+user.getUid());
 
 
                             startActivityForResult(myIntent ,REQUEST_CODE);
@@ -341,8 +341,8 @@ public class Login extends Activity {
                             Toast.makeText(Login.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
-                            myIntent.putExtra("email",user.getEmail());
-                            myIntent.putExtra("uid",user.getUid());
+                            myIntent.putExtra("email",""+user.getEmail());
+                            myIntent.putExtra("uid",""+user.getUid());
                             startActivityForResult(myIntent ,REQUEST_CODE);
 
                         } else {
