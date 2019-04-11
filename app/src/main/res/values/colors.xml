@@ -12,4 +12,6 @@
     <color name="grey">#3D3D3D</color>
     <color name="grey_white">#868686</color>
     <color name="lightgreen">#5bbc59</color>
+    <color name="white_grey">#DFE0DF</color>
+    <color name="red">#FF0000</color>
 </resources>
