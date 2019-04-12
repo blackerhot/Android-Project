@@ -49,21 +49,21 @@
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/selector_btn"
                     android:text="D"
                     android:textColor="@color/black" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="30dp"
-                    android:background="@color/white_grey"
+                    android:background="@drawable/selector_btn"
                     android:text="M"
                     android:textColor="@color/black" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="30dp"
-                    android:background="@color/white"
+                    android:background="@drawable/selector_btn"
                     android:text="Y"
                     android:textColor="@color/black" />
 
@@ -74,14 +74,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            android:paddingRight="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="April"
-                android:paddingRight="16dp"
                 android:textSize="40sp" />
         </LinearLayout>
 
@@ -97,5 +98,13 @@
 
 
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/viewcalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
