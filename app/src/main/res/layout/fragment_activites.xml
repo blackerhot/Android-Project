@@ -24,7 +24,7 @@
                 android:hint="Search"
                 android:background="@mipmap/search"
                 android:gravity="center"
-                android:focusable="false"
+                android:focusable="auto"
                 android:textColor="@color/white"/>
 
             <ImageView
@@ -39,6 +39,7 @@
             android:layout_height="match_parent"
             android:background="@mipmap/bgactivities">
             <ListView
+                android:focusable="true"
                 android:id="@+id/lst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
