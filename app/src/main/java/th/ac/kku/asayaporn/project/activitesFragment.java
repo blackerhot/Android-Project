@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -24,20 +26,21 @@ public class activitesFragment extends  Fragment {
     public Button btn_go_calen;
     Intent intentother = null;
 
-    int[] listviewImage = new int[]{
-            R.drawable.ic_menu_camera1, R.drawable.ic_menu_camera2, R.drawable.ic_menu_camera3, R.drawable.ic_menu_camera4,
-            R.drawable.ic_menu_camera5, R.drawable.ic_menu_camera6, R.drawable.ic_menu_camera7, R.drawable.ic_menu_camera8,R.drawable.ic_menu_camera9, R.drawable.ic_menu_camera10,
+    String[] lstTime = new String[]{
+            "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00","18:00","19:00"
     };
 
-    String[] listviewShortDescription = new String[]{
+    String[] lstTitle = new String[]{
+            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
+            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
+            "Android ListView ", "Android ListView "
+    };
+    String[] lstItems = new String[]{
             "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
             "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
+            "Android ListView Short Description", "Android ListView Short Description"
     };
 
-    String[] listviewTitle = new String[]{
-            "ListView Title 1", "ListView Title 2", "ListView Title 3", "ListView Title 4",
-            "ListView Title 5", "ListView Title 6", "ListView Title 7", "ListView Title 8",
-    };
 
     @Nullable
     @Override
@@ -46,17 +49,23 @@ public class activitesFragment extends  Fragment {
 
 
             List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
 
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 10; i++) {
                 HashMap<String, String> hm = new HashMap<String, String>();
-                hm.put("listview_title", listviewTitle[i]);
-                hm.put("listview_discription", listviewShortDescription[i]);
-                hm.put("listview_image", Integer.toString(listviewImage[i]));
+                hm.put("listview_title", lstTime[i]);
+                hm.put("listview_discription", lstTitle[i]);
+                hm.put("listview_item", lstItems[i]);
+              /*  if( i % 2 ==0) {
+                    linearLayout.setBackgroundResource(R.drawable.bgnotify2);
+                } else{
+                    linearLayout.setBackgroundResource(R.drawable.bgnotify);
+                } */
                 aList.add(hm);
             }
 
-            String[] from = {"listview_image", "listview_title", "listview_discription"};
-            int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
+            String[] from = { "listview_title", "listview_discription", "listview_item"};
+            int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
 
             SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), aList, R.layout.listview_activity, from, to);
             ListView androidListView = (ListView) view.findViewById(R.id.lst);
