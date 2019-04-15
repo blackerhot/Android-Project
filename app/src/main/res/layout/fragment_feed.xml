@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="16dip"
-android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adding"
+        android:textSize="20sp"
+        android:id="@+id/AddActiv"/>
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -22,12 +27,11 @@ android:background="@color/white">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:hint="Search"
             android:background="@mipmap/search"
             android:gravity="center"
-            android:focusable="false"
-            android:textColor="@color/white"/>
-
+            android:hint="Search"
+            android:focusable="auto"
+            android:textColor="@color/white" />
         <ImageView
             android:layout_width="200dp"
             android:layout_height="40dp"
@@ -41,6 +45,7 @@ android:background="@color/white">
         android:layout_height="wrap_content">
         <ListView
             android:id="@+id/feedlistview"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -48,3 +53,4 @@ android:background="@color/white">
 </LinearLayout>
 
 </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,12 @@
 package th.ac.kku.asayaporn.project;
 
+import com.google.firebase.database.Exclude;
 import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityKKU {
 
@@ -49,6 +55,23 @@ public class ActivityKKU {
     String website;
     String sponsor;
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("place", place);
+        result.put("image", image);
+        result.put("sponsor", sponsor);
+        result.put("website", website);
+        result.put("dateSt",dateSt);
+        result.put("dateEd",dateEd);
+        result.put("content",content);
+        result.put("phone",phone);
+        result.put("contact",contact);
+        result.put("url",url);
+
+        return result;
+    }
     public String getImage() {
         return image;
     }

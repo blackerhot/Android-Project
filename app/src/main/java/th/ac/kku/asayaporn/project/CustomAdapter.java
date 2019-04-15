@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -106,7 +108,12 @@ public class CustomAdapter extends BaseAdapter {
         mViewHolder.detail.setText("รายละเอียด : " + mActivite.content);
         mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt);
         mViewHolder.dateend.setText("วันสุดท้าย : " + mActivite.dateEd);
-        mViewHolder.phone.setText("เบอร์ติดต่อ : " + mActivite.getContact().get("phone"));
+        if(mActivite.phone==null){
+            mViewHolder.phone.setText("เบอร์ติดต่อ : " + mActivite.getContact().get("phone"));
+        }
+        else {
+            mViewHolder.phone.setText("เบอร์ติดต่อ : " + mActivite.phone);
+        }
         mViewHolder.website.setText("เว็บไซต์ : " + mActivite.url);
         mViewHolder.sponser.setText("จัดโดย : " + mActivite.sponsor);
 
