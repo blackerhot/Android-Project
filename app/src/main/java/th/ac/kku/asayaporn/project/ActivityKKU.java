@@ -32,6 +32,7 @@ public class ActivityKKU {
     String image;
     String title;
 
+
     public ActivityKKU(JsonObject contact,String url, String image, String title, String place, String content, String dateSt, String dateEd, String phone, String website, String sponsor) {
         this.contact=contact;
         this.url = url;
