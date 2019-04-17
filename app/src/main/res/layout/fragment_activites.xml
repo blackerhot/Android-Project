@@ -38,12 +38,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@mipmap/bgactivities">
-            <ListView
+            <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:focusable="true"
                 android:id="@+id/lst"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:dividerHeight="0.5dp">
+            </com.baoyz.swipemenulistview.SwipeMenuListView>
         </LinearLayout>
 
     </LinearLayout>
