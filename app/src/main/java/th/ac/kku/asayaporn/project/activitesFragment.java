@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,38 +12,65 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class activitesFragment extends  Fragment {
     public TextView testtv;
     public Button btn_go_calen;
     Intent intentother = null;
 
+    String[] lstTime = new String[]{
+            "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00","18:00","19:00"
+    };
+
+    String[] lstTitle = new String[]{
+            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
+            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
+            "Android ListView ", "Android ListView "
+    };
+    String[] lstItems = new String[]{
+            "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
+            "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
+            "Android ListView Short Description", "Android ListView Short Description"
+    };
+
+
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites,container,false);
-        /*
-        btn_go_calen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intentother = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://gsuite.google.com/intl/en_id/products/calendar/?utm_source=google&utm_medium=cpc&utm_campaign=japac-TH-all-en-dr-bkws-all-golden-trial-e-dr-1003989&utm_content=text-ad-none-none-DEV_c-CRE_336301664879-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20BKWS%20~%20EXA%20%7C%20Calendar%20%7C%20%5B1:1%5D%20%7C%20TH%20%7C%20EN%20%7C%20google.calendar-KWID_43700041781917229-kwd-380869074165-userloc_9073383&utm_term=KW_google.calendar&gclid=Cj0KCQjwpsLkBRDpARIsAKoYI8yZQggj7xEHcQhzdQUTlFKgHpciR4-JktbRa7YEEFwfxs7BK5-bPygaAk-SEALw_wcB&gclsrc=aw.ds"));
-                startActivity(intentother);
-                testtv.setText("5555");
+
+
+            List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
+
+            for (int i = 0; i < 10; i++) {
+                HashMap<String, String> hm = new HashMap<String, String>();
+                hm.put("listview_title", lstTime[i]);
+                hm.put("listview_discription", lstTitle[i]);
+                hm.put("listview_item", lstItems[i]);
+              /*  if( i % 2 ==0) {
+                    linearLayout.setBackgroundResource(R.drawable.bgnotify2);
+                } else{
+                    linearLayout.setBackgroundResource(R.drawable.bgnotify);
+                } */
+                aList.add(hm);
             }
-        }); */
-        String[] lst = {"1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-        ListView listView = (ListView) view.findViewById(R.id.lst);
-        listView.requestFocus();
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,lst
-        );
-        listView.setAdapter(listViewAdapter);
+
+            String[] from = { "listview_title", "listview_discription", "listview_item"};
+            int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
+
+            SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), aList, R.layout.listview_activity, from, to);
+            ListView androidListView = (ListView) view.findViewById(R.id.lst);
+            androidListView.setAdapter(simpleAdapter);
+
         return view;
     }
 }
