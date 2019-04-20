@@ -55,6 +55,7 @@ public class activitesFragment extends  Fragment {
 
 
 
+
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
