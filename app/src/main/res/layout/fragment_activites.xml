@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dip"
+    android:focusableInTouchMode="true"
     android:background="@color/white">
 
     <LinearLayout
@@ -24,14 +25,8 @@
                 android:hint="Search"
                 android:background="@mipmap/search"
                 android:gravity="center"
-                android:focusable="auto"
-                android:textColor="@color/white"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:textColor="@color/white"
-                android:background="@drawable/notify"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -41,6 +36,8 @@
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:focusable="true"
                 android:id="@+id/lst"
+                android:divider="@null"
+                android:dividerHeight="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

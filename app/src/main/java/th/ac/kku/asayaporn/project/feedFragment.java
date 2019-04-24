@@ -64,6 +64,7 @@ public class feedFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_feed,
                 container, false);
+        getActivity().setTitle("Feed Activities");
         setHasOptionsMenu(true);
         mListView = (ListView) view.findViewById(R.id.feedlistview);
         butadding = (Button) view.findViewById(R.id.AddActiv);

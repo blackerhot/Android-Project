@@ -22,6 +22,7 @@ public class profileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile,
                     container, false);
+        getActivity().setTitle("Profile");
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
 
         Button btn = (Button) view.findViewById(R.id.buttonlogout);

@@ -13,7 +13,7 @@ public class calendarFragment extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar,container,false);
-
+        getActivity().setTitle("Calender");
 
         return view;
     }
