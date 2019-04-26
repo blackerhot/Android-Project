@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -60,11 +62,11 @@ public class activitesFragment extends  Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites,container,false);
-        SwipeMenuListView listView;
+        final SwipeMenuListView listView;
         listView = (SwipeMenuListView) view.findViewById(R.id.lst);
+        getActivity().setTitle("Notifier");
 
-
-        List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+        final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
         // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
 
         for (int i = 0; i < 10; i++) {
@@ -83,32 +85,35 @@ public class activitesFragment extends  Fragment {
         String[] from = { "listview_title", "listview_discription", "listview_item"};
         int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), aList, R.layout.listview_activity, from, to);
+        final SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(),
+                            aList, R.layout.listview_activity, from, to);
         listView.setAdapter(simpleAdapter);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
-
+            SwipeMenuItem deleteItem;
             @Override
             public void create(SwipeMenu menu) {
                 // deleteItem
-                SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
+                deleteItem = new SwipeMenuItem(getContext());
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(0xcc, 0x00, 0x00)));
-                deleteItem.setWidth(120);
+                deleteItem.setWidth(180);
+
                 deleteItem.setTitle("Delete");
-                deleteItem.setTitleSize(18);
+                deleteItem.setTitleSize(12);
                 deleteItem.setTitleColor(Color.WHITE);
                 menu.addMenuItem(deleteItem);
             }
         };
-        listView.setMenuCreator(creator);
 
+        listView.setMenuCreator(creator);
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-
-                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
+                        listView.smoothOpenMenu(position);
+                        aList.remove(position);
+                        listView.setAdapter(simpleAdapter);
                         break;
                   /*  case 1:
                         Log.d(TAG, "onMenuItemClick: clicked item " + index);
@@ -116,6 +121,19 @@ public class activitesFragment extends  Fragment {
                 }
                 // false : close the menu; true : not close the menu
                 return false;
+            }
+        });
+
+        listView.setCloseInterpolator(new BounceInterpolator());
+        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
+
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+
             }
         });
 
