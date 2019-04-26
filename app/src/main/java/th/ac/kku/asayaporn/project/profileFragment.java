@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ public class profileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile,
                     container, false);
         getActivity().setTitle("Profile");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().
+                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
 
         Button btn = (Button) view.findViewById(R.id.buttonlogout);

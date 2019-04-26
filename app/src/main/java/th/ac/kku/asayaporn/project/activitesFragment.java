@@ -9,6 +9,8 @@ import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +67,8 @@ public class activitesFragment extends  Fragment {
         final SwipeMenuListView listView;
         listView = (SwipeMenuListView) view.findViewById(R.id.lst);
         getActivity().setTitle("Notifier");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().
+                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
 
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
         // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);

@@ -2,19 +2,31 @@ package th.ac.kku.asayaporn.project;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -40,6 +53,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +67,7 @@ public class feedFragment extends Fragment {
     protected ListView mListView;
     protected CustomAdapter mAdapter;
     protected Button butadding;
+    protected EditText editSearch;
     FirebaseDatabase database;
     DatabaseReference myRef;
     public static feedFragment newInstance() {
@@ -65,11 +85,50 @@ public class feedFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feed,
                 container, false);
         getActivity().setTitle("Feed Activities");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_CUSTOM);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setCustomView(R.layout.actionbar_feed);
         setHasOptionsMenu(true);
         mListView = (ListView) view.findViewById(R.id.feedlistview);
         butadding = (Button) view.findViewById(R.id.AddActiv);
+        editSearch = (EditText) getActivity().findViewById(R.id.edit_search);
+        editSearch.setText("");
+        butadding.setVisibility(View.GONE);
         new JsonTask().execute("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
 
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ActivityKKU activityKKU;
+                final ArrayList<ActivityKKU> arra=new ArrayList<>();
+                if(editSearch.length()!=0) {
+                    for(int i=0;i<mAdapter.getCount();i++){
+                        activityKKU= (ActivityKKU) mAdapter.getItem(i);
+
+                        if( activityKKU.getTitle().toString().contains(s)){
+
+                            arra.add(activityKKU);
+
+                        }
+                        mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+                    }
+                }else{
+
+                    mListView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         database = FirebaseDatabase.getInstance();
          myRef = database.getReference("activities");
@@ -143,8 +202,189 @@ public class feedFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_feed, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        super.onCreateOptionsMenu(menu, inflater);
+        int id = item.getItemId();
+
+
+
+        if (id == R.id.action_adding) {
+            final AlertDialog.Builder builder =
+                    new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+
+            final View view = inflater.inflate(R.layout.adding, null);
+            builder.setView(view);
+            final SharedPreferences sp ;
+            final SharedPreferences.Editor editor ;
+            sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
+            editor = sp.edit();
+
+         //   final EditText title = (EditText)view.findViewById(R.id.eName1);
+         //   final EditText type = (EditText)view.findViewById(R.id.eType);
+         //   final EditText quantity = (EditText)view.findViewById(R.id.eQuan);
+          //  final EditText unit = (EditText)view.findViewById(R.id.eUnit);
+          //  final EditText calories = (EditText)view.findViewById(R.id.eCAl1);
+
+
+
+            builder.setPositiveButton("เพิ่ม", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+
+
+                    SharedPreferences sp ;
+                    SharedPreferences.Editor editor ;
+
+
+
+                }
+            });
+            builder.setNegativeButton("กลับ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            builder.show();
+
+            return true;
+        }
+        if(id==R.id.action_sortbydatelates){
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra=new ArrayList<>();
+
+
+
+            for(int i = 0; i<mAdapter.getCount(); i++){
+                activityKKU=(ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra,new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    SimpleDateFormat formatter2=new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = null;
+                    Date date2=null;
+                    try {
+                        date1=formatter2.parse(p0.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        date2=formatter2.parse(p1.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (date1.compareTo(date2)<0) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        if(id==R.id.action_sortbydateleast){
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra=new ArrayList<>();
+
+
+
+            for(int i = 0; i<mAdapter.getCount(); i++){
+                activityKKU=(ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra,new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    SimpleDateFormat formatter2=new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = null;
+                    Date date2=null;
+                    try {
+                        date1=formatter2.parse(p0.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        date2=formatter2.parse(p1.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (date1.compareTo(date2)<0) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        if(id==R.id.action_sortbytitle1)
+        {
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra=new ArrayList<>();
+
+
+
+            for(int i = 0; i<mAdapter.getCount(); i++){
+                activityKKU=(ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra,new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    return  p1.getTitle().compareTo(p0.getTitle());
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        if(id==R.id.action_sortbytitle2)
+        {
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra=new ArrayList<>();
+
+
+
+            for(int i = 0; i<mAdapter.getCount(); i++){
+                activityKKU=(ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra,new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    return  p0.getTitle().compareTo(p1.getTitle());
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     ProgressDialog pd;
