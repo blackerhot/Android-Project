@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_adding"
+        android:enabled="true"
+        android:icon="@drawable/ic_addbut"
+        android:title="menuadding"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_sortbytitle2"
+        android:enabled="true"
+        android:title="เรียงตามชื่อ ก-ฮ"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sortbytitle1"
+        android:enabled="true"
+        android:title="เรียงตามชื่อ ฮ-ก"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sortbydateleast"
+        android:enabled="true"
+        android:title="เรียงตามวันที่น้อย-มาก"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sortbydatelates"
+        android:enabled="true"
+        android:title="เรียงตามวันที่มาก-น้อย"
+        app:showAsAction="never" />
+
+</menu>
