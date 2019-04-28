@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="3dp"
+    android:padding="16dp"
     android:focusableInTouchMode="true"
-    android:background="#FFB74D">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"

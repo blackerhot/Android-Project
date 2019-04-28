@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,11 +30,16 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class activitesFragment extends  Fragment {
@@ -58,13 +64,12 @@ public class activitesFragment extends  Fragment {
     private static final String TAG = "MainActivity";
 
 
-
-
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites,container,false);
         final SwipeMenuListView listView;
+
         listView = (SwipeMenuListView) view.findViewById(R.id.lst);
         getActivity().setTitle("Notifier");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
