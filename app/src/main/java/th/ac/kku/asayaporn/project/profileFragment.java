@@ -16,23 +16,26 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.time.Instant;
+
 public class profileFragment extends Fragment {
     private FirebaseAuth mAuth;
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+        String email = getArguments().getString("email");
+        String uid = getArguments().getString("uid");
+        if (email == null){
+            startActivity(new Intent(getActivity(),request_Login.class));
 
-        View view = inflater.inflate(R.layout.fragment_profile,
-                    container, false);
+        }
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         getActivity().setTitle("Profile");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
 
         Button btn = (Button) view.findViewById(R.id.buttonlogout);
-
-        String email = getArguments().getString("email");
-        String uid = getArguments().getString("uid");
 
         emailtv.setText(email);
 

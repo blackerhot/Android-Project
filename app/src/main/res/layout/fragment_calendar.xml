@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
     <ScrollView
         android:layout_width="match_parent"
@@ -21,13 +21,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@mipmap/search"
-                android:gravity="center"
-                android:hint="Search"
-                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -74,22 +67,21 @@
             android:paddingRight="16dp">
 
             <TextView
+                android:id="@+id/tv_month_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="April"
                 android:textSize="40sp" />
         </LinearLayout>
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+           android:id="@+id/materialcalendarview_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mcv_showOtherDates="all"
+            app:mcv_selectionColor="@color/com_facebook_blue">
 
-            <CalendarView
-                android:background="@mipmap/bgactivities"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:theme="@style/CalenderViewCustom"
-                android:dateTextAppearance="@style/CalenderViewDateCustomText"
-                android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" >
-
-            </CalendarView>
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
 
     </LinearLayout>
