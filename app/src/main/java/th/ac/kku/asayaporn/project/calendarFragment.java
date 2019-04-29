@@ -1,101 +1,77 @@
 package th.ac.kku.asayaporn.project;
 
+import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
-
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class calendarFragment extends Fragment {
-    MaterialCalendarView materialCalendar;
+    CompactCalendarView compactCalendarView;
+    String TAG = "test";
     TextView tv_month;
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
+    private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
+
     @Nullable
     @Override
-    public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calendar,container,false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         getActivity().setTitle("Calender");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().
+        ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        materialCalendar = (MaterialCalendarView) view.findViewById(R.id.materialcalendarview_id);
+        compactCalendarView = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
+
+        compactCalendarView.setUseThreeLetterAbbreviation(true);
         tv_month = (TextView) view.findViewById(R.id.tv_month_id);
-
-        materialCalendar.setOnMonthChangedListener(new OnMonthChangedListener() {
+        Date d = new Date();
+        Event ev1 = new Event(Color.GREEN, 1556643600, "Some extra data that I want to store.");
+        compactCalendarView.addEvent(ev1);
+        tv_month.setText(dateFormatForMonth.format(d.getTime()));
+        List<Event> events = compactCalendarView.getEvents(1556643600);
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onMonthChanged(MaterialCalendarView materialCalendarView, CalendarDay calendarDay) {
-                    String calendar_str = "" + calendarDay.getMonth();
-
-               // String month_num_str = String.valueOf(month_char_one + month_char_two);
-
-                   checkmonth(calendar_str);
+            public void onDayClick(Date dateClicked) {
+                List<Event> events = compactCalendarView.getEvents(dateClicked);
+                Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
             }
-        });
-        materialCalendar.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
 
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                String tv = "" + dateFormatForMonth.format(firstDayOfNewMonth);
+                tv_month.setText(tv);
             }
         });
         return view;
 
     }
 
-    private void checkmonth(String month_num_str) {
 
-        switch(month_num_str.toLowerCase()) {
-            case "0":
-                tv_month.setText("January");
-                break;
-            case "1":
-                tv_month.setText("February");
-                break;
-            case "2":
-                tv_month.setText("March");
-                break;
-            case "3":
-                tv_month.setText("April");
-                break;
-            case "4":
-                tv_month.setText("May");
-                break;
-            case "5":
-                tv_month.setText("June");
-                break;
-            case "6":
-                tv_month.setText("July");
-                break;
-            case "7":
-                tv_month.setText("August");
-                break;
-            case "8":
-                tv_month.setText("September");
-                break;
-            case "9":
-                tv_month.setText("October");
-                break;
-            case "10":
-                tv_month.setText("November");
-                break;
-            case "11":
-                tv_month.setText("December");
-                break;
-            default:
 
-        }
+    // Adding events from 1 to 6 days
 
-    }
+
+
 
 }

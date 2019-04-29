@@ -8,6 +8,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,19 +75,35 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="April"
-                android:textSize="40sp" />
+                android:textSize="30sp" />
         </LinearLayout>
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-           android:id="@+id/materialcalendarview_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="@color/com_facebook_blue">
 
-        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="fill_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_height="250dp"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarBackgroundColor="#fff"
+            app:compactCalendarTextColor="#0e0f0e"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#7b8381"
+            app:compactCalendarCurrentDayBackgroundColor="#132db7"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            />
 
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="#03A9F4" />
     </LinearLayout>
+
 
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
