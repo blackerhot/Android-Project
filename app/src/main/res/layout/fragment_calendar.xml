@@ -91,7 +91,7 @@
             app:compactCalendarTextColor="#0e0f0e"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#7b8381"
             app:compactCalendarCurrentDayBackgroundColor="#132db7"
-            app:compactCalendarMultiEventIndicatorColor="#fff"
+            app:compactCalendarMultiEventIndicatorColor="#A30707"
             />
 
 

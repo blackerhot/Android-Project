@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, InsideMainActivity.class);
+                myIntent.putExtra("email","");
+                myIntent.putExtra("uid","");
                 startActivity(myIntent);
             }
         });

@@ -1,5 +1,6 @@
 package th.ac.kku.asayaporn.project;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -22,7 +23,8 @@ public class InsideMainActivity extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
-
+    String email = "";
+    String uid = "";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,24 +86,33 @@ public class InsideMainActivity extends AppCompatActivity {
                             break;
                         case R.id.calendarBar:
                             selectedFragment = new calendarFragment();
+
                             break;
                         case R.id.Profile:
-                            selectedFragment = new profileFragment();
                             Bundle extras = getIntent().getExtras();
-                            String email = extras.getString("email");
-                            String uid = extras.getString("uid");
+                            email = extras.getString("email");
+                            if (email.equals("")){
+                                selectedFragment = new request_Login();
 
-                            Bundle bundle = new Bundle();
-                            bundle.putString("email", email);
-                            bundle.putString("uid", uid);
-                            selectedFragment.setArguments(bundle);
+                            }else {
+
+                                selectedFragment = new profileFragment();
+
+                                String uid = extras.getString("uid");
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString("email", email);
+                                bundle.putString("uid", uid);
+                                selectedFragment.setArguments(bundle);
+                            }
+
                             break;
                     }
-
                     getSupportFragmentManager().
                             beginTransaction().
                             replace(R.id.fragment_container, selectedFragment).
                             commit();
+
                     return true;
 
 

@@ -46,10 +46,10 @@ public class calendarFragment extends Fragment {
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         tv_month = (TextView) view.findViewById(R.id.tv_month_id);
         Date d = new Date();
-        Event ev1 = new Event(Color.GREEN, 1556643600, "Some extra data that I want to store.");
+        Event ev1 = new Event(Color.GREEN, 1559152871000L, "Some extra data that I want to store.");
         compactCalendarView.addEvent(ev1);
         tv_month.setText(dateFormatForMonth.format(d.getTime()));
-        List<Event> events = compactCalendarView.getEvents(1556643600);
+        List<Event> events = compactCalendarView.getEvents(1559152871000L);
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {

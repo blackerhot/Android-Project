@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.app.Activity;
+import android.app.assist.AssistContent;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -21,8 +22,11 @@ import java.time.Instant;
 
 public class profileFragment extends Fragment {
     private FirebaseAuth mAuth;
-    String email="55";
+    String email="";
     String uid="";
+
+
+
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -30,14 +34,13 @@ public class profileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         getActivity().setTitle("Profile");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
-                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+               setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
-        try {
-          //  email = getArguments().getString("email");
-          //  uid = getArguments().getString("uid");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
+
+
+          email = getArguments().getString("email");
+          uid = getArguments().getString("uid");
 
 
         Button btn = (Button) view.findViewById(R.id.buttonlogout);
@@ -62,14 +65,6 @@ public class profileFragment extends Fragment {
 
 
     }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
 
-
-
-
-
-    }
 }
