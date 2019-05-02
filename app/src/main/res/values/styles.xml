@@ -10,6 +10,10 @@
     </style>
 
     <style name="AppTheme.CustomTheme">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#292929</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/grey</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>

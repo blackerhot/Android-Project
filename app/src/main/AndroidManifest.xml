@@ -37,6 +37,8 @@
             android:name=".Register"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".ItemActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

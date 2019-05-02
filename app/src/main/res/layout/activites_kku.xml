@@ -1,112 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
-<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@mipmap/bgactivities"
-    android:orientation="vertical"
-    android:paddingBottom="25dp">
-
-<ImageView
-    android:id="@+id/post_pic"
-    android:layout_width="match_parent"
-    android:layout_height="240dp"
-    android:padding="9dp"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:adjustViewBounds="false" />
-
-<TextView
-    android:id="@+id/post_title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/post_pic"
-    android:fontFamily="sans-serif-light"
-    android:text="Title"
-    android:textColor="@color/white"
-    android:textSize="19sp" />
-
-<TextView
-    android:id="@+id/post_detail"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/post_date"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"
-
-    android:textColor="@color/white"
-    android:text="details"
-    android:textSize="13sp" />
-
-<TextView
-    android:id="@+id/post_address"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/post_title"
-
-    android:textColor="@color/white"
-    android:text="Address"
-    android:textSize="17sp" />
-<TextView
-    android:id="@+id/post_date"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/post_address"
-    android:layout_marginLeft="10dp"
-
-    android:textColor="@color/white"
-    android:text="Date"
-    android:textSize="17sp" />
-
-    <TextView
-        android:id="@+id/post_dateend"
-        android:layout_width="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/post_date"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/post_date"
+        android:background="#3F3E3E"
+        android:orientation="vertical"
+        android:paddingBottom="3dp">
 
-        android:textColor="@color/white"
-        android:text="DateEnd"
-        android:textSize="17sp" />
+        <ImageView
+            android:id="@+id/post_pic"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:padding="9dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="false" />
 
-    <TextView
-        android:id="@+id/post_website"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@id/post_detail"
+        <TextView
+            android:id="@+id/post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_pic"
+            android:fontFamily="sans-serif-light"
+            android:text="Title"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="19sp" />
 
-        android:textColor="@color/white"
-        android:text="website"
-        android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/post_sponser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_below="@id/post_website"
-        android:layout_marginLeft="10dp"
-        android:text="sponser"
+        <TextView
+            android:id="@+id/post_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/post_title"
+            android:textColor="@color/white"
+            android:text="Address"
+            android:textSize="13sp" />
 
-        android:textColor="@color/white"
-        android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/post_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/post_sponser"
-        android:layout_marginLeft="10dp"
+        <TextView
+            android:id="@+id/post_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_address"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:text="Date"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/clickmore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_date"
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:textColor="@color/white"
+            android:text="อ่านต่อ.."
+            android:textSize="20sp" />
 
-        android:textColor="@color/white"
-        android:text="phone"
-        android:textSize="17sp" />
-</LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

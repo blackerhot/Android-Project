@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
     <color name="color2">#4286f4</color>
     <color name="white">#ffffff</color>
     <color name="navcolor2">#385444</color>
@@ -14,4 +12,9 @@
     <color name="lightgreen">#5bbc59</color>
     <color name="white_grey">#DFE0DF</color>
     <color name="red">#FF0000</color>
+    <color name="primary">#ff7c00</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryText">#050505</color>
 </resources>

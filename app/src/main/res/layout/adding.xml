@@ -3,65 +3,66 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/eName1"
+            android:id="@+id/etitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            android:ems="10"
-            
-            android:inputType="textPersonName" />
+            android:inputType="text"/>
+    <EditText
+        android:id="@+id/eplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/edatest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/edateend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/econtent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/esponsor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/ewebstie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/eurl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/ephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="text"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/but_uppic"
+        android:text="Uppic"/>
 
-        <EditText
-            android:id="@+id/eType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/eCAl1"
-            android:ems="10"
 
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/eCAl1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/eQuan"
-            android:ems="10"
-
-            android:inputType="textPersonName|number" />
-
-        <EditText
-            android:id="@+id/eQuan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/eUnit"
-            android:ems="10"
-
-            android:inputType="textPersonName|number" />
-
-        <EditText
-            android:id="@+id/eUnit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/eName1"
-            android:ems="10"
-
-            android:inputType="textPersonName" />
-
-    </RelativeLayout>
 </LinearLayout>
