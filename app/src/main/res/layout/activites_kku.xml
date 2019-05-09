@@ -11,7 +11,7 @@
         android:background="@drawable/bgfeed_data"
         android:orientation="vertical"
         android:paddingBottom="3dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="1dp">
 
         <ImageView
             android:id="@+id/post_pic"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/post_pic"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/pb"
             android:text="Title"
             android:layout_gravity="center"
             android:textColor="@color/grey"
@@ -53,8 +53,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_below="@+id/post_title"
                 android:textColor="@color/grey_white"
+                android:fontFamily="@font/pr"
                 android:text="Address"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -75,7 +76,8 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/grey_white"
                 android:text="Date"
-                android:textSize="12sp"
+                android:fontFamily="@font/pr"
+                android:textSize="14sp"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -88,6 +90,7 @@
             android:layout_gravity="end"
             android:clickable="true"
             android:text="อ่านต่อ.."
+            android:fontFamily="@font/pb"
             android:textColor="@color/grey"
             android:textSize="16sp"
             android:paddingBottom="10dp"/>
