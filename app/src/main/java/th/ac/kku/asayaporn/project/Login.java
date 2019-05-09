@@ -189,9 +189,9 @@ public class Login extends Activity {
                                     Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
                             myIntent.putExtra("email",""+user.getEmail());
-                            myIntent.putExtra("uid",""+user.getUid());
-                            myIntent.putExtra("dis_name",user.getDisplayName());
-
+                            myIntent.putExtra("uid",""+ user.getUid());
+                            myIntent.putExtra("dis_name","" + user.getDisplayName());
+                            myIntent.putExtra("url_photo","" + user.getPhotoUrl());
                             startActivityForResult(myIntent ,REQUEST_CODE);
                         } else {
                             // If sign in fails, display a message to the user.
