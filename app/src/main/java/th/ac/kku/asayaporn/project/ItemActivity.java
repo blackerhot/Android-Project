@@ -97,25 +97,25 @@ public class ItemActivity extends AppCompatActivity {
         phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
-        credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName(googleSignInAccount.getEmail());
 
-
-        mService = new com.google.api.services.calendar.Calendar.Builder(
-                transport, jsonFactory, credentialCaledndar)
-                .setApplicationName("Google Calendar API Android Quickstart")
-                .build();
 
         create = false;
-        new ApiAsyncTask(ItemActivity.this).execute();
+       // new ApiAsyncTask(ItemActivity.this).execute();
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 create = true;
-                Toast.makeText(ItemActivity.this,"CLCICKED!!",Toast.LENGTH_SHORT).show();
+               credentialCaledndar = GoogleAccountCredential.usingOAuth2(getApplicationContext(), Arrays.asList(SCOPES))
+                       .setBackOff(new ExponentialBackOff())
+                        .setSelectedAccountName(googleSignInAccount.getEmail());
+
+
+               mService = new com.google.api.services.calendar.Calendar.Builder(
+                       transport, jsonFactory, credentialCaledndar)
+                        .setApplicationName("Google Calendar API Android Quickstart")
+                       .build();
+               Toast.makeText(ItemActivity.this,"CLCICKED!!",Toast.LENGTH_SHORT).show();
                 new ApiAsyncTask(ItemActivity.this).execute();
 
             }

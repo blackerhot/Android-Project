@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
@@ -56,8 +59,17 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
 
+            if(iActivity.create) {
                 createEvent();
+            }
             getDataFromApi();
+
+        } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
+
+
+        } catch (UserRecoverableAuthIOException userRecoverableException) {
+
+
 
         } catch (IOException e) {
             System.out.printf("The following error occurred: " +
@@ -172,5 +184,6 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
         Toast.makeText(iActivity, eventStrings.toString(), Toast.LENGTH_SHORT).show();
         return eventStrings;
     }
+
 
 }
