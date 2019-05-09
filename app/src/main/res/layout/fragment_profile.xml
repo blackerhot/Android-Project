@@ -12,10 +12,10 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <View
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@color/lightgreen"
+        android:background="@drawable/backgr_profile"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:text="History"/>
+                android:text="Information"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,12 +101,12 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/com_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Complete"
-                            android:textSize="20sp"
+                        <ImageView
+                            android:id="@+id/imag_store"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                           android:src="@drawable/store"
+                            android:scaleType="fitCenter"
                             android:layout_marginTop="20dp"
                             android:layout_centerHorizontal="true"/>
                         <TextView
@@ -114,8 +114,8 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="20sp"
-                            android:layout_marginTop="25dp"
-                            android:layout_below="@+id/com_id"
+
+                            android:layout_below="@+id/imag_store"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
 
@@ -128,20 +128,18 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView
+                        <ImageView
                             android:id="@+id/no_com_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="No Complete"
-                            android:textSize="20sp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_marginTop="20dp"
+                            android:src="@drawable/ic_addbut"
                             android:layout_centerHorizontal="true"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="20sp"
-                            android:layout_marginTop="25dp"
                             android:layout_below="@+id/no_com_id"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>

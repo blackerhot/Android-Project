@@ -246,7 +246,7 @@ public class Login extends Activity {
 
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAG, e.toString(), e);
                 // [START_EXCLUDE]
                 updateUI(null);
                 // [END_EXCLUDE]
@@ -343,6 +343,9 @@ public class Login extends Activity {
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
                             myIntent.putExtra("email",""+user.getEmail());
                             myIntent.putExtra("uid",""+user.getUid());
+
+
+
                             startActivityForResult(myIntent ,REQUEST_CODE);
 
                         } else {
