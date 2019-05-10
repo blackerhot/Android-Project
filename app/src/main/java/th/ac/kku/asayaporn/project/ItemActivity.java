@@ -10,7 +10,6 @@ import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -50,7 +49,6 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
-    Intent intentother = null;
     Button butAddEvent;
     TextView address;
     TextView datest;
@@ -60,6 +58,7 @@ public class ItemActivity extends AppCompatActivity {
     ImageButton phone;
     ImageButton website;
     TextView sponser;
+    Intent intentother = null;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
     GoogleAccountCredential credentialCaledndar;
@@ -99,31 +98,26 @@ public class ItemActivity extends AppCompatActivity {
         datest.setText(para.getString("datest") +" ,  "+ para.getString("dateend"));
         //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
-
-
-
-        create = false;
-       // new ApiAsyncTask(ItemActivity.this).execute();
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                    intentother = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("tel:" + para.getString("phone")));
-                    startActivity(intentother);
-
-
-            }
-        });
         website.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 intentother = new Intent(Intent.ACTION_VIEW,
                         Uri.parse(para.getString("website")));
                 startActivity(intentother);
             }
         });
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intentother = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("tel:" +  para.getString("phone")));
+                startActivity(intentother);
+            }
+        });
+
+        create = false;
+       // new ApiAsyncTask(ItemActivity.this).execute();
+
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
