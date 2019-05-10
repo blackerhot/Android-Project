@@ -137,6 +137,7 @@ public class Login extends Activity {
                             Toast.LENGTH_SHORT).show();
                 }else{
                     signIn(String.valueOf(id.getText()),String.valueOf(pass.getText()));
+
                 }
 
 
@@ -188,9 +189,9 @@ public class Login extends Activity {
                                     Toast.LENGTH_SHORT).show();
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
                             myIntent.putExtra("email",""+user.getEmail());
-                            myIntent.putExtra("uid",""+user.getUid());
-
-
+                            myIntent.putExtra("uid",""+ user.getUid());
+                            myIntent.putExtra("dis_name","" + user.getDisplayName());
+                            myIntent.putExtra("url_photo","" + user.getPhotoUrl());
                             startActivityForResult(myIntent ,REQUEST_CODE);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -281,7 +282,8 @@ public class Login extends Activity {
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
                             myIntent.putExtra("email",""+user.getEmail());
                             myIntent.putExtra("uid",""+user.getUid());
-
+                            myIntent.putExtra("dis_name","" + user.getDisplayName());
+                            myIntent.putExtra("url_photo","" + user.getPhotoUrl());
 
                             startActivityForResult(myIntent ,REQUEST_CODE);
                         } else {
@@ -302,6 +304,7 @@ public class Login extends Activity {
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
@@ -343,8 +346,8 @@ public class Login extends Activity {
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
                             myIntent.putExtra("email",""+user.getEmail());
                             myIntent.putExtra("uid",""+user.getUid());
-
-
+                            myIntent.putExtra("dis_name","unknown Name");
+                            myIntent.putExtra("url_photo","");
 
                             startActivityForResult(myIntent ,REQUEST_CODE);
 
@@ -367,6 +370,7 @@ public class Login extends Activity {
         super.onSaveInstanceState(outState);
         outState.putString("user",id.getText().toString());
         outState.putString("pass",pass.getText().toString());
+
     }
 
     @Override

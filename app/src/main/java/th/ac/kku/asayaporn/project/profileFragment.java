@@ -17,13 +17,18 @@ import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class profileFragment extends Fragment {
     private FirebaseAuth mAuth;
     String email="";
     String uid="";
+    String disname ="";
+    String url_photo = "";
 
 
 
@@ -36,13 +41,18 @@ public class profileFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
-
-
-
+        CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
+          url_photo = getArguments().getString("url_photo");
+          disname = getArguments().getString("dis_name");
           email = getArguments().getString("email");
           uid = getArguments().getString("uid");
+          if (url_photo.equals("")){
 
-
+          }else {
+              Picasso.get().load(url_photo).into(user_photo);
+          }
+        TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
+        tv_name_user.setText(disname);
         Button btn = (Button) view.findViewById(R.id.buttonlogout);
 
         emailtv.setText(email);

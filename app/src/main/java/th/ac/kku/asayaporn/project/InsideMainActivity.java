@@ -236,10 +236,13 @@ public class InsideMainActivity extends AppCompatActivity {
                                 selectedFragment = new profileFragment();
 
                                 String uid = extras.getString("uid");
-
+                                String dis_name_user = extras.getString("dis_name");
+                                String urlphoto = extras.getString("url_photo");
                                 Bundle bundle = new Bundle();
                                 bundle.putString("email", email);
                                 bundle.putString("uid", uid);
+                                bundle.putString("dis_name",dis_name_user);
+                                bundle.putString("url_photo",urlphoto);
                                 selectedFragment.setArguments(bundle);
                             }
 

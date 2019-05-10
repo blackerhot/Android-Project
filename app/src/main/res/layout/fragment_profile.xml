@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp">
       <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/user_photo_id"
           android:layout_width="150dp"
           android:layout_height="150dp"
           android:src="@drawable/face"
@@ -53,9 +54,10 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/tv_name_user"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="aum chayanon"
+                            android:text="Unkhown name"
                             android:textStyle="bold"
                             android:textSize="25sp"
                             android:layout_marginTop="60dp"
