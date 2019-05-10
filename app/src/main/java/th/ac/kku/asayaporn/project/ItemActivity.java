@@ -1,5 +1,6 @@
 package th.ac.kku.asayaporn.project;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.HttpTransport;
@@ -49,6 +51,7 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
+    Intent intentother = null;
     Button butAddEvent;
     TextView address;
     TextView datest;
@@ -58,9 +61,10 @@ public class ItemActivity extends AppCompatActivity {
     ImageButton phone;
     ImageButton website;
     TextView sponser;
-    Intent intentother = null;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_AUTHORIZATION = 1001;
     GoogleAccountCredential credentialCaledndar;
     GoogleSignInAccount googleSignInAccount;
     Bundle para;
@@ -89,14 +93,14 @@ public class ItemActivity extends AppCompatActivity {
         para = getIntent().getExtras();
 
         Picasso.get().load(para.getString("img")).into(pic);//wait for img
-        title.setText(para.getString("title"));
+       title.setText(para.getString("title"));
         getSupportActionBar().setTitle("");
 
-        //website.setText(para.getString("website"));
+       // website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
         datest.setText(para.getString("datest") +" ,  "+ para.getString("dateend"));
-        //phone.setText(para.getString("phone"));
+       // phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
         website.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,28 +114,29 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intentother = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("tel:" +  para.getString("phone")));
+                        Uri.parse("tel:" +  para.getString("phone")));
                 startActivity(intentother);
             }
         });
+        credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(), Arrays.asList(SCOPES))
+                .setBackOff(new ExponentialBackOff())
+                .setSelectedAccount(googleSignInAccount.getAccount());
+
+
+        mService = new com.google.api.services.calendar.Calendar.Builder(
+                transport, jsonFactory, credentialCaledndar)
+                .setApplicationName("Google Calendar API Android Quickstart")
+                .build();
 
         create = false;
-       // new ApiAsyncTask(ItemActivity.this).execute();
+        new ApiAsyncTask(ItemActivity.this).execute();
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 create = true;
-               credentialCaledndar = GoogleAccountCredential.usingOAuth2(getApplicationContext(), Arrays.asList(SCOPES))
-                       .setBackOff(new ExponentialBackOff())
-                        .setSelectedAccountName(googleSignInAccount.getEmail());
 
-
-               mService = new com.google.api.services.calendar.Calendar.Builder(
-                       transport, jsonFactory, credentialCaledndar)
-                        .setApplicationName("Google Calendar API Android Quickstart")
-                       .build();
-               Toast.makeText(ItemActivity.this,"CLCICKED!!",Toast.LENGTH_SHORT).show();
                 new ApiAsyncTask(ItemActivity.this).execute();
 
             }
@@ -142,7 +147,19 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
-
+    void showGooglePlayServicesAvailabilityErrorDialog(
+            final int connectionStatusCode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
+                        connectionStatusCode,
+                        ItemActivity.this,
+                        REQUEST_GOOGLE_PLAY_SERVICES);
+                dialog.show();
+            }
+        });
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
