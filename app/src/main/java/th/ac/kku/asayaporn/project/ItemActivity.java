@@ -1,5 +1,6 @@
 package th.ac.kku.asayaporn.project;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.HttpTransport;
@@ -59,6 +61,8 @@ public class ItemActivity extends AppCompatActivity {
     TextView sponser;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_AUTHORIZATION = 1001;
     GoogleAccountCredential credentialCaledndar;
     GoogleSignInAccount googleSignInAccount;
     Bundle para;
@@ -100,7 +104,7 @@ public class ItemActivity extends AppCompatActivity {
         credentialCaledndar = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName(googleSignInAccount.getEmail());
+                .setSelectedAccount(googleSignInAccount.getAccount());
 
 
         mService = new com.google.api.services.calendar.Calendar.Builder(
@@ -115,7 +119,7 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 create = true;
-                Toast.makeText(ItemActivity.this,"CLCICKED!!",Toast.LENGTH_SHORT).show();
+
                 new ApiAsyncTask(ItemActivity.this).execute();
 
             }
@@ -126,7 +130,19 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
-
+    void showGooglePlayServicesAvailabilityErrorDialog(
+            final int connectionStatusCode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
+                        connectionStatusCode,
+                        ItemActivity.this,
+                        REQUEST_GOOGLE_PLAY_SERVICES);
+                dialog.show();
+            }
+        });
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

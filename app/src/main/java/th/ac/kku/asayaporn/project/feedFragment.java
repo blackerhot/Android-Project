@@ -108,6 +108,36 @@ public class feedFragment extends Fragment {
         showData(sp.getString("json", ""));
         editor.commit();
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), ItemActivity.class);
+                List<ActivityKKU> mActivites = null;
+                ActivityKKU mActivite;
+                mActivite = mActivites.get(position);
+
+                intent.putExtra("img", String.valueOf(mActivite.image));
+                intent.putExtra("title", String.valueOf(mActivite.title));
+                intent.putExtra("address", String.valueOf(mActivite.place));
+                intent.putExtra("detail", String.valueOf(mActivite.content));
+                intent.putExtra("datest", String.valueOf(mActivite.dateSt));
+                intent.putExtra("dateend", String.valueOf(mActivite.dateEd));
+                intent.putExtra("website", String.valueOf(mActivite.url));
+                intent.putExtra("sponsor", String.valueOf(mActivite.sponsor));
+
+                if (mActivite.phone == null) {
+                    intent.putExtra("phone", String.valueOf(mActivite.getContact().get("phone")));
+                } else {
+                    intent.putExtra("phone", String.valueOf(mActivite.phone));
+                }
+                getContext().startActivity(intent);
+
+
+
+
+            }
+        });
+
 
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -117,19 +147,30 @@ public class feedFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Boolean isnull = false;
                 ActivityKKU activityKKU;
+                ArrayList<String> str = new ArrayList<String>();
+                str.add("ไม่พบคำที่ค้นหา");
                 final ArrayList<ActivityKKU> arra = new ArrayList<>();
                 if (editSearch.length() != 0) {
                     for (int i = 0; i < mAdapter.getCount(); i++) {
                         activityKKU = (ActivityKKU) mAdapter.getItem(i);
 
                         if (activityKKU.getTitle().toString().contains(s)) {
-
+                            isnull=false;
                             arra.add(activityKKU);
 
+                        }else{
+                            isnull=true;
+
                         }
-                        mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+
+                        if(isnull){
+                            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+                        }else {
+                            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+                        }
+
                     }
                 } else {
 
