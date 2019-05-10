@@ -105,9 +105,9 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/imag_store"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                           android:src="@drawable/store"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                           android:src="@drawable/icon_box"
                             android:scaleType="fitCenter"
                             android:layout_marginTop="20dp"
                             android:layout_centerHorizontal="true"/>
@@ -132,10 +132,10 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/no_com_id"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_addbut"
+                            android:src="@drawable/icon_activity"
                             android:layout_centerHorizontal="true"/>
                         <TextView
                             android:layout_width="wrap_content"
