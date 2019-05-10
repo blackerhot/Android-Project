@@ -56,7 +56,7 @@
                 android:layout_below="@+id/post_title"
                 android:textColor="@color/grey_white"
                 android:text="Address"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 

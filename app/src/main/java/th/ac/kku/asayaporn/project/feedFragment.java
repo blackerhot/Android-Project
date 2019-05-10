@@ -101,11 +101,13 @@ public class feedFragment extends Fragment {
 
         SharedPreferences sp;
         SharedPreferences.Editor editor;
-
         sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
         editor = sp.edit();
-        showData(sp.getString("json", ""));
+        String result=sp.getString("json", "");
+        result =result.replace("&quot;", "'");
+        showData(result);
         editor.commit();
+
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -443,6 +445,7 @@ public class feedFragment extends Fragment {
 
 
     private void showData(String json) {
+
         Gson gson = new Gson();
         Blog blog = gson.fromJson(json, Blog.class);
         List<ActivityKKU> activity = blog.getActivities();

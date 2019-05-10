@@ -101,8 +101,8 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
                 if (iActivity.create) {
                     View rootView = iActivity.findViewById(R.id.linearLayout2);
-                    Snackbar.make(rootView, "ADDD", Snackbar.LENGTH_LONG).
-                            setAction("OPENN", new View.OnClickListener() {
+                    Snackbar.make(rootView, "already add to calendar", Snackbar.LENGTH_LONG).
+                            setAction("Click to Open", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -140,7 +140,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
         Event event = new Event()
                 .setSummary(para.getString("title"))
                 .setLocation(para.getString("address"))
-                .setDescription(para.getString("detail") + "\n#KKUEvent");
+                .setDescription(para.getString("detail"));
 
         DateTime startDateTime = new DateTime(para.getString("datest")+"T00:00:00-00:00");
         EventDateTime start = new EventDateTime()
@@ -163,7 +163,6 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 .setUseDefault(false)
                 .setOverrides(Arrays.asList(reminderOverrides));
         event.setReminders(reminders);
-        System.out.printf("Event created: %s\n", event.getHtmlLink());
         String calendarId = "primary";
         try {
             event = iActivity.mService.events().insert(calendarId, event).execute();
@@ -188,7 +187,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
             String getSummary = event.getSummary();
             EventDateTime eventDateTime = event.getStart();
             String getTAG = event.getDescription();
-            if (getTAG != null && getTAG.contains("#KKUEvent")) {
+            if (getTAG != null ) {
                 eventStrings.add(String.format("%s (%s)", event.getSummary(), getTAG));
             }
             if (getSummary != null && getSummary.equals(para.getString("title"))) {

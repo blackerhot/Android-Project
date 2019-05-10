@@ -3,6 +3,7 @@ package th.ac.kku.asayaporn.project;
 import android.app.Activity;
 import android.app.assist.AssistContent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
 import java.time.Instant;
@@ -29,12 +32,12 @@ public class profileFragment extends Fragment {
     String uid="";
     String disname ="";
     String url_photo = "";
-
+    FirebaseUser currentFirebaseUser ;
 
 
     @Nullable
     @Override
-    public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+    public View onCreateView (final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle saveInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         getActivity().setTitle("Profile");
@@ -42,15 +45,36 @@ public class profileFragment extends Fragment {
                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
-          url_photo = getArguments().getString("url_photo");
-          disname = getArguments().getString("dis_name");
-          email = getArguments().getString("email");
-          uid = getArguments().getString("uid");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentFirebaseUser = mAuth.getCurrentUser();
+
+
+
+
+        if(currentFirebaseUser==null){
+            view = inflater.inflate(R.layout.activity_request_login, container, false);
+            Button btn_login_re = (Button) view.findViewById(R.id.btn_requ_login_id);
+            btn_login_re.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(),Login.class));
+                }
+            });
+            return view;
+        }
+
+          url_photo = currentFirebaseUser.getPhotoUrl().toString();
+          disname =currentFirebaseUser.getDisplayName();
+          email = currentFirebaseUser.getEmail();
+          uid = currentFirebaseUser.getUid();
+
           if (url_photo.equals("")){
 
           }else {
               Picasso.get().load(url_photo).into(user_photo);
           }
+
         TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         tv_name_user.setText(disname);
         Button btn = (Button) view.findViewById(R.id.buttonlogout);
@@ -61,11 +85,13 @@ public class profileFragment extends Fragment {
             btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth = FirebaseAuth.getInstance();
+
                 mAuth.signOut();
                 LoginManager.getInstance().logOut(); //logout facebook
 
-                startActivity(new Intent(getActivity(),MainActivity.class));
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+
             }
         });
 

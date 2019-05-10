@@ -109,7 +109,7 @@ public class InsideMainActivity extends AppCompatActivity {
             }
         });
 
-        new JsonTask().execute("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
+        new JsonTask(InsideMainActivity.this).execute("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -125,90 +125,7 @@ public class InsideMainActivity extends AppCompatActivity {
 
 
 
-    ProgressDialog pd;
 
-    private class JsonTask extends AsyncTask<String, String, String> {
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            pd = new ProgressDialog(InsideMainActivity.this);
-            pd.setMessage("Please wait");
-            pd.setCancelable(false);
-            pd.show();
-        }
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
-
-                while ((line = reader.readLine()) != null) {
-
-                    buffer.append(line + "\n");
-                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
-
-                }
-
-                return buffer.toString();
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            if (pd.isShowing()) {
-                pd.dismiss();
-            }
-            JSONObject obj = null;
-            try {
-                result=result.replace("&quot;", "'");
-                obj = new JSONObject(result);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            SharedPreferences sp ;
-            SharedPreferences.Editor editor ;
-            sp = getSharedPreferences("USER", Context.MODE_PRIVATE);
-            editor = sp.edit();
-            editor.putString("json", new String(String.valueOf(obj)));
-            editor.commit();
-
-        }
-    }
     private  BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -220,34 +137,13 @@ public class InsideMainActivity extends AppCompatActivity {
                             selectedFragment = new activitesFragment();
                             break;
                         case R.id.feedBar:
-
                             selectedFragment = new feedFragment();
                             break;
                         case R.id.calendarBar:
                             selectedFragment = new calendarFragment();
-
                             break;
                         case R.id.Profile:
-                            Bundle extras = getIntent().getExtras();
-                            email = extras.getString("email");
-                            if (email.equals("")){
-                                selectedFragment = new request_Login();
-
-                            }else {
-
-                                selectedFragment = new profileFragment();
-
-                                String uid = extras.getString("uid");
-                                String dis_name_user = extras.getString("dis_name");
-                                String urlphoto = extras.getString("url_photo");
-                                Bundle bundle = new Bundle();
-                                bundle.putString("email", email);
-                                bundle.putString("uid", uid);
-                                bundle.putString("dis_name",dis_name_user);
-                                bundle.putString("url_photo",urlphoto);
-                                selectedFragment.setArguments(bundle);
-                            }
-
+                            selectedFragment = new profileFragment();
                             break;
                     }
                     getSupportFragmentManager().

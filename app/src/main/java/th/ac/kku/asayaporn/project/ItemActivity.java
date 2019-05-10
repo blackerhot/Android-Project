@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +41,8 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -91,6 +96,8 @@ public class ItemActivity extends AppCompatActivity {
         butAddEvent = (Button) findViewById(R.id.butAddEvent);
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         para = getIntent().getExtras();
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collap);
+        getSupportActionBar().setTitle(para.getString("title"));
 
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -99,9 +106,8 @@ public class ItemActivity extends AppCompatActivity {
         int width = size.x;
         Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
 
-        title.setText(para.getString("title"));
-        getSupportActionBar().setTitle("");
 
+        title.setText(para.getString("title"));
         website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
@@ -109,33 +115,31 @@ public class ItemActivity extends AppCompatActivity {
         phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
-        credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff())
-                .setSelectedAccount(googleSignInAccount.getAccount());
+        final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
+        if(currentFirebaseUser!=null) {
+            credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                    getApplicationContext(), Arrays.asList(SCOPES))
+                    .setBackOff(new ExponentialBackOff())
+                    .setSelectedAccount(googleSignInAccount.getAccount());
+            mService = new com.google.api.services.calendar.Calendar.Builder(
+                    transport, jsonFactory, credentialCaledndar)
+                    .setApplicationName("Google Calendar API Android Quickstart")
+                    .build();
+            create = false;
+            new ApiAsyncTask(ItemActivity.this).execute();
 
-
-        mService = new com.google.api.services.calendar.Calendar.Builder(
-                transport, jsonFactory, credentialCaledndar)
-                .setApplicationName("Google Calendar API Android Quickstart")
-                .build();
-
-        create = false;
-        new ApiAsyncTask(ItemActivity.this).execute();
-
+        }
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                create = true;
-
-                new ApiAsyncTask(ItemActivity.this).execute();
-
+                if(currentFirebaseUser!=null) {
+                    create = true;
+                    new ApiAsyncTask(ItemActivity.this).execute();
+                }else{
+                    Toast.makeText(ItemActivity.this,"Please using google account only",Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
-
-
 
     }
     void showGooglePlayServicesAvailabilityErrorDialog(
