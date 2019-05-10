@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/linearLayout2"
     tools:context="edmt.dev.androidcollapsingtoolbar.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -26,10 +27,9 @@
 
             <ImageView
                 android:id="@+id/post_pic"
-                android:layout_width="match_parent"
                 android:layout_height="350dp"
+                android:layout_width="match_parent"
                 android:background="@color/colorPrimaryDark"
-                android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -62,7 +62,7 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

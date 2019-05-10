@@ -10,8 +10,10 @@ import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
@@ -56,10 +58,21 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         try {
 
+            if(iActivity.create) {
                 createEvent();
+            }
+
             getDataFromApi();
 
-        } catch (IOException e) {
+        } catch (final GooglePlayServicesAvailabilityIOException availabilityException) {
+            iActivity.showGooglePlayServicesAvailabilityErrorDialog(
+                    availabilityException.getConnectionStatusCode());
+
+        } catch (UserRecoverableAuthIOException userRecoverableException) {
+            iActivity.startActivityForResult(
+                    userRecoverableException.getIntent(),
+                    ItemActivity.REQUEST_AUTHORIZATION);
+        }  catch (IOException e) {
             System.out.printf("The following error occurred: " +
                     e.getMessage());
         }
@@ -86,24 +99,34 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 builder.appendPath(Long.toString(time));
                 intent = new Intent(Intent.ACTION_VIEW, builder.build());
 
-
+                if (iActivity.create) {
                     View rootView = iActivity.findViewById(R.id.linearLayout2);
-                    Snackbar.make(rootView, "Already added", Snackbar.LENGTH_LONG).
-                            setAction("okkkkkkkked", new View.OnClickListener() {
+                    Snackbar.make(rootView, "ADDD", Snackbar.LENGTH_LONG).
+                            setAction("OPENN", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                                @Override
-                                public void onClick(View v) {
-                                    //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                                    //                    iActivity.startActivity(openBowser);
-                                    iActivity.startActivity(intent);
-                                }
-                            })
+                            iActivity.startActivity(intent);
+                        }
+                    })
                             .setActionTextColor(Color.YELLOW)
                             .show();
+                }
 
-
-
+                if (checkSummary) {
+                    iActivity.butAddEvent.setText("ADDED");
+                    iActivity.butAddEvent.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                            //                    iActivity.startActivity(openBowser);
+                            iActivity.startActivity(intent);
+                        }
+                    });
+                }
             }
+
+
 
 
         } catch (ParseException e) {
@@ -119,13 +142,13 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 .setLocation(para.getString("address"))
                 .setDescription(para.getString("detail") + "\n#KKUEvent");
 
-        DateTime startDateTime = new DateTime(para.getString("datest"));
+        DateTime startDateTime = new DateTime(para.getString("datest")+"T00:00:00-00:00");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         start.setTimeZone(start.getTimeZone());
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime(para.getString("dateend"));
+        DateTime endDateTime = new DateTime(para.getString("dateend")+"T00:00:00-00:00");
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime);
         end.setTimeZone(end.getTimeZone());
@@ -140,10 +163,15 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 .setUseDefault(false)
                 .setOverrides(Arrays.asList(reminderOverrides));
         event.setReminders(reminders);
-
-        String calendarId = "primary";
-        event = iActivity.mService.events().insert(calendarId, event).execute();
         System.out.printf("Event created: %s\n", event.getHtmlLink());
+        String calendarId = "primary";
+        try {
+            event = iActivity.mService.events().insert(calendarId, event).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 
@@ -154,6 +182,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
+
         List<Event> items = events.getItems();
         for (final Event event : items) {
             String getSummary = event.getSummary();
@@ -169,7 +198,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 break;
             }
         }
-        Toast.makeText(iActivity, eventStrings.toString(), Toast.LENGTH_SHORT).show();
+
         return eventStrings;
     }
 
