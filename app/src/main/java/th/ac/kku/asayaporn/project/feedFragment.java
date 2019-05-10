@@ -79,7 +79,6 @@ public class feedFragment extends Fragment {
     public static feedFragment newInstance() {
 
         Bundle args = new Bundle();
-
         feedFragment fragment = new feedFragment();
         fragment.setArguments(args);
         return fragment;
@@ -111,10 +110,10 @@ public class feedFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), ItemActivity.class);
-                List<ActivityKKU> mActivites = null;
-                ActivityKKU mActivite;
-                mActivite = mActivites.get(position);
+                Intent intent = new Intent(view.getContext(), ItemActivity.class);
+                ActivityKKU mActivite = (ActivityKKU) parent.getItemAtPosition(position);
+
+
 
                 intent.putExtra("img", String.valueOf(mActivite.image));
                 intent.putExtra("title", String.valueOf(mActivite.title));
@@ -130,9 +129,7 @@ public class feedFragment extends Fragment {
                 } else {
                     intent.putExtra("phone", String.valueOf(mActivite.phone));
                 }
-                getContext().startActivity(intent);
-
-
+                view.getContext().startActivity(intent);
 
 
             }

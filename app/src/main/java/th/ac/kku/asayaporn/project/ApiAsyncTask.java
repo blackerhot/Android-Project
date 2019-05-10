@@ -114,7 +114,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (checkSummary) {
-                    iActivity.butAddEvent.setText("ADDED");
+                    iActivity.butAddEvent.setText("Already Added");
                     iActivity.butAddEvent.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

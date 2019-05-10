@@ -158,6 +158,7 @@ public class InsideMainActivity extends AppCompatActivity {
                 String line = "";
 
                 while ((line = reader.readLine()) != null) {
+
                     buffer.append(line + "\n");
                     Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
 
@@ -193,6 +194,7 @@ public class InsideMainActivity extends AppCompatActivity {
             }
             JSONObject obj = null;
             try {
+                result=result.replace("&quot;", "'");
                 obj = new JSONObject(result);
             } catch (JSONException e) {
                 e.printStackTrace();

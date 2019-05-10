@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,15 +52,14 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
-    Intent intentother = null;
     Button butAddEvent;
     TextView address;
     TextView datest;
     TextView detail;
     ImageView pic;
     TextView title;
-    ImageButton phone;
-    ImageButton website;
+    TextView phone;
+    TextView website;
     TextView sponser;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -84,40 +84,31 @@ public class ItemActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.post_title);
         detail = (TextView) findViewById(R.id.post_detail);
         datest = (TextView) findViewById(R.id.post_date);
-        phone = (ImageButton) findViewById(R.id.post_phone);
-        website = (ImageButton) findViewById(R.id.post_website);
+        phone = (TextView) findViewById(R.id.post_phone);
+        website = (TextView) findViewById(R.id.post_website);
        sponser = (TextView) findViewById(R.id.post_sponser);
         address = (TextView) findViewById(R.id.post_address);
         butAddEvent = (Button) findViewById(R.id.butAddEvent);
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         para = getIntent().getExtras();
 
-        Picasso.get().load(para.getString("img")).into(pic);//wait for img
-       title.setText(para.getString("title"));
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
+
+        title.setText(para.getString("title"));
         getSupportActionBar().setTitle("");
 
-       // website.setText(para.getString("website"));
+        website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
         datest.setText(para.getString("datest") +" ,  "+ para.getString("dateend"));
-       // phone.setText(para.getString("phone"));
+        phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
-        website.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intentother = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(para.getString("website")));
-                startActivity(intentother);
-            }
-        });
-        phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intentother = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("tel:" +  para.getString("phone")));
-                startActivity(intentother);
-            }
-        });
+
         credentialCaledndar = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff())
