@@ -10,11 +10,13 @@ import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,14 +50,15 @@ import java.util.List;
 
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
+    Intent intentother = null;
     Button butAddEvent;
     TextView address;
     TextView datest;
     TextView detail;
     ImageView pic;
     TextView title;
-    TextView phone;
-    TextView website;
+    ImageButton phone;
+    ImageButton website;
     TextView sponser;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -78,8 +81,8 @@ public class ItemActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.post_title);
         detail = (TextView) findViewById(R.id.post_detail);
         datest = (TextView) findViewById(R.id.post_date);
-        phone = (TextView) findViewById(R.id.post_phone);
-        website = (TextView) findViewById(R.id.post_website);
+        phone = (ImageButton) findViewById(R.id.post_phone);
+        website = (ImageButton) findViewById(R.id.post_website);
        sponser = (TextView) findViewById(R.id.post_sponser);
         address = (TextView) findViewById(R.id.post_address);
         butAddEvent = (Button) findViewById(R.id.butAddEvent);
@@ -90,18 +93,37 @@ public class ItemActivity extends AppCompatActivity {
         title.setText(para.getString("title"));
         getSupportActionBar().setTitle("");
 
-        website.setText(para.getString("website"));
+        //website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
         datest.setText(para.getString("datest") +" ,  "+ para.getString("dateend"));
-        phone.setText(para.getString("phone"));
+        //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
 
 
         create = false;
        // new ApiAsyncTask(ItemActivity.this).execute();
+        phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                    intentother = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("tel:" + para.getString("phone")));
+                    startActivity(intentother);
+
+
+            }
+        });
+        website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                intentother = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(para.getString("website")));
+                startActivity(intentother);
+            }
+        });
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
