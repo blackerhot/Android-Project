@@ -16,7 +16,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -67,7 +73,20 @@ public class profileFragment extends Fragment {
             if (currentFirebaseUser.getDisplayName() == null){
 
             }else {
-                Toast.makeText(getContext(),currentFirebaseUser.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+                    if (userInfo.getProviderId().equals("facebook.com")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    else if (userInfo.getProviderId().equals("google.com")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    else if (userInfo.getProviderId().equals("firebase")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
                 disname =currentFirebaseUser.getDisplayName();
                 email = currentFirebaseUser.getEmail();
@@ -92,16 +111,17 @@ public class profileFragment extends Fragment {
 
         emailtv.setText(email);
 
-
             btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FacebookSdk.setApplicationId("302892413797138");
+                FacebookSdk.sdkInitialize(getContext());
                 mAuth.signOut();
-                LoginManager.getInstance().logOut(); //logout facebook
+                LoginManager.getInstance().logOut();
+                AccessToken.setCurrentAccessToken(null);//logout facebook
                // settings.edit().remove("LOGIN").commit();
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+
+                startActivity(new Intent(getContext(),MainActivity.class));
 
             }
         });
