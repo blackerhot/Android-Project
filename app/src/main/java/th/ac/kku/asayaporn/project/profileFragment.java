@@ -2,6 +2,7 @@ package th.ac.kku.asayaporn.project;
 
 import android.app.Activity;
 import android.app.assist.AssistContent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -45,7 +46,7 @@ public class profileFragment extends Fragment {
                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
-        SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", 0);
+        final SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
 
@@ -65,7 +66,9 @@ public class profileFragment extends Fragment {
         }
         try {
             if (currentFirebaseUser.getDisplayName() == null){
-
+                email = currentFirebaseUser.getEmail();
+                uid = currentFirebaseUser.getUid();
+                disname = "unknown";
             }else {
                 Toast.makeText(getContext(),currentFirebaseUser.getProviderId().toString(),Toast.LENGTH_SHORT).show();
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
@@ -99,9 +102,11 @@ public class profileFragment extends Fragment {
 
                 mAuth.signOut();
                 LoginManager.getInstance().logOut(); //logout facebook
-               // settings.edit().remove("LOGIN").commit();
+                SharedPreferences.Editor editor = settings.edit();
+                editor.clear();
+                editor.commit();
                 getActivity().finish();
-                startActivity(getActivity().getIntent());
+                startActivity(new Intent(getActivity(),MainActivity.class));
 
             }
         });
