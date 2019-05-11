@@ -194,6 +194,7 @@ public class Login extends Activity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
+
                             startActivityForResult(myIntent ,REQUEST_CODE);
                         } else {
                             updateUI(null);
@@ -272,6 +273,7 @@ public class Login extends Activity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
 
                             startActivityForResult(myIntent ,REQUEST_CODE);

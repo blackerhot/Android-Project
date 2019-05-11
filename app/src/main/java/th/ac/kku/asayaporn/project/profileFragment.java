@@ -45,7 +45,7 @@ public class profileFragment extends Fragment {
                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
-
+        SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", 0);
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
 
@@ -63,17 +63,28 @@ public class profileFragment extends Fragment {
             });
             return view;
         }
+        try {
+            if (currentFirebaseUser.getDisplayName() == null){
 
-          url_photo = currentFirebaseUser.getPhotoUrl().toString();
-          disname =currentFirebaseUser.getDisplayName();
-          email = currentFirebaseUser.getEmail();
-          uid = currentFirebaseUser.getUid();
+            }else {
+                Toast.makeText(getContext(),currentFirebaseUser.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                url_photo = currentFirebaseUser.getPhotoUrl().toString();
+                disname =currentFirebaseUser.getDisplayName();
+                email = currentFirebaseUser.getEmail();
+                uid = currentFirebaseUser.getUid();
+                if (url_photo.equals("")){
 
-          if (url_photo.equals("")){
+                }else {
+                    Picasso.get().load(url_photo).into(user_photo);
+                }
+            }
+        }catch (Exception e){
+            email = currentFirebaseUser.getEmail();
+            uid = currentFirebaseUser.getUid();
+            disname = "unknown";
+        }
 
-          }else {
-              Picasso.get().load(url_photo).into(user_photo);
-          }
+
 
         TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         tv_name_user.setText(disname);
@@ -88,7 +99,7 @@ public class profileFragment extends Fragment {
 
                 mAuth.signOut();
                 LoginManager.getInstance().logOut(); //logout facebook
-
+               // settings.edit().remove("LOGIN").commit();
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
 
