@@ -116,6 +116,9 @@ public class ItemActivity extends AppCompatActivity {
         address.setText(para.getString("address"));
 
         final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
+        if(currentFirebaseUser!=null){
+
+
         for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
             if (userInfo.getProviderId().equals("google.com")) {
@@ -131,11 +134,13 @@ public class ItemActivity extends AppCompatActivity {
                 new ApiAsyncTask(ItemActivity.this).execute();
             }
         }
-
+        }
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(currentFirebaseUser!=null){
+
                 for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                     if (userInfo.getProviderId().equals("google.com")) {
@@ -144,6 +149,9 @@ public class ItemActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
                     }
+                }
+            }else {
+                        Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
                 }
             }
         });

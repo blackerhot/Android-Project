@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menubar" >
     <item
         android:id="@+id/activiteBar"
         android:enabled="true"
@@ -13,12 +14,7 @@
         android:icon="@drawable/iconfeed"
         android:title="Feed"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/calendarBar"
-        android:enabled="true"
-        android:icon="@drawable/iconcalendar"
-        android:title="Calendar"
-        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/Profile"
         android:enabled="true"
