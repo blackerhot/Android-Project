@@ -170,72 +170,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/icon_phone"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
-
-                    <TextView
-
-                        android:layout_gravity="center_vertical"
-                        android:padding="12dp"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:id="@+id/post_phone"
-                        android:textColor="@color/colorPrimaryText"
-                        android:text="@string/publish_date"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/icon_web"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
-
-                    <TextView
-
-                        android:layout_gravity="center_vertical"
-                        android:padding="12dp"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:id="@+id/post_website"
-                        android:textColor="@color/colorPrimaryText"
-                        android:text="@string/publish_date"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center">
-
+                    <ImageButton
+                        android:id="@+id/post_phone"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/icon_phone"
+                        android:scaleType="centerCrop"
+                        android:background="@color/transparent"/>
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/butAddEvent"
                         android:textColor="@drawable/selector_text"
                         android:text="Add Event"
                         android:background="@drawable/selector_join"/>
+                    <ImageButton
+                        android:id="@+id/post_website"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/icon_web"
+                        android:scaleType="centerCrop"
+                        android:background="@color/transparent"/>
                 </LinearLayout>
 
             </LinearLayout>

@@ -152,10 +152,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <Button
+                    android:background="@drawable/click"
                     android:id="@+id/buttonlogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Log out"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
                     android:layout_centerInParent="true"
                     android:layout_alignParentBottom="true"/>1
             </RelativeLayout>
