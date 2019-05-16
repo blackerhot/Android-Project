@@ -3,6 +3,7 @@ package th.ac.kku.asayaporn.project;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
@@ -43,9 +44,12 @@ import com.google.api.services.calendar.model.Events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +80,8 @@ public class ItemActivity extends AppCompatActivity {
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     Intent intentother = null;
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
-
+    ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
+    String datestr , titlestr , detailstr;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,18 +145,18 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(currentFirebaseUser!=null){
-
+                    saveData();
                 for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                     if (userInfo.getProviderId().equals("google.com")) {
                         create = true;
                         new ApiAsyncTask(ItemActivity.this).execute();
                     } else {
-                        Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
                     }
                 }
             }else {
-                        Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -175,6 +180,31 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+
+    private void saveData() {
+        loadData();
+        mExampleList.add(new ExampleItem(para.getString("dateSt"), para.getString("title"),para.getString("detail")));
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(mExampleList);
+        editor.putString("task list", json);
+        editor.apply();
+        Toast.makeText(ItemActivity.this,para.getString("dateSt"),Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences =  getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+        mExampleList = gson.fromJson(json, type);
+
+        if (mExampleList == null) {
+            mExampleList = new ArrayList<>();
+        }
+    }
+
     void showGooglePlayServicesAvailabilityErrorDialog(
             final int connectionStatusCode) {
         runOnUiThread(new Runnable() {
