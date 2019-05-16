@@ -125,7 +125,8 @@ public class feedFragment extends Fragment {
                 intent.putExtra("dateend", String.valueOf(mActivite.dateEd));
                 intent.putExtra("website", String.valueOf(mActivite.url));
                 intent.putExtra("sponsor", String.valueOf(mActivite.sponsor));
-
+                intent.putExtra("timest", String.valueOf(mActivite.timeSt));
+                intent.putExtra("timeed", String.valueOf(mActivite.timeEd));
                 if (mActivite.phone == null) {
                     intent.putExtra("phone", String.valueOf(mActivite.getContact().get("phone")));
                 } else {
@@ -212,13 +213,13 @@ public class feedFragment extends Fragment {
         });
         return view;
     }
-    private void writeNewPost(JsonObject contact, String url, String image, String title,
-                              String place, String content, String dateSt, String dateEd,
-                              String phone, String website, String sponsor) {
+    private void writeNewPost(JsonObject contact, String url, String image, String title, String place,
+                              String content, String dateSt, String dateEd, String phone, String website,
+                              String timeSt, String timeEt, String sponsor ) {
 
         String key = myRef.child("activities").push().getKey();
         ActivityKKU post = new ActivityKKU(contact, url, image, title, place, content,
-                dateSt, dateEd, phone, website, sponsor);
+                dateSt, dateEd, phone, website,timeSt,timeEt, sponsor);
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(key, postValues);
@@ -316,7 +317,7 @@ public class feedFragment extends Fragment {
                     String sponsor = esponsor.getText() + "ยังว่าง";
 
                     writeNewPost(null, url, image, title, place, content,
-                            dateSt, dateEd, phone, website, sponsor);
+                            dateSt, dateEd, phone, website,"","", sponsor);
                     readNewUser();
                 }
             });

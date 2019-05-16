@@ -144,8 +144,9 @@ public class ItemActivity extends AppCompatActivity {
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveData();
                 if(currentFirebaseUser!=null){
-                    saveData();
+
                 for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                     if (userInfo.getProviderId().equals("google.com")) {
@@ -183,14 +184,22 @@ public class ItemActivity extends AppCompatActivity {
 
     private void saveData() {
         loadData();
-        mExampleList.add(new ExampleItem(para.getString("dateSt"), para.getString("title"),para.getString("detail")));
+
+        datestr = para.getString("timest");
+
+        datestr = datestr.substring(4);
+
+
+
+
+        mExampleList.add(new ExampleItem(datestr, para.getString("title"),para.getString("detail")));
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(mExampleList);
         editor.putString("task list", json);
         editor.apply();
-        Toast.makeText(ItemActivity.this,para.getString("dateSt"),Toast.LENGTH_SHORT).show();
+
     }
 
     private void loadData() {

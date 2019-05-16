@@ -129,7 +129,8 @@ public class CustomAdapter extends BaseAdapter {
                 intent.putExtra("dateend", String.valueOf(mActivite.dateEd));
                 intent.putExtra("website", String.valueOf(mActivite.url));
                 intent.putExtra("sponsor", String.valueOf(mActivite.sponsor));
-
+                intent.putExtra("timest", String.valueOf(mActivite.timeSt));
+                intent.putExtra("timeed", String.valueOf(mActivite.timeEd));
                 if (mActivite.phone == null) {
                     intent.putExtra("phone", String.valueOf(mActivite.getContact().get("phone")));
                 } else {

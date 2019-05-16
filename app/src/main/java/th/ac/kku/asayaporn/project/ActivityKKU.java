@@ -29,16 +29,10 @@ public class ActivityKKU {
 
     JsonObject contact;
     String url;
-    String image;
-    String title;
 
-    public ActivityKKU(){
-
-
-    }
-
-    public ActivityKKU(JsonObject contact,String url, String image, String title, String place, String content, String dateSt, String dateEd, String phone, String website, String sponsor) {
-        this.contact=contact;
+    public ActivityKKU(JsonObject contact, String url, String image, String title, String place,
+                       String content, String dateSt, String dateEd, String phone, String website, String timeSt, String timeEt, String sponsor) {
+        this.contact = contact;
         this.url = url;
         this.image = image;
         this.title = title;
@@ -48,9 +42,13 @@ public class ActivityKKU {
         this.dateEd = dateEd;
         this.phone = phone;
         this.website = website;
+        this.timeSt = timeSt;
+        this.timeEd = timeEt;
         this.sponsor = sponsor;
     }
 
+    String image;
+    String title;
     String place;
 
     String content;
@@ -58,7 +56,33 @@ public class ActivityKKU {
     String dateEd;
     String phone;
     String website;
+
+    public String getTimeSt() {
+        return timeSt;
+    }
+
+    public void setTimeSt(String timeSt) {
+        this.timeSt = timeSt;
+    }
+
+    public String getTimeEd() {
+        return timeEd;
+    }
+
+    public void setTimeEd(String timeEd) {
+        this.timeEd = timeEd;
+    }
+
+    String timeSt;
+    String timeEd;
     String sponsor;
+
+    public ActivityKKU(){
+
+
+    }
+
+
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -73,8 +97,9 @@ public class ActivityKKU {
         result.put("content",content);
         result.put("phone",phone);
         result.put("contact",contact);
+        result.put("timeSt",timeSt);
+        result.put("timeEd",timeEd);
         result.put("url",url);
-
         return result;
     }
     public String getImage() {
