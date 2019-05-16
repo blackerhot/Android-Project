@@ -2,7 +2,6 @@ package th.ac.kku.asayaporn.project;
 
 import android.app.Activity;
 import android.app.assist.AssistContent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -43,10 +48,10 @@ public class profileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         getActivity().setTitle("Profile");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
-               setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
-        final SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", 0);
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
 
@@ -70,7 +75,20 @@ public class profileFragment extends Fragment {
                 uid = currentFirebaseUser.getUid();
                 disname = "unknown";
             }else {
-                Toast.makeText(getContext(),currentFirebaseUser.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+                    if (userInfo.getProviderId().equals("facebook.com")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    else if (userInfo.getProviderId().equals("google.com")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    else if (userInfo.getProviderId().equals("firebase")) {
+                        Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
                 disname =currentFirebaseUser.getDisplayName();
                 email = currentFirebaseUser.getEmail();
@@ -95,18 +113,17 @@ public class profileFragment extends Fragment {
 
         emailtv.setText(email);
 
-
-            btn.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FacebookSdk.setApplicationId("302892413797138");
+                FacebookSdk.sdkInitialize(getContext());
                 mAuth.signOut();
-                LoginManager.getInstance().logOut(); //logout facebook
-                SharedPreferences.Editor editor = settings.edit();
-                editor.clear();
-                editor.commit();
-                getActivity().finish();
-                startActivity(new Intent(getActivity(),MainActivity.class));
+                LoginManager.getInstance().logOut();
+                AccessToken.setCurrentAccessToken(null);//logout facebook
+                // settings.edit().remove("LOGIN").commit();
+
+                startActivity(new Intent(getContext(),MainActivity.class));
 
             }
         });

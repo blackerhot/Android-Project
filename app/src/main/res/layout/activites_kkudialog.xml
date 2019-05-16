@@ -172,6 +172,7 @@
                     />
 
                 <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center">
@@ -182,13 +183,6 @@
                         android:src="@drawable/icon_phone"
                         android:scaleType="centerCrop"
                         android:background="@color/transparent"/>
-                    <Button
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/butAddEvent"
-                        android:textColor="@drawable/selector_text"
-                        android:text="Add Event"
-                        android:background="@drawable/selector_join"/>
                     <ImageButton
                         android:id="@+id/post_website"
                         android:layout_width="70dp"
@@ -196,6 +190,15 @@
                         android:src="@drawable/icon_web"
                         android:scaleType="centerCrop"
                         android:background="@color/transparent"/>
+
+                    <Button
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/butAddEvent"
+                        android:textColor="@drawable/selector_text"
+                        android:text="Add Event"
+                        android:background="@drawable/selector_join"/>
+
                 </LinearLayout>
 
             </LinearLayout>

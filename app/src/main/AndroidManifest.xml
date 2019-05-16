@@ -37,8 +37,7 @@
             android:name=".Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".CalendarActivity"
-            android:screenOrientation="portrait"/>
+
         <activity android:name=".InsideMainActivity"
             android:screenOrientation="portrait"/>
         <activity

@@ -42,6 +42,7 @@ import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -115,29 +116,43 @@ public class ItemActivity extends AppCompatActivity {
         address.setText(para.getString("address"));
 
         final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
-        if(currentFirebaseUser!=null) {
-            credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                    getApplicationContext(), Arrays.asList(SCOPES))
-                    .setBackOff(new ExponentialBackOff())
-                    .setSelectedAccount(googleSignInAccount.getAccount());
-            mService = new com.google.api.services.calendar.Calendar.Builder(
-                    transport, jsonFactory, credentialCaledndar)
-                    .setApplicationName("Google Calendar API Android Quickstart")
-                    .build();
-            create = false;
-            new ApiAsyncTask(ItemActivity.this).execute();
+        if(currentFirebaseUser!=null){
+
+
+        for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+
+            if (userInfo.getProviderId().equals("google.com")) {
+                credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                        getApplicationContext(), Arrays.asList(SCOPES))
+                        .setBackOff(new ExponentialBackOff())
+                        .setSelectedAccount(googleSignInAccount.getAccount());
+                mService = new com.google.api.services.calendar.Calendar.Builder(
+                        transport, jsonFactory, credentialCaledndar)
+                        .setApplicationName("Google Calendar API Android Quickstart")
+                        .build();
+                create = false;
+                new ApiAsyncTask(ItemActivity.this).execute();
+            }
+        }
         }
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(currentFirebaseUser!=null) {
-                    create = true;
-                    new ApiAsyncTask(ItemActivity.this).execute();
-                }else{
-                    Toast.makeText(ItemActivity.this,"Please using google account only",Toast.LENGTH_SHORT).show();
-                }
+                if(currentFirebaseUser!=null){
 
+                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+
+                    if (userInfo.getProviderId().equals("google.com")) {
+                        create = true;
+                        new ApiAsyncTask(ItemActivity.this).execute();
+                    } else {
+                        Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }else {
+                        Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         website.setOnClickListener(new View.OnClickListener() {

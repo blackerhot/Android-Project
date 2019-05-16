@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +16,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -51,18 +57,19 @@ public class InsideMainActivity extends AppCompatActivity {
     DatabaseReference myRef;
     String email = "";
     String uid = "";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inside_main);
 
         dl = (DrawerLayout)findViewById(R.id.activity_main);
-
         t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
         dl.addDrawerListener(t);
         t.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         nv = (NavigationView)findViewById(R.id.nav_bar);
+
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -109,7 +116,8 @@ public class InsideMainActivity extends AppCompatActivity {
             }
         });
 
-        new JsonTask(InsideMainActivity.this).execute("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
+        new JsonTask(InsideMainActivity.this).
+                execute("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -123,9 +131,6 @@ public class InsideMainActivity extends AppCompatActivity {
 
     }
 
-
-
-
     private  BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -138,9 +143,6 @@ public class InsideMainActivity extends AppCompatActivity {
                             break;
                         case R.id.feedBar:
                             selectedFragment = new feedFragment();
-                            break;
-                        case R.id.calendarBar:
-                            selectedFragment = new calendarFragment();
                             break;
                         case R.id.Profile:
                             selectedFragment = new profileFragment();
