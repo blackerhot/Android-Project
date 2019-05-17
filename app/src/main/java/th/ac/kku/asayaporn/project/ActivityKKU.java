@@ -100,6 +100,7 @@ public class ActivityKKU {
         result.put("timeSt",timeSt);
         result.put("timeEd",timeEd);
         result.put("url",url);
+        result.put("status",false);
         return result;
     }
     public String getImage() {

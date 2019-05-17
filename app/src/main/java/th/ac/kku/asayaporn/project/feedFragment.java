@@ -73,8 +73,7 @@ public class feedFragment extends Fragment {
     protected ListView mListView;
     protected CustomAdapter mAdapter;
     protected EditText editSearch;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+
 
     public static feedFragment newInstance() {
 
@@ -182,84 +181,11 @@ public class feedFragment extends Fragment {
             }
         });
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("activities");
 
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            private String TAG = "TAGGGG";
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String name="";
-                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    name += (String) messageSnapshot.child("title").getValue();
-                    String message = (String) messageSnapshot.child("website").getValue();
-
-                }
-                //Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-               // Toast.makeText(getContext(),name,Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
         return view;
     }
-    private void writeNewPost(JsonObject contact, String url, String image, String title, String place,
-                              String content, String dateSt, String dateEd, String phone, String website,
-                              String timeSt, String timeEt, String sponsor ) {
 
-        String key = myRef.child("activities").push().getKey();
-        ActivityKKU post = new ActivityKKU(contact, url, image, title, place, content,
-                dateSt, dateEd, phone, website,timeSt,timeEt, sponsor);
-        Map<String, Object> postValues = post.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put(key, postValues);
-        myRef.updateChildren(childUpdates);
-    }
-    private void readNewUser() {
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String TAG="TAGGing";
-                String name="";
-                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
-                    name += (String) messageSnapshot.toString();
-                }
 
-                Toast.makeText(getContext(),
-                        "You add is "+name,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                ActivityKKU user = dataSnapshot.getValue(ActivityKKU.class);
-                Toast.makeText(getContext(),
-                        "You Changed is "+user.toMap().get("title"),Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -279,56 +205,8 @@ public class feedFragment extends Fragment {
 
 
         if (id == R.id.action_adding) {
-            final AlertDialog.Builder builder =
-                    new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = LayoutInflater.from(getContext());
 
-            final View view = inflater.inflate(R.layout.adding, null);
-            builder.setView(view);
-
-
-            final EditText etitle = (EditText) view.findViewById(R.id.etitle);
-            final EditText eurl = (EditText) view.findViewById(R.id.eurl);
-            final EditText ephone = (EditText) view.findViewById(R.id.ephone);
-            final EditText eplace = (EditText) view.findViewById(R.id.eplace);
-            final EditText edateend = (EditText) view.findViewById(R.id.edateend);
-            final EditText edatest = (EditText) view.findViewById(R.id.edatest);
-            final EditText esponsor = (EditText) view.findViewById(R.id.esponsor);
-            final EditText ewebstie = (EditText) view.findViewById(R.id.ewebstie);
-            final EditText econtent = (EditText) view.findViewById(R.id.econtent);
-
-
-            builder.setPositiveButton("เพิ่ม", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    String url = eurl.getText() + "เว็ปยังว่างเปล่า";
-                    String image = eurl.getText() + "";
-                    String title = etitle.getText() + "";
-                    String place = eplace.getText() + "ยังว่าง";
-                    String content = econtent.getText() + "ยังว่าง";
-                    String dateSt = edatest.getText() + "ยังว่าง";
-                    String dateEd = edateend.getText() + "ยังว่าง";
-                    String phone = ephone.getText() + "ยังว่าง";
-                    String website = ewebstie.getText() + "ยังว่าง";
-                    String sponsor = esponsor.getText() + "ยังว่าง";
-
-                    writeNewPost(null, url, image, title, place, content,
-                            dateSt, dateEd, phone, website,"","", sponsor);
-                    readNewUser();
-                }
-            });
-            builder.setNegativeButton("กลับ", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-
-                }
-            });
-
-            builder.show();
-
-            return true;
+            startActivity(new Intent(getActivity(),AddingActivity.class));
         }
         if (id == R.id.action_sortbydatelates) {
             ActivityKKU activityKKU;
