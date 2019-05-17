@@ -1,5 +1,4 @@
 package th.ac.kku.asayaporn.project;
-
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
@@ -98,7 +97,7 @@ public class ItemActivity extends AppCompatActivity {
         dateend = (TextView) findViewById(R.id.post_dateEnd);
         phone = (ImageButton) findViewById(R.id.post_phone);
         website = (ImageButton) findViewById(R.id.post_website);
-       sponser = (TextView) findViewById(R.id.post_sponser);
+        sponser = (TextView) findViewById(R.id.post_sponser);
         address = (TextView) findViewById(R.id.post_address);
         butAddEvent = (Button) findViewById(R.id.butAddEvent);
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -238,7 +237,3 @@ public class ItemActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
