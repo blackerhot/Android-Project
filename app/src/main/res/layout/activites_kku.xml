@@ -3,33 +3,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:layout_marginLeft="5dp">
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bgfeed_data"
         android:orientation="vertical"
-        android:paddingBottom="3dp"
-        android:layout_marginLeft="5dp">
-
-        <ImageView
-            android:id="@+id/post_pic"
-            android:layout_width="wrap_content"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
-            android:background="@color/white"/>
+            android:background="@drawable/bgfeed_data">
+            <ImageView
+                android:id="@+id/post_pic"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/post_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/post_pic"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/pb"
             android:text="Title"
             android:layout_gravity="center"
             android:textColor="@color/grey"
@@ -54,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_below="@+id/post_title"
+                android:fontFamily="@font/pr"
                 android:textColor="@color/grey_white"
                 android:text="Address"
                 android:textSize="14sp"
@@ -75,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/post_address"
+                android:fontFamily="@font/pr"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/grey_white"
                 android:text="Date"
@@ -90,6 +94,7 @@
             android:layout_below="@id/post_date"
             android:layout_gravity="end"
             android:clickable="true"
+            android:fontFamily="@font/pb"
             android:text="อ่านต่อ.."
             android:textStyle="bold"
             android:textColor="@color/grey"
