@@ -159,12 +159,10 @@ public class feedFragment extends Fragment {
                         if (activityKKU.getTitle().toString().contains(s)) {
                             isnull=false;
                             arra.add(activityKKU);
-
                         }else{
                             isnull=true;
 
                         }
-
                         if(isnull){
                             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
                         }else {
@@ -186,7 +184,6 @@ public class feedFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("activities");
-
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {

@@ -40,6 +40,7 @@
                 app:layout_collapseMode="pin"
                 android:id="@+id/toolbar"
 
+
                 />
 
 
@@ -101,7 +102,7 @@
                         android:textStyle="bold"
                         android:id="@+id/post_address"
                         android:textColor="@color/colorPrimaryText"
-                        android:text="@string/publish_date"
+                        android:text="Address"
                         android:layout_width="0dp"
                         android:layout_weight="9"
                         android:layout_height="wrap_content" />
@@ -126,6 +127,32 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:id="@+id/post_date"
+                        android:textColor="@color/colorPrimaryText"
+                        android:text="@string/publish_date"
+                        android:layout_width="0dp"
+                        android:layout_weight="9"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:padding="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/end"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:padding="12dp"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:id="@+id/post_dateEnd"
                         android:textColor="@color/colorPrimaryText"
                         android:text="@string/publish_date"
                         android:layout_width="0dp"

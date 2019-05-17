@@ -64,6 +64,7 @@ public class ItemActivity extends AppCompatActivity {
     Button butAddEvent;
     TextView address;
     TextView datest;
+    TextView dateend;
     TextView detail;
     ImageView pic;
     TextView title;
@@ -94,6 +95,7 @@ public class ItemActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.post_title);
         detail = (TextView) findViewById(R.id.post_detail);
         datest = (TextView) findViewById(R.id.post_date);
+        dateend = (TextView) findViewById(R.id.post_dateEnd);
         phone = (ImageButton) findViewById(R.id.post_phone);
         website = (ImageButton) findViewById(R.id.post_website);
        sponser = (TextView) findViewById(R.id.post_sponser);
@@ -116,7 +118,8 @@ public class ItemActivity extends AppCompatActivity {
         //website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
-        datest.setText(para.getString("datest") +" ,  "+ para.getString("dateend"));
+        datest.setText("วันที่เริ่มงาน : "+para.getString("datest") +"\nเวลา : ("+para.getString("timest")+")");
+        dateend.setText("วันสุดท้าย : "+para.getString("dateend") +"\nเวลา : ("+para.getString("timeed")+")");
         //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 

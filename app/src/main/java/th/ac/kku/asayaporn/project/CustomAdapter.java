@@ -110,7 +110,7 @@ public class CustomAdapter extends BaseAdapter {
         Picasso.get().load(mActivite.image).into(mViewHolder.pic);//wait for img
         mViewHolder.title.setText(mActivite.title);
         mViewHolder.address.setText("สถานที่จัดงาน : " + mActivite.place);
-        mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt);
+        mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt +" ("+mActivite.timeSt+")");
 
 
         TextView clickmore = (TextView) convertView.findViewById(R.id.clickmore);

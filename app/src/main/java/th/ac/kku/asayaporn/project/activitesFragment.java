@@ -73,7 +73,7 @@ public class activitesFragment extends  Fragment {
         final SwipeMenuListView listView;
 
         listView = (SwipeMenuListView) view.findViewById(R.id.lst);
-        getActivity().setTitle("Notifier");
+        getActivity().setTitle("ํYour Activities");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         loadData();

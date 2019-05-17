@@ -10,6 +10,7 @@ import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
@@ -142,13 +143,41 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 .setLocation(para.getString("address"))
                 .setDescription(para.getString("detail"));
 
-        DateTime startDateTime = new DateTime(para.getString("datest")+"T00:00:00-00:00");
+
+        SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
+        String str  = para.getString("timest");
+        String word = str.substring(0,4);
+        str=str.replace(word,"");
+        str=str.replace(".",":");
+       word= word.replace(". ","");
+        str=str+" "+word;
+        Date date =null;
+
+
+        try {
+            date = parseFormat.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateTime startDateTime = new DateTime(para.getString("datest")+"T"+displayFormat.format(date)+":00.000");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         start.setTimeZone(start.getTimeZone());
         event.setStart(start);
 
-        DateTime endDateTime = new DateTime(para.getString("dateend")+"T00:00:00-00:00");
+        String str1  = para.getString("timest");
+        String word1 = str1.substring(0,4);
+        str1=str1.replace(word1,"");
+        str1=str1.replace(".",":");
+        word1= word1.replace(". ","");
+        str1=str1+" "+word1;
+        try {
+            date = parseFormat.parse(str1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateTime endDateTime = new DateTime(para.getString("dateend")+"T"+displayFormat.format(date)+":00.000");
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime);
         end.setTimeZone(end.getTimeZone());
