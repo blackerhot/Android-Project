@@ -31,6 +31,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/pb"
+                    android:textColor="@color/grey"
                     android:gravity="center"
                     android:hint="Title"
                     android:inputType="textAutoCorrect"
@@ -43,12 +44,12 @@
                     android:layout_height="250dp"
                     android:background="@drawable/bgfeed">
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/imgAc"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:background="@drawable/icon_camera"/>
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,6 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/grey"
+                        android:fontFamily="@font/pb"
                         android:text="Start Date,Time"
                         android:textColor="@color/white" />
 
@@ -73,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/grey"
+                        android:fontFamily="@font/pb"
                         android:text="End Date,Time"
                         android:textColor="@color/white" />
 
@@ -86,10 +89,9 @@
                     android:background="@drawable/bgfeed"
                     android:fontFamily="@font/pr"
                     android:gravity="center"
-                    android:hint="comment"
-                    android:lines="8"
-                    android:imeOptions="actionSearch"
-                    android:singleLine="true"
+                    android:hint="Content"
+                    android:textColor="@color/grey"
+                    android:inputType="textAutoCorrect"
                     android:textSize="25sp"
                     />
 
@@ -99,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/pr"
+                    android:textColor="@color/grey"
                     android:hint="สถานที่จัดงาน**"
                     android:inputType="text"
                     android:textSize="18sp" />
@@ -109,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/pr"
+                    android:textColor="@color/grey"
                     android:hint="ผู้จัดงาน"
                     android:inputType="text"
                     android:textSize="18sp" />
@@ -118,6 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/grey"
                     android:fontFamily="@font/pr"
                     android:hint="เว็ปไซต์เกี่ยวกับงาน"
                     android:inputType="text"
@@ -128,30 +133,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/grey"
                     android:fontFamily="@font/pr"
                     android:hint="เบอร์ติดต่อ"
                     android:inputType="text"
                     android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/but_uppic"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:text="Up Picture"
-                    android:background="@drawable/bgfeed2"
-                    android:textAllCaps="false"
-                    android:fontFamily="@font/pb"
-                    android:textColor="@color/grey"/>
 
                 <Button
                     android:id="@+id/send_But"
                     android:layout_width="200dp"
-                    android:layout_height="52dp"
+                    android:layout_height="62dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/btn_login2"
+                    android:background="@drawable/bgfeed2"
                     android:padding="16dp"
                     android:fontFamily="@font/pb"
                     android:text="Send"
+                    android:textSize="35dp"
                     android:textAllCaps="false"
                     android:textColor="@drawable/btn_text" />
 
