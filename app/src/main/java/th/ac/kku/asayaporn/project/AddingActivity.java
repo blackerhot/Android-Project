@@ -1,4 +1,7 @@
 package th.ac.kku.asayaporn.project;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -27,8 +30,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -127,7 +128,6 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-
         });
 
         sendBut.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +138,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 }else if(year_start <= year_end && month_start == month_end && day_start < day_end ){
                     addEvent();
                 }else if(year_start <= year_end && month_start == month_end && day_start == day_end &&
-                hour_start < hour_end){
+                        hour_start < hour_end){
                     addEvent();
                 }else if (year_start <= year_end && month_start == month_end && day_start == day_end &&
                         hour_start == hour_end && minute_start <= minute_end){
@@ -153,9 +153,9 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View view) {
                 Calendar c = Calendar.getInstance();
-                    year = c.get(Calendar.YEAR);
-                    month = c.get(Calendar.MONTH);
-                    day = c.get(Calendar.DAY_OF_MONTH);
+                year = c.get(Calendar.YEAR);
+                month = c.get(Calendar.MONTH);
+                day = c.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog datePickDialog = new DatePickerDialog(AddingActivity.this,AddingActivity.this,year,month,day);
                 datePickDialog.show();
                 state = false;
@@ -175,8 +175,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             }
         });
         // load img form media
-        Button btn_load = (Button) findViewById(R.id.but_uppic);
-        btn_load.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
+        btnImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
@@ -185,6 +185,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
+
 
     }
 
@@ -201,8 +202,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             final String pic = cursor.getString(columnIndex);
             cursor.close();
             verifyStoragePermissions(AddingActivity.this);
-            ImageView img = (ImageView) findViewById(R.id.imgAc);
-            img.setImageBitmap(BitmapFactory.decodeFile(pic));
+            ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
+            btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
         }
     }
 
@@ -334,8 +335,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         if (state == false){
             hour_start = i;
             minute_start = i1;
-          //  Toast.makeText(AddingActivity.this,"AM"+ year_start+" "+month_start+
-           //         " "+day_start+" "+hour_start+" "+minute_start,Toast.LENGTH_LONG).show();
+            //  Toast.makeText(AddingActivity.this,"AM"+ year_start+" "+month_start+
+            //         " "+day_start+" "+hour_start+" "+minute_start,Toast.LENGTH_LONG).show();
             dateSt = year_start + "-" + month_start + "-" + day_start;
             if (hour_start >= 12){
 
@@ -378,8 +379,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
             hour_end = i;
             minute_end =i1;
-           // Toast.makeText(AddingActivity.this,"PM" + year_end+" "+month_end+
-           //         " "+day_end+" "+hour_end+" "+minute_end,Toast.LENGTH_LONG).show();
+            // Toast.makeText(AddingActivity.this,"PM" + year_end+" "+month_end+
+            //         " "+day_end+" "+hour_end+" "+minute_end,Toast.LENGTH_LONG).show();
             dateEd = year_end + "-" + month_end + "-" + day_end;
             if (hour_end >= 12){
 

@@ -230,7 +230,8 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                         timeSt = "" + hour_end + "." + minute_start;
                     }
 
-                }
+
+                } btnstartdate.setText(dateSt + ", " + timeSt);
             }
         }else if (state == true){
 
@@ -281,8 +282,9 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                         timeEd = "" + hour_end + "." + minute_end;
                     }
 
+
                 }
-            }
+            } btnenddate.setText(dateEd + ", " + timeEd);
         }
     }
 }

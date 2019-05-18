@@ -1,79 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greyfeed">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="76dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/rectangle"
-                >
+                android:background="@drawable/bgfeed"
+                android:orientation="vertical">
 
 
                 <EditText
 
                     android:id="@+id/edt_title_for_me"
-                    android:inputType="textAutoCorrect"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:hint="Title"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bgfeed"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/pb"
                     android:gravity="center"
-                    android:background="@drawable/bg_input"
-                    android:layout_marginTop="10dp"/>
+                    android:hint="Title"
+                    android:inputType="textAutoCorrect" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:weightSum="2">
+
                     <Button
                         android:id="@+id/btn_start_date_for_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Start Date,Time"
                         android:layout_weight="1"
-                        />
+                        android:background="@color/grey"
+                        android:fontFamily="@font/pb"
+                        android:text="Start Date,Time"
+                        android:textColor="@color/white" />
+
                     <Button
                         android:id="@+id/btn_end_date_for_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/grey"
+                        android:fontFamily="@font/pb"
                         android:text="End Date,Time"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/edt_command_for_me"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="8"
+                    android:layout_height="250dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_input"
+                    android:background="@drawable/bgfeed"
+                    android:fontFamily="@font/pr"
                     android:gravity="center"
-                    android:hint="comment" />
+                    android:hint="Content"
+                    android:textColor="@color/grey"
+                    android:textSize="25sp"
+                    android:lines="8" />
+
                 <EditText
                     android:id="@+id/edt_place_for_me"
-                    android:hint="สถานที่จัดงาน**"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:inputType="text"/>
-
-
-
-
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/pr"
+                    android:hint="สถานที่จัดงาน**"
+                    android:inputType="text" />
 
 
                 <Button
@@ -81,29 +97,29 @@
                     android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/btn_login2"
+                    android:background="@drawable/selector_click2"
+                    android:fontFamily="@font/pb"
                     android:padding="16dp"
                     android:text="Send"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/btn_text" />
+                    android:textColor="@drawable/btn_text"
+                    android:textSize="30dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
+
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="vertical" android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
                 </LinearLayout>
