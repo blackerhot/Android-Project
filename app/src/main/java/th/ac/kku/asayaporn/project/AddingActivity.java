@@ -251,9 +251,38 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             if (hour_start >= 12){
 
                 int hour_start_PM = hour_start -12;
-                timeSt = "PM. " + hour_start_PM + "." + minute_start;
+                if (hour_start_PM < 10){
+                    if (minute_start < 10){
+                        timeSt = "PM. 0" + hour_start_PM + ".0" + minute_start;
+                    } else {
+                        timeSt = "PM. 0" + hour_start_PM + "." + minute_start;
+                    }
+
+                }else {
+                    if (minute_start < 10){
+                        timeSt = "PM. " + hour_start_PM + ".0" + minute_start;
+                    } else {
+                        timeSt = "PM. " + hour_start_PM + "." + minute_start;
+                    }
+
+                }
+
             }else {
-                timeSt = "AM. " + hour_start + "." + minute_start;
+                if (hour_start < 10){
+                    if (minute_start < 10){
+                        timeSt = "AM. 0" + hour_start + ".0" + minute_start;
+                    } else {
+                        timeSt = "AM. 0" + hour_start + "." + minute_start;
+                    }
+
+                }else {
+                    if (minute_end < 10){
+                        timeSt = "AM. " + hour_end + ".0" + minute_start;
+                    } else {
+                        timeSt = "AM. " + hour_end + "." + minute_start;
+                    }
+
+                }
             }
         }else if (state == true){
 
@@ -262,11 +291,41 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
            // Toast.makeText(AddingActivity.this,"PM" + year_end+" "+month_end+
            //         " "+day_end+" "+hour_end+" "+minute_end,Toast.LENGTH_LONG).show();
             dateEd = year_end + "-" + month_end + "-" + day_end;
-            if (hour_start >= 12){
+            if (hour_end >= 12){
+
                 int hour_end_PM = hour_end -12;
-                timeEd = "PM. " + hour_end + "." + minute_end;
+                if (hour_end_PM < 10){
+                    if (minute_start < 10){
+                        timeEd = "PM. 0" + hour_end_PM + ".0" + minute_end;
+                    } else {
+                        timeEd = "PM. 0" + hour_end_PM + "." + minute_end;
+                    }
+
+                }else {
+                    if (minute_start < 10){
+                        timeEd = "PM. " + hour_end_PM + ".0" + minute_end;
+                    } else {
+                        timeEd = "PM. " + hour_end_PM + "." + minute_end;
+                    }
+
+                }
+
             }else {
-                timeEd = "AM. " + hour_end + "." + minute_end;
+                if (hour_end < 10){
+                    if (minute_start < 10){
+                        timeEd = "AM. 0" + hour_end + ".0" + minute_end;
+                    } else {
+                        timeEd = "AM. 0" + hour_end + "." + minute_end;
+                    }
+
+                }else {
+                    if (minute_end < 10){
+                        timeEd = "AM. " + hour_end + ".0" + minute_end;
+                    } else {
+                        timeEd = "AM. " + hour_end + "." + minute_end;
+                    }
+
+                }
             }
         }
     }

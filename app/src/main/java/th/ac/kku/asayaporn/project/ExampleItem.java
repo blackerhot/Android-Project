@@ -1,26 +1,48 @@
 package th.ac.kku.asayaporn.project;
 
 public class ExampleItem {
-    private String mLine1;
-    private String mLine2;
-    private String mLine3;
-
-    public ExampleItem(String line1, String line2 ,String line3) {
-        mLine1 = line1;
-        mLine2 = line2;
-        mLine3 = line3;
+    private String timestart;
+    private String timeend;
+    private String datest;
+    private String dateend;
+    private String title;
+    private String detail;
+    private String address;
+    public ExampleItem(String timestart1, String timeend1,String datest1,String dateend1, String title1 ,String detail1,String address1) {
+        timestart = timestart1;
+        timeend = timeend1;
+        datest = datest1;
+        dateend = dateend1;
+        title = title1;
+        detail = detail1;
+        address = address1;
     }
 
-
-    public String getLine1() {
-        return mLine1;
+    public String getTimestart() {
+        return timestart;
     }
 
-    public String getLine2() {
-        return mLine2;
-    }
-    public String getLine3() {
-        return mLine3;
+    public String getTimeend() {
+        return timeend;
     }
 
+    public String getDatest() {
+        return datest;
+    }
+
+    public String getDateend() {
+        return dateend;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }

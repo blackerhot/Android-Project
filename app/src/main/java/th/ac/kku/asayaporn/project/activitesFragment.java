@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
@@ -76,15 +77,16 @@ public class activitesFragment extends  Fragment {
         getActivity().setTitle("ํYour Activities");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+        setHasOptionsMenu(true);
         loadData();
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
         // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
 
         for (int i = 0; i < mExampleList.size(); i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
-            hm.put("listview_title",mExampleList.get(i).getLine1());
-            hm.put("listview_discription",mExampleList.get(i).getLine2());
-            hm.put("listview_item",mExampleList.get(i).getLine3());
+            hm.put("listview_datestr",mExampleList.get(i).getTimestart());
+            hm.put("listview_title",mExampleList.get(i).getTitle());
+            hm.put("listview_comment",mExampleList.get(i).getDetail());
             /*hm.put("listview_title", lstTime[i]);
             hm.put("listview_discription", lstTitle[i]);
             hm.put("listview_item", lstItems[i]);*/
@@ -96,7 +98,7 @@ public class activitesFragment extends  Fragment {
             aList.add(hm);
         }
 
-        String[] from = { "listview_title", "listview_discription", "listview_item"};
+        String[] from = { "listview_datestr", "listview_title", "listview_comment"};
         int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
 
         final SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(),
@@ -156,6 +158,22 @@ public class activitesFragment extends  Fragment {
         });
 
         return view;
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_activity, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_add_event_me) {
+            startActivity(new Intent(getActivity(),AddActivityForme.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void saveData() {

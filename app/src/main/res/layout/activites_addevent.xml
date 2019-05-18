@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/rectangle"
+                >
+
+
+                <EditText
+
+                    android:id="@+id/edt_title_for_me"
+                    android:inputType="textAutoCorrect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="Title"
+                    android:gravity="center"
+                    android:background="@drawable/bg_input"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="2">
+                    <Button
+                        android:id="@+id/btn_start_date_for_me"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Start Date,Time"
+                        android:layout_weight="1"
+                        />
+                    <Button
+                        android:id="@+id/btn_end_date_for_me"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="End Date,Time"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/edt_command_for_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="8"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center"
+                    android:hint="comment" />
+                <EditText
+                    android:id="@+id/edt_place_for_me"
+                    android:hint="สถานที่จัดงาน**"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:inputType="text"/>
+
+
+
+
+
+
+                <Button
+                    android:id="@+id/btn_send_for_me"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_login2"
+                    android:padding="16dp"
+                    android:text="Send"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/btn_text" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical" android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

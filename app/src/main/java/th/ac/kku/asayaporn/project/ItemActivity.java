@@ -81,7 +81,7 @@ public class ItemActivity extends AppCompatActivity {
     Intent intentother = null;
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
     ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
-    String datestr , titlestr , detailstr;
+    String timestr , timeEndstr;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,15 +186,13 @@ public class ItemActivity extends AppCompatActivity {
 
     private void saveData() {
         loadData();
-
-        datestr = para.getString("timest");
-
-        datestr = datestr.substring(4);
-
-
-
-
-        mExampleList.add(new ExampleItem(datestr, para.getString("title"),para.getString("detail")));
+        timestr = para.getString("timest");
+        timestr = timestr.substring(4);
+        timeEndstr = para.getString("timeed");
+        timeEndstr = timeEndstr.substring(4);
+        mExampleList.add(new ExampleItem(timestr,timeEndstr,para.getString("datest"),
+                para.getString("dateend"),para.getString("title"),para.getString("detail"),
+                (String) para.get("address")));
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
