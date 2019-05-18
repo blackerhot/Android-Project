@@ -55,7 +55,7 @@ public class AdminActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                            
+
                                         }
 
                                         @Override
