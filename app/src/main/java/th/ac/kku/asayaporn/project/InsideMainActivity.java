@@ -35,7 +35,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -99,16 +101,34 @@ public class InsideMainActivity extends AppCompatActivity {
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
-
             @Override
+
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                String s0="";
+                Gson gson = new Gson();
 
-                Log.d(TAG, "Value is: " + map);
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //Here you can access the child.getKey()
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
+
+
+                    s0 += gson.toJson(user.toMap()) +",";
+
+                }
+
+                s0=s0.substring(0,s0.length()-1);
+
+                Log.e("result11", s0);
+
+                SharedPreferences sp ;
+                SharedPreferences.Editor editor ;
+                sp = InsideMainActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":["+s0+"]}")));
+                editor.commit();
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value

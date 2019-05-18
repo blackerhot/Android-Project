@@ -1,79 +1,48 @@
 package th.ac.kku.asayaporn.project;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static th.ac.kku.asayaporn.project.Login.TAG;
 
 public class feedFragment extends Fragment {
     protected ListView mListView;
     protected CustomAdapter mAdapter;
     protected EditText editSearch;
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     public static feedFragment newInstance() {
 
@@ -96,15 +65,62 @@ public class feedFragment extends Fragment {
         TextView more = (TextView) view.findViewById(R.id.clickmore);
         editSearch = (EditText) getActivity().findViewById(R.id.edit_search);
         editSearch.setText("");
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("activities");
 
+        // Read from the database
+        myRef.addValueEventListener(new ValueEventListener() {
+            private String TAG = "TAGGGG";
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String s0 = "";
+                Gson gson = new Gson();
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //Here you can access the child.getKey()
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
+                    s0 += gson.toJson(user.toMap()) + ",";
+                }
+                s0 = s0.substring(0, s0.length() - 1);
+                Log.e("result1fromfirebase", s0);
+                SharedPreferences sp;
+                SharedPreferences.Editor editor;
+                sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
+                editor.commit();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
         SharedPreferences sp;
         SharedPreferences.Editor editor;
         sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
         editor = sp.edit();
-        String result=sp.getString("json", "");
-        result =result.replace("&quot;", "'");
-        showData(result);
+        String result1 = sp.getString("jsonByUSER", "");
+        String result = sp.getString("json", "");
+        result = result.replace("&quot;", "'");
+
+        if(handlerData(result1)==""){
+            String fromeall = "{\"activities\":[" ;
+            fromeall += handlerData1(result) +"]}";
+            Log.e("result1all", fromeall);
+            showData(fromeall);
+        }else {
+            String fromeall = "{\"activities\":[" + handlerData(result1);
+            fromeall +=","+  handlerData1(result) +"]}";
+            Log.e("result1all", fromeall);
+            showData(fromeall);
+        }
+
         editor.commit();
 
 
@@ -113,7 +129,6 @@ public class feedFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), ItemActivity.class);
                 ActivityKKU mActivite = (ActivityKKU) parent.getItemAtPosition(position);
-
 
 
                 intent.putExtra("img", String.valueOf(mActivite.image));
@@ -143,7 +158,6 @@ public class feedFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Boolean isnull = false;
@@ -156,15 +170,15 @@ public class feedFragment extends Fragment {
                         activityKKU = (ActivityKKU) mAdapter.getItem(i);
 
                         if (activityKKU.getTitle().toString().contains(s)) {
-                            isnull=false;
+                            isnull = false;
                             arra.add(activityKKU);
-                        }else{
-                            isnull=true;
+                        } else {
+                            isnull = true;
 
                         }
-                        if(isnull){
+                        if (isnull) {
                             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
-                        }else {
+                        } else {
                             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
                         }
 
@@ -186,7 +200,6 @@ public class feedFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,7 +219,7 @@ public class feedFragment extends Fragment {
 
         if (id == R.id.action_adding) {
 
-            startActivity(new Intent(getActivity(),AddingActivity.class));
+            startActivity(new Intent(getActivity(), AddingActivity.class));
         }
         if (id == R.id.action_sortbydatelates) {
             ActivityKKU activityKKU;
@@ -319,6 +332,12 @@ public class feedFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
 
     private void showData(String json) {
 
@@ -327,6 +346,48 @@ public class feedFragment extends Fragment {
         List<ActivityKKU> activity = blog.getActivities();
         mAdapter = new CustomAdapter(this.getActivity(), activity);
         mListView.setAdapter(mAdapter);
+
+    }
+
+    private String handlerData(String json) {
+
+        String string = "";
+        Gson gson = new Gson();
+
+        Blog blog = gson.fromJson(json, Blog.class);
+        List<ActivityKKU> activity = blog.getActivities();
+
+        for (int i = 0; i < activity.size(); i++) {
+            if(activity.get(i).getStatus()==true){
+                string += gson.toJson(activity.get(i).toMap())+",";
+            }
+
+        }
+        if(string.length()==0){
+            return "";
+        }
+        string = string.substring(0, string.length() - 1);
+        return string;
+
+    }
+
+    private String handlerData1(String json) {
+
+        String string = "";
+        Gson gson = new Gson();
+
+        Blog blog = gson.fromJson(json, Blog.class);
+        List<ActivityKKU> activity = blog.getActivities();
+
+        for (int i = 0; i < activity.size(); i++) {
+
+                string += gson.toJson(activity.get(i).toMap())+",";
+
+
+        }
+
+        string = string.substring(0, string.length() - 1);
+        return string;
 
     }
 }

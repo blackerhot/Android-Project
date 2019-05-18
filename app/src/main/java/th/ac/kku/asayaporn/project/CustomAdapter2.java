@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -17,10 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -37,9 +45,10 @@ import java.util.List;
 
 import static java.nio.file.Files.copy;
 
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapter2 extends BaseAdapter {
 
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     private static final String TAG = "D";
     protected LayoutInflater mInflater;
     protected ViewHolder mViewHolder;
@@ -48,7 +57,7 @@ public class CustomAdapter extends BaseAdapter {
     protected ActivityKKU mActivite;
 
 
-    public CustomAdapter(Activity activity, List<ActivityKKU> posts) {
+    public CustomAdapter2(Activity activity, List<ActivityKKU> posts) {
         activity = activity;
         mInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -70,7 +79,7 @@ public class CustomAdapter extends BaseAdapter {
         TextView phone;
         TextView website;
         TextView sponser;
-        Switch   status;
+        Switch status;
 
 
     }
@@ -88,18 +97,18 @@ public class CustomAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.activites_kku, parent, false);
+            convertView = mInflater.inflate(R.layout.activites_kku_approve, parent, false);
             mViewHolder = new ViewHolder();
             mViewHolder.pic = (ImageView) convertView.findViewById(R.id.post_pic);
             mViewHolder.title = (TextView) convertView.findViewById(R.id.post_title);
             mViewHolder.detail = (TextView) convertView.findViewById(R.id.post_detail);
             mViewHolder.datest = (TextView) convertView.findViewById(R.id.post_date);
-          //  mViewHolder.dateend = (TextView) convertView.findViewById(R.id.post_dateend);
-           // mViewHolder.phone = (TextView) convertView.findViewById(R.id.post_phone);
-          //  mViewHolder.website = (TextView) convertView.findViewById(R.id.post_website);
-          //  mViewHolder.sponser = (TextView) convertView.findViewById(R.id.post_sponser);
+            //  mViewHolder.dateend = (TextView) convertView.findViewById(R.id.post_dateend);
+            // mViewHolder.phone = (TextView) convertView.findViewById(R.id.post_phone);
+            //  mViewHolder.website = (TextView) convertView.findViewById(R.id.post_website);
+            //  mViewHolder.sponser = (TextView) convertView.findViewById(R.id.post_sponser);
             mViewHolder.address = (TextView) convertView.findViewById(R.id.post_address);
-
+            mViewHolder.status = (Switch) convertView.findViewById(R.id.switchApprove);
             convertView.setTag(mViewHolder);
 
         } else {
@@ -108,22 +117,71 @@ public class CustomAdapter extends BaseAdapter {
 
         mActivite = mActivites.get(position);
 
-        if(mActivite!=null){
-
+        if (mActivite.image != "") {
             Picasso.get().load(mActivite.image).resize(2048, 1600).
                     onlyScaleDown().into(mViewHolder.pic);//wait for img
-            mViewHolder.title.setText(mActivite.title);
-            mViewHolder.address.setText("สถานที่จัดงาน : " + mActivite.place);
-            mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt +" ("+mActivite.timeSt+")");
+        } else {
+            Picasso.get().load("https://it.nkc.kku.ac.th/frontend/images/logo-color.png").resize(2048, 1600).
+                    onlyScaleDown().into(mViewHolder.pic);//wait for img
 
         }
+        mViewHolder.title.setText(mActivite.title);
+        mViewHolder.address.setText("สถานที่จัดงาน : " + mActivite.place);
+        mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt + " (" + mActivite.timeSt + ")");
+        mViewHolder.status.setChecked(mActivite.status);
 
+        mViewHolder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                database = FirebaseDatabase.getInstance();
+                myRef = database.getReference("activities");
+
+                // Read from the database
+                myRef.addValueEventListener(new ValueEventListener() {
+                    private String TAG = "TAGGGG";
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        String s0 = "";
+                        Gson gson = new Gson();
+
+                        int i = 0 ;
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            
+                            //Here you can access the child.getKey()
+                            ActivityKKU user = child.getValue(ActivityKKU.class);
+                            s0 += gson.toJson(user.toMap()) + ",";
+                        }
+                        s0 = s0.substring(0, s0.length() - 1);
+
+                        SharedPreferences sp;
+                        SharedPreferences.Editor editor;
+                        sp = activity.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
+                        editor.commit();
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
+
+
+            }
+        });
 
         TextView clickmore = (TextView) convertView.findViewById(R.id.clickmore);
         clickmore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), ItemActivity.class);
+                Intent intent = new Intent(v.getContext(), ItemActivity2.class);
 
                 mActivite = mActivites.get(position);
 

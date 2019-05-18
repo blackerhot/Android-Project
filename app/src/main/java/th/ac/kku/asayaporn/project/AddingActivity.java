@@ -1,19 +1,10 @@
 package th.ac.kku.asayaporn.project;
 
-import android.Manifest;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -38,8 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonObject;
 
-import java.sql.Time;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,14 +85,23 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String name = "";
-                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
-                    name += (String) messageSnapshot.child("title").getValue();
-                    String message = (String) messageSnapshot.child("website").getValue();
+                String s0="";
+                Gson gson = new Gson();
 
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //Here you can access the child.getKey()
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
+                    s0 += gson.toJson(user.toMap()) +",";
                 }
-                //Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                // Toast.makeText(getContext(),name,Toast.LENGTH_SHORT).show();
+
+                s0=s0.substring(0,s0.length()-1);
+                Log.e("result11", s0);
+                SharedPreferences sp ;
+                SharedPreferences.Editor editor ;
+                sp = AddingActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":["+s0+"]}")));
+                editor.commit();
             }
 
             @Override
@@ -238,14 +233,25 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String TAG = "TAGGing";
-                String name = "";
-                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
-                    name += (String) messageSnapshot.toString();
-                }
+                String s0="";
+                Gson gson = new Gson();
 
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //Here you can access the child.getKey()
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
+                    s0 += gson.toJson(user.toMap()) +",";
+
+                }
+                s0=s0.substring(0,s0.length()-1);
+
+                SharedPreferences sp ;
+                SharedPreferences.Editor editor ;
+                sp = AddingActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":["+s0+"]}")));
+                editor.commit();
                 Toast.makeText(AddingActivity.this,
-                        "You add is " + name, Toast.LENGTH_LONG).show();
+                        "You added Already", Toast.LENGTH_LONG).show();
             }
 
             @Override

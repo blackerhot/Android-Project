@@ -58,7 +58,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity2 extends AppCompatActivity {
     public boolean create;
     Button butAddEvent;
     TextView address;
@@ -81,7 +81,7 @@ public class ItemActivity extends AppCompatActivity {
     Intent intentother = null;
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
     ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
-    String timestr , timeEndstr;
+    String datestr , titlestr , detailstr;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +111,7 @@ public class ItemActivity extends AppCompatActivity {
         int width = size.x;
         Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
 
-       
+
         title.setText(para.getString("title"));
         getSupportActionBar().setTitle("");
 
@@ -123,45 +123,11 @@ public class ItemActivity extends AppCompatActivity {
         //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
-        final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
-        if(currentFirebaseUser!=null){
-
-
-        for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
-
-            if (userInfo.getProviderId().equals("google.com")) {
-                credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                        getApplicationContext(), Arrays.asList(SCOPES))
-                        .setBackOff(new ExponentialBackOff())
-                        .setSelectedAccount(googleSignInAccount.getAccount());
-                mService = new com.google.api.services.calendar.Calendar.Builder(
-                        transport, jsonFactory, credentialCaledndar)
-                        .setApplicationName("Google Calendar API Android Quickstart")
-                        .build();
-                create = false;
-                new ApiAsyncTask(ItemActivity.this).execute();
-            }
-        }
-        }
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();
-                if(currentFirebaseUser!=null){
-
-                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
-
-                    if (userInfo.getProviderId().equals("google.com")) {
-                        create = true;
-                        new ApiAsyncTask(ItemActivity.this).execute();
-                    } else {
-                        //Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }else {
-                      //  Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(ItemActivity2.this, "FAILED!", Toast.LENGTH_SHORT).show();
             }
         });
         website.setOnClickListener(new View.OnClickListener() {
@@ -185,49 +151,10 @@ public class ItemActivity extends AppCompatActivity {
 
     }
 
-    private void saveData() {
-        loadData();
-        timestr = para.getString("timest");
-        timestr = timestr.substring(4);
-        timeEndstr = para.getString("timeed");
-        timeEndstr = timeEndstr.substring(4);
-        mExampleList.add(new ExampleItem(timestr,timeEndstr,para.getString("datest"),
-                para.getString("dateend"),para.getString("title"),para.getString("detail"),
-                (String) para.get("address")));
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(mExampleList);
-        editor.putString("task list", json);
-        editor.apply();
 
-    }
 
-    private void loadData() {
-        SharedPreferences sharedPreferences =  getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
-        mExampleList = gson.fromJson(json, type);
 
-        if (mExampleList == null) {
-            mExampleList = new ArrayList<>();
-        }
-    }
 
-    void showGooglePlayServicesAvailabilityErrorDialog(
-            final int connectionStatusCode) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Dialog dialog = GooglePlayServicesUtil.getErrorDialog(
-                        connectionStatusCode,
-                        ItemActivity.this,
-                        REQUEST_GOOGLE_PLAY_SERVICES);
-                dialog.show();
-            }
-        });
-    }
 
     @Override
     public boolean onSupportNavigateUp() {

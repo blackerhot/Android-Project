@@ -43,7 +43,8 @@
         <activity android:name=".InsideMainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".AddingActivity"
-
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AdminActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".AddActivityForme"
             android:screenOrientation="portrait"/>
@@ -52,6 +53,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".ItemActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ItemActivity2"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

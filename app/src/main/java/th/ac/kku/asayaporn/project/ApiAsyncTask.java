@@ -200,7 +200,6 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
         }
 
 
-
     }
 
     private List<String> getDataFromApi() throws IOException {

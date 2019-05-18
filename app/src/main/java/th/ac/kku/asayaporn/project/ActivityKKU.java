@@ -30,6 +30,15 @@ public class ActivityKKU {
     JsonObject contact;
     String url;
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    Boolean status;
     public ActivityKKU(JsonObject contact, String url, String image, String title, String place,
                        String content, String dateSt, String dateEd, String phone, String website, String timeSt, String timeEt, String sponsor) {
         this.contact = contact;

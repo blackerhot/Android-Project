@@ -50,6 +50,10 @@ public class profileFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
+        TextView actTv = (TextView) view.findViewById(R.id.activitesTv);
+        Button btn = (Button) view.findViewById(R.id.buttonlogout);
+        Button adminBut = (Button) view.findViewById(R.id.adminBut);
+        TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
         SharedPreferences settings = this.getActivity().getSharedPreferences("LOGIN", 0);
         mAuth = FirebaseAuth.getInstance();
@@ -85,10 +89,7 @@ public class profileFragment extends Fragment {
                     else if (userInfo.getProviderId().equals("firebase")) {
                         Toast.makeText(getContext(),userInfo.getProviderId().toString(),Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
-
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
                 disname =currentFirebaseUser.getDisplayName();
                 email = currentFirebaseUser.getEmail();
@@ -107,12 +108,8 @@ public class profileFragment extends Fragment {
 
 
 
-        TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         tv_name_user.setText(disname);
-        Button btn = (Button) view.findViewById(R.id.buttonlogout);
-
         emailtv.setText(email);
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,8 +125,12 @@ public class profileFragment extends Fragment {
             }
         });
 
-
-
+        adminBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),AdminActivity.class));
+            }
+        });
         return view;
 
 

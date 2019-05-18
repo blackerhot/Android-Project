@@ -67,10 +67,18 @@
                             android:id="@+id/emailTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="Email"
                             android:layout_gravity="center_horizontal"
                             android:textSize="17sp"
                             android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:id="@+id/statusTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status : "
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="11sp"
+                            android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -156,13 +164,40 @@
                     android:id="@+id/buttonlogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Log out"
+                    android:text="Sign Out"
                     android:textColor="@color/white"
+                    android:gravity="center"
                     android:textAllCaps="false"
                     android:layout_centerInParent="true"
-                    android:layout_alignParentBottom="true"/>1
+                    android:layout_alignParentBottom="true"/>
 
             </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/activitesTv"
+                    android:layout_width="wrap_content"
+                    android:text="Activities awaiting to Approve : "
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:background="@drawable/click"
+                    android:id="@+id/adminBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Admin Management"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"/>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
