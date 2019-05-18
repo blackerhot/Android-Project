@@ -15,97 +15,131 @@
             android:layout_height="match_parent">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical"
-                android:background="@drawable/rectangle"
-                >
+                android:background="@drawable/bgfeed"
+                android:orientation="vertical">
 
 
                 <EditText
 
                     android:id="@+id/etitle"
-                    android:inputType="textAutoCorrect"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:hint="Title"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/pb"
                     android:gravity="center"
-                    android:background="@drawable/bg_input"
-                    android:layout_marginTop="10dp"/>
+                    android:hint="Title"
+                    android:inputType="textAutoCorrect"
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:background="@drawable/bgfeed">
+
+                    <ImageView
+                        android:id="@+id/imgAc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_margin="16dp"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:weightSum="2">
+
                     <Button
                         android:id="@+id/edatest"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Start Date,Time"
                         android:layout_weight="1"
-                        />
+                        android:background="@color/grey"
+                        android:text="Start Date,Time"
+                        android:textColor="@color/white" />
+
                     <Button
                         android:id="@+id/edateend"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/grey"
                         android:text="End Date,Time"
-                        android:layout_weight="1"/>
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/econtent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="8"
+                    android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_input"
+                    android:background="@drawable/bgfeed"
+                    android:fontFamily="@font/pr"
                     android:gravity="center"
-                    android:hint="comment" />
+                    android:hint="comment"
+                    android:lines="8"
+                    android:textSize="25sp" />
+
                 <EditText
                     android:id="@+id/eplace"
-                    android:hint="สถานที่จัดงาน**"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:inputType="text"/>
+                    android:fontFamily="@font/pr"
+                    android:hint="สถานที่จัดงาน**"
+                    android:inputType="text"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/esponsor"
-                    android:hint="ผู้จัดงาน"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:inputType="text"/>
+                    android:fontFamily="@font/pr"
+                    android:hint="ผู้จัดงาน"
+                    android:inputType="text"
+                    android:textSize="18sp" />
+
                 <EditText
                     android:id="@+id/eurl"
-                    android:hint="เว็ปไซต์เกี่ยวกับงาน"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:inputType="text"/>
+                    android:fontFamily="@font/pr"
+                    android:hint="เว็ปไซต์เกี่ยวกับงาน"
+                    android:inputType="text"
+                    android:textSize="18sp" />
+
                 <EditText
                     android:id="@+id/ephone"
-                    android:hint="เบอร์ติดต่อ"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:inputType="text"/>
+                    android:fontFamily="@font/pr"
+                    android:hint="เบอร์ติดต่อ"
+                    android:inputType="text"
+                    android:textSize="18sp" />
+
                 <Button
+                    android:id="@+id/but_uppic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/but_uppic"
-                    android:text="Uppic"/>
+                    android:text="Uppic"
+                    android:background="@color/grey"
+                    android:textColor="@color/white"/>
 
                 <Button
                     android:id="@+id/send_But"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
+                    android:layout_width="200dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:background="@drawable/btn_login2"
                     android:padding="16dp"
@@ -115,21 +149,19 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
+
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="vertical" android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
                 </LinearLayout>

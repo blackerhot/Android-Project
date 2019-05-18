@@ -11,6 +11,7 @@
     <color name="grey_white">#868686</color>
     <color name="lightgreen">#5bbc59</color>
     <color name="white_grey">#DFE0DF</color>
+    <color name="greyfeed">#F5F5F5</color>
     <color name="red">#FF0000</color>
     <color name="primary">#ff7c00</color>
     <color name="colorPrimary">#3F51B5</color>

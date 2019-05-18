@@ -1,12 +1,19 @@
 package th.ac.kku.asayaporn.project;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -56,6 +64,12 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     String dateEd = "ยังว่าง";
     String timeSt = "ยังว่าง";
     String timeEd = "ยังว่าง";
+    private static int RESULT_LOAD_IMAGE = 1;
+    private static  final int REQUEST_EX = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +160,48 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 state = true;
             }
         });
+        // load img form media
+        Button btn_load = (Button) findViewById(R.id.but_uppic);
+        btn_load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
+    }
+
+    // load img form media
+    @Override
+    protected void onActivityResult(int requrestCode, int resultCode, Intent data){
+        super.onActivityResult(requrestCode, resultCode, data);
+        if(requrestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+            Uri selec = data.getData();
+            String[] filePC = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(selec, filePC, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePC[0]);
+            final String pic = cursor.getString(columnIndex);
+            cursor.close();
+            verifyStoragePermissions(AddingActivity.this);
+            ImageView img = (ImageView) findViewById(R.id.imgAc);
+            img.setImageBitmap(BitmapFactory.decodeFile(pic));
+        }
+    }
+
+    // load img form media
+    private static void verifyStoragePermissions(AddingActivity activity) {
+        int permission = ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(permission != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EX
+            );
+        }
     }
 
     private void addEvent() {
@@ -283,6 +339,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     }
 
                 }
+                btnstartdate.setText(dateSt + ", " + timeSt);
             }
         }else if (state == true){
 
@@ -296,16 +353,16 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 int hour_end_PM = hour_end -12;
                 if (hour_end_PM < 10){
                     if (minute_start < 10){
-                        timeEd = "PM. 0" + hour_end_PM + ".0" + minute_end;
+                        timeEd = "PM. 0" + hour_end_PM + ":0" + minute_end;
                     } else {
-                        timeEd = "PM. 0" + hour_end_PM + "." + minute_end;
+                        timeEd = "PM. 0" + hour_end_PM + ":" + minute_end;
                     }
 
                 }else {
                     if (minute_start < 10){
-                        timeEd = "PM. " + hour_end_PM + ".0" + minute_end;
+                        timeEd = "PM. " + hour_end_PM + ":0" + minute_end;
                     } else {
-                        timeEd = "PM. " + hour_end_PM + "." + minute_end;
+                        timeEd = "PM. " + hour_end_PM + ":" + minute_end;
                     }
 
                 }
@@ -313,19 +370,20 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             }else {
                 if (hour_end < 10){
                     if (minute_start < 10){
-                        timeEd = "AM. 0" + hour_end + ".0" + minute_end;
+                        timeEd = "AM. 0" + hour_end + ":0" + minute_end;
                     } else {
-                        timeEd = "AM. 0" + hour_end + "." + minute_end;
+                        timeEd = "AM. 0" + hour_end + ":" + minute_end;
                     }
 
                 }else {
                     if (minute_end < 10){
-                        timeEd = "AM. " + hour_end + ".0" + minute_end;
+                        timeEd = "AM. " + hour_end + ":0" + minute_end;
                     } else {
-                        timeEd = "AM. " + hour_end + "." + minute_end;
+                        timeEd = "AM. " + hour_end + ":" + minute_end;
                     }
 
                 }
+                btnenddate.setText(dateEd + ", " + timeEd);
             }
         }
     }

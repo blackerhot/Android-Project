@@ -7,16 +7,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgfeed_data"
+        android:background="@drawable/bgfeed"
         android:orientation="vertical"
         android:paddingBottom="5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bgfeed_data">
+            android:background="@drawable/bgfeed">
             <ImageView
                 android:id="@+id/post_pic"
                 android:layout_width="match_parent"
