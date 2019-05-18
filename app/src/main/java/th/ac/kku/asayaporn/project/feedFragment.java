@@ -84,8 +84,10 @@ public class feedFragment extends Fragment {
                     ActivityKKU user = child.getValue(ActivityKKU.class);
                     s0 += gson.toJson(user.toMap()) + ",";
                 }
-                s0 = s0.substring(0, s0.length() - 1);
-                Log.e("result1fromfirebase", s0);
+                if(s0.length()!=0){
+                    s0=s0.substring(0,s0.length()-1);
+                }
+                mListView.setAdapter(mAdapter);
                 SharedPreferences sp;
                 SharedPreferences.Editor editor;
                 sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
@@ -358,7 +360,7 @@ public class feedFragment extends Fragment {
         List<ActivityKKU> activity = blog.getActivities();
 
         for (int i = 0; i < activity.size(); i++) {
-            if(activity.get(i).getStatus()==true){
+            if(new Boolean(activity.get(i).getStatus())==true){
                 string += gson.toJson(activity.get(i).toMap())+",";
             }
 
@@ -382,8 +384,6 @@ public class feedFragment extends Fragment {
         for (int i = 0; i < activity.size(); i++) {
 
                 string += gson.toJson(activity.get(i).toMap())+",";
-
-
         }
 
         string = string.substring(0, string.length() - 1);

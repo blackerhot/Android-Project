@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,38 +46,68 @@ public class AdminActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("activities");
 
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            private String TAG = "TAGGGG";
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String s0 = "";
-                Gson gson = new Gson();
+        myRef.addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    //Here you can access the child.getKey()
-                    ActivityKKU user = child.getValue(ActivityKKU.class);
-                    s0 += gson.toJson(user.toMap()) + ",";
-                }
-                s0 = s0.substring(0, s0.length() - 1);
-                Log.e("result1fromfirebase", s0);
-                SharedPreferences sp;
-                SharedPreferences.Editor editor;
-                sp = AdminActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
-                editor = sp.edit();
-                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
-                editor.commit();
-            }
+                                        }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
+                                        @Override
+                                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                            
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                                            mListView.setAdapter(mAdapter);
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    private String TAG = "TAGGGG";
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        String s0 = "";
+                        Gson gson = new Gson();
+
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            //Here you can access the child.getKey()
+                            ActivityKKU user = child.getValue(ActivityKKU.class);
+
+                            s0 += gson.toJson(user.toMap()) + ",";
+                        }
+                        if (s0.length() != 0) {
+                            s0 = s0.substring(0, s0.length() - 1);
+                        }
+
+                        SharedPreferences sp;
+                        SharedPreferences.Editor editor;
+                        sp = AdminActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                        editor = sp.edit();
+                        editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
+                        editor.commit();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
 
         SharedPreferences sp;
         SharedPreferences.Editor editor;
@@ -95,7 +127,7 @@ public class AdminActivity extends AppCompatActivity {
 
                 ActivityKKU mActivite = (ActivityKKU) parent.getItemAtPosition(position);
 
-                Toast.makeText(AdminActivity.this,"CLcked!!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminActivity.this, "CLcked!!", Toast.LENGTH_SHORT).show();
                 intent.putExtra("img", String.valueOf(mActivite.image));
                 intent.putExtra("title", String.valueOf(mActivite.title));
                 intent.putExtra("address", String.valueOf(mActivite.place));
@@ -111,7 +143,7 @@ public class AdminActivity extends AppCompatActivity {
                 } else {
                     intent.putExtra("phone", String.valueOf(mActivite.phone));
                 }
-               startActivity(intent);
+                startActivity(intent);
 
 
             }
@@ -149,6 +181,9 @@ public class AdminActivity extends AppCompatActivity {
         for (int i = 0; i < activity.size(); i++) {
             string += gson.toJson(activity.get(i).toMap()) + ",";
 
+        }
+        if (string.length() == 0) {
+            return "";
         }
         string = string.substring(0, string.length() - 1);
         return string;

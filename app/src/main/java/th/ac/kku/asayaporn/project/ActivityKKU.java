@@ -30,15 +30,15 @@ public class ActivityKKU {
     JsonObject contact;
     String url;
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    Boolean status;
+    String status;
     public ActivityKKU(JsonObject contact, String url, String image, String title, String place,
                        String content, String dateSt, String dateEd, String phone, String website, String timeSt, String timeEt, String sponsor) {
         this.contact = contact;
@@ -91,7 +91,15 @@ public class ActivityKKU {
 
     }
 
+    public String getKey() {
+        return key;
+    }
 
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    String key="";
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -109,7 +117,8 @@ public class ActivityKKU {
         result.put("timeSt",timeSt);
         result.put("timeEd",timeEd);
         result.put("url",url);
-        result.put("status",false);
+        result.put("status",status);
+        result.put("key",key);
         return result;
     }
     public String getImage() {

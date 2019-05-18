@@ -111,16 +111,18 @@ public class InsideMainActivity extends AppCompatActivity {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     //Here you can access the child.getKey()
-                    ActivityKKU user = child.getValue(ActivityKKU.class);
 
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
 
                     s0 += gson.toJson(user.toMap()) +",";
 
                 }
+                if(s0.length()!=0){
+                    s0=s0.substring(0,s0.length()-1);
+                }
 
-                s0=s0.substring(0,s0.length()-1);
 
-                Log.e("result11", s0);
+                Log.e("result1inside", s0);
 
                 SharedPreferences sp ;
                 SharedPreferences.Editor editor ;

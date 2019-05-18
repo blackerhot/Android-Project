@@ -1,10 +1,20 @@
 package th.ac.kku.asayaporn.project;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +25,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -24,8 +37,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,10 +106,13 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     //Here you can access the child.getKey()
                     ActivityKKU user = child.getValue(ActivityKKU.class);
+
                     s0 += gson.toJson(user.toMap()) +",";
                 }
+                if(s0.length()!=0){
+                    s0=s0.substring(0,s0.length()-1);
+                }
 
-                s0=s0.substring(0,s0.length()-1);
                 Log.e("result11", s0);
                 SharedPreferences sp ;
                 SharedPreferences.Editor editor ;
@@ -109,6 +127,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
+
         });
 
         sendBut.setOnClickListener(new View.OnClickListener() {
@@ -219,9 +238,14 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                               String content, String dateSt, String dateEd, String phone, String website,
                               String timeSt, String timeEt, String sponsor) {
 
+        if(image==""){
+            image="https://it.nkc.kku.ac.th/frontend/images/logo-color.png";
+        }
         String key = myRef.child("activities").push().getKey();
         ActivityKKU post = new ActivityKKU(contact, url, image, title, place, content,
                 dateSt, dateEd, phone, website, timeSt, timeEt, sponsor);
+                post.setStatus("false");
+                post.setKey(key);
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(key, postValues);
@@ -239,10 +263,13 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     //Here you can access the child.getKey()
                     ActivityKKU user = child.getValue(ActivityKKU.class);
+                    user.setKey( child.getKey());
                     s0 += gson.toJson(user.toMap()) +",";
 
                 }
-                s0=s0.substring(0,s0.length()-1);
+                if(s0.length()!=0){
+                    s0=s0.substring(0,s0.length()-1);
+                }
 
                 SharedPreferences sp ;
                 SharedPreferences.Editor editor ;
@@ -393,4 +420,6 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             }
         }
     }
+
+
 }
