@@ -34,6 +34,8 @@
                     android:gravity="center"
                     android:hint="Title"
                     android:inputType="textAutoCorrect"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
                     android:textSize="25sp" />
 
                 <LinearLayout
@@ -86,7 +88,10 @@
                     android:gravity="center"
                     android:hint="comment"
                     android:lines="8"
-                    android:textSize="25sp" />
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:textSize="25sp"
+                    />
 
                 <EditText
                     android:id="@+id/eplace"
@@ -130,16 +135,17 @@
 
                 <Button
                     android:id="@+id/but_uppic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Uppic"
-                    android:background="@color/grey"
-                    android:textColor="@color/white"/>
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Up Picture"
+                    android:background="@drawable/bgfeed2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"/>
 
                 <Button
                     android:id="@+id/send_But"
                     android:layout_width="200dp"
-                    android:layout_height="70dp"
+                    android:layout_height="52dp"
                     android:layout_gravity="center"
                     android:background="@drawable/btn_login2"
                     android:padding="16dp"
