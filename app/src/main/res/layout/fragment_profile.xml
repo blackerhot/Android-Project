@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -101,6 +100,89 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:layout_gravity="center"
+                android:text="My Event"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/imag_store1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/icon_box"
+                            android:scaleType="fitCenter"
+                            android:layout_marginTop="20dp"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/textevent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/imag_store1"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/num_event_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/textevent"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/no_com_id1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/icon_activity"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/tvfav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Favorite"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/no_com_id1"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/num_favorite_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/tvfav"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -108,8 +190,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:text="Information"/>
+                android:textSize="28sp"
+                android:layout_gravity="center"
+                android:text="Event Add Management"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,18 +210,25 @@
                             android:id="@+id/imag_store"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
-                           android:src="@drawable/icon_box"
+                            android:src="@drawable/icon_box"
                             android:scaleType="fitCenter"
                             android:layout_marginTop="20dp"
                             android:layout_centerHorizontal="true"/>
                         <TextView
-                            android:id="@+id/num_favorite_tv"
+                            android:id="@+id/textwaiting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Watiing to Accept"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/imag_store"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/waitingTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="20sp"
-
-                            android:layout_below="@+id/imag_store"
+                            android:layout_below="@+id/textwaiting"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
 
@@ -158,31 +248,45 @@
                             android:layout_marginTop="20dp"
                             android:src="@drawable/icon_activity"
                             android:layout_centerHorizontal="true"/>
+
                         <TextView
-                            android:id="@+id/num_event_tv"
+                            android:id="@+id/Tvalreay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/no_com_id"
+                            android:layout_centerHorizontal="true"
+                            android:text="Accepting"
+                            android:textSize="20sp" />
+                        <TextView
+                            android:id="@+id/alreadyAccTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="20sp"
-                            android:layout_below="@+id/no_com_id"
+                            android:layout_below="@+id/Tvalreay"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutadmin"
+                android:background="@color/colorOrange"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:padding="5dp"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/activitesTv"
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:text="Awaiting to Approve : "
                     android:textSize="20sp"
+                    android:paddingBottom="5dp"
                     android:layout_height="wrap_content" />
 
                 <Button
@@ -203,20 +307,22 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
+                android:padding="5dp"
+                android:background="@color/Orange"
                 android:layout_height="match_parent">
 
 
                 <Button
                     android:background="@drawable/click"
                     android:id="@+id/userBut"
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="User Management"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentBottom="true"/>
+                    />
 
             </LinearLayout>
 

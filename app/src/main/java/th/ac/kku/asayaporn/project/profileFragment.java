@@ -59,10 +59,12 @@ public class profileFragment extends Fragment {
     ArrayList<ExampleItem> mExampleList;
     TextView tv_num_favorite;
     TextView tv_num_event;
-
+    TextView waiting;
+    TextView already;
+    TextView emailtv;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
+    TextView tv_name_user;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -71,12 +73,16 @@ public class profileFragment extends Fragment {
         getActivity().setTitle("Management");
         ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
-        TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
+        emailtv= (TextView) view.findViewById(R.id.emailTv);
+        tv_num_event = (TextView) view.findViewById(R.id.num_event_tv);
+        tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
+        waiting = (TextView) view.findViewById(R.id.waitingTv);
+        already = (TextView) view.findViewById(R.id.alreadyAccTv);
         final TextView statusTv = (TextView) view.findViewById(R.id.statusTv);
         Button btn = (Button) view.findViewById(R.id.logoutBut);
         Button adminBut = (Button) view.findViewById(R.id.adminBut);
         Button manageBut = (Button) view.findViewById(R.id.userBut);
-        TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
+        tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
         final LinearLayout layoutmanage = (LinearLayout) view.findViewById(R.id.layoutmanage);
         final LinearLayout layoutadmon = (LinearLayout) view.findViewById(R.id.layoutadmin);
@@ -210,8 +216,7 @@ public class profileFragment extends Fragment {
             }
         });
         loadData();
-        tv_num_event = (TextView) view.findViewById(R.id.num_event_tv);
-        tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
+
         String event_num_str = String.valueOf(mExampleList.size());
         tv_num_event.setText(event_num_str);
         return view;
