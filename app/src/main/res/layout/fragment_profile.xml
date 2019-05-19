@@ -69,7 +69,7 @@
                             android:layout_height="wrap_content"
                             android:text="Email"
                             android:layout_gravity="center_horizontal"
-                            android:textSize="17sp"
+                            android:textSize="20sp"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:id="@+id/statusTv"
@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content"
                             android:text="Status : "
                             android:layout_gravity="center_horizontal"
-                            android:textSize="11sp"
+                            android:textSize="15sp"
                             android:layout_marginTop="6dp"/>
                     </LinearLayout>
 
@@ -169,7 +169,7 @@
                 <TextView
                     android:id="@+id/activitesTv"
                     android:layout_width="wrap_content"
-                    android:text="Activities awaiting to Approve : "
+                    android:text="Awaiting to Approve : "
                     android:textSize="20sp"
                     android:layout_height="wrap_content" />
 
@@ -178,7 +178,7 @@
                     android:id="@+id/adminBut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Admin Management"
+                    android:text="Management Activities"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
@@ -194,13 +194,12 @@
                 android:layout_height="match_parent">
 
 
-
                 <Button
                     android:background="@drawable/click"
                     android:id="@+id/userBut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="User Manage"
+                    android:text="User Management"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:layout_gravity="center"

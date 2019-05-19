@@ -75,17 +75,17 @@ public class profileFragment extends Fragment {
         final TextView statusTv = (TextView) view.findViewById(R.id.statusTv);
         Button btn = (Button) view.findViewById(R.id.logoutBut);
         Button adminBut = (Button) view.findViewById(R.id.adminBut);
+        Button manageBut = (Button) view.findViewById(R.id.userBut);
         TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
-
         final LinearLayout layoutmanage = (LinearLayout) view.findViewById(R.id.layoutmanage);
         final LinearLayout layoutadmon = (LinearLayout) view.findViewById(R.id.layoutadmin);
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
-        layoutadmon.setVisibility(View.INVISIBLE);
-        layoutmanage.setVisibility(View.INVISIBLE);
+        layoutadmon.setVisibility(View.GONE);
+        layoutmanage.setVisibility(View.GONE);
         myRef.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
 
@@ -107,13 +107,20 @@ public class profileFragment extends Fragment {
 
                                         layoutmanage.setVisibility(View.VISIBLE);
                                         layoutadmon.setVisibility(View.VISIBLE);
-                                    } else if (data.child("status").getValue().toString().equals("mod")) {
+                                    } else if (data.child("class").getValue().toString().equals("mod")) {
                                         statusTv.setText("Class :: Moderator");
                                         layoutadmon.setVisibility(View.VISIBLE);
+                                        layoutmanage.setVisibility(View.INVISIBLE);
+                                    }else{
+
+                                        statusTv.setText("Class :: User");
+                                        layoutadmon.setVisibility(View.GONE);
+                                        layoutmanage.setVisibility(View.GONE);
                                     }
                                 }else {
                                     statusTv.setText("Class :: User");
-                                    layoutadmon.setVisibility(View.INVISIBLE);
+                                    layoutadmon.setVisibility(View.GONE);
+                                    layoutmanage.setVisibility(View.GONE);;
                                 }
 
                         }
