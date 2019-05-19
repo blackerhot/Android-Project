@@ -55,12 +55,12 @@ public class AdminActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                                            mAdapter.notifyDataSetChanged();
                                         }
 
                                         @Override
                                         public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                                            mListView.setAdapter(mAdapter);
+                                            mAdapter.notifyDataSetChanged();
                                         }
 
                                         @Override
@@ -114,11 +114,12 @@ public class AdminActivity extends AppCompatActivity {
         sp = AdminActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
         editor = sp.edit();
         String result1 = sp.getString("jsonByUSER", "");
+        editor.commit();
         String fromeall = "{\"activities\":[" + handlerData1(result1) + "]}";
 
         showData(fromeall);
 
-        editor.commit();
+
 
         final Intent intent = new Intent(AdminActivity.this, ItemActivity2.class);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

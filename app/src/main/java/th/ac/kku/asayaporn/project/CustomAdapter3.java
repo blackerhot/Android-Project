@@ -120,7 +120,6 @@ public class CustomAdapter3 extends BaseAdapter {
                 Map<String, Object> childUpdates = new HashMap<>();
 
                 if (mActivite.email.equals("knwknw1@gmail.com")) {
-
                     return;
                 }
 
@@ -131,12 +130,10 @@ public class CustomAdapter3 extends BaseAdapter {
                         break;
                     case R.id.modr:
                         mActivite.setClasses("mod");
-
                         childUpdates.put("/" + mActivite.uid + "/classes", "mod");
                         break;
                     case R.id.userr:
                         mActivite.setClasses("user");
-
                         childUpdates.put("/" + mActivite.uid + "/classes", "user");
                         break;
                     default:

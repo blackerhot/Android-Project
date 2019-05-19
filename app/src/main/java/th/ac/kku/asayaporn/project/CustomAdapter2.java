@@ -20,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,11 +79,12 @@ public class CustomAdapter2 extends BaseAdapter {
         TextView detail;
         ImageView pic;
         TextView title;
-        TextView dateend;
+        TextView statusTv;
         TextView phone;
         TextView website;
         TextView sponser;
-        Switch status;
+        Button buton;
+        Button butoff;
         TextView key;
 
     }
@@ -107,18 +109,21 @@ public class CustomAdapter2 extends BaseAdapter {
             mViewHolder.detail = (TextView) convertView.findViewById(R.id.post_detail);
             mViewHolder.datest = (TextView) convertView.findViewById(R.id.post_date);
             mViewHolder.key = (TextView) convertView.findViewById(R.id.keyTv);
+            mViewHolder.statusTv = (TextView) convertView.findViewById(R.id.stateTv);
             //  mViewHolder.dateend = (TextView) convertView.findViewById(R.id.post_dateend);
             // mViewHolder.phone = (TextView) convertView.findViewById(R.id.post_phone);
             //  mViewHolder.website = (TextView) convertView.findViewById(R.id.post_website);
             //  mViewHolder.sponser = (TextView) convertView.findViewById(R.id.post_sponser);
             mViewHolder.address = (TextView) convertView.findViewById(R.id.post_address);
-            mViewHolder.status = (Switch) convertView.findViewById(R.id.switchApprove);
+            mViewHolder.buton = (Button) convertView.findViewById(R.id.buton);
+            mViewHolder.butoff = (Button) convertView.findViewById(R.id.butoff);
             convertView.setTag(mViewHolder);
 
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("activities");
         mActivite = mActivites.get(position);
 
             Picasso.get().load(mActivite.image).resize(2048, 1600).
@@ -128,16 +133,27 @@ public class CustomAdapter2 extends BaseAdapter {
         mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt + " (" + mActivite.timeSt + ")");
 
 
-        if(new Boolean(mActivite.status)){
-            mViewHolder.status.setChecked(true);
+        if(!mActivite.status.equals("pending")){
+            if(new Boolean(mActivite.status)){
+                mViewHolder.buton.setVisibility(View.GONE);
+                mViewHolder.butoff.setVisibility(View.VISIBLE);
+                mViewHolder.statusTv.setText("Status : Showing ");
+
+            }else{
+                mViewHolder.butoff.setVisibility(View.GONE);
+                mViewHolder.buton.setVisibility(View.VISIBLE);
+                mViewHolder.statusTv.setText("Status : Hiding ");
+            }
         }else {
-            mViewHolder.status.setChecked(false);
+            mViewHolder.butoff.setVisibility(View.VISIBLE);
+            mViewHolder.buton.setVisibility(View.VISIBLE);
+            Map<String,Object> childUpdates = new HashMap<>();
+            childUpdates.put("/"+mActivite.key+"/status",String.valueOf(false));
+            myRef.updateChildren(childUpdates);
         }
 
 
         mViewHolder.key.setText(mActivite.key);
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("activities");
         myRef.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
 
@@ -174,20 +190,40 @@ public class CustomAdapter2 extends BaseAdapter {
             }
         });
 
-        mViewHolder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mViewHolder.buton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+            public void onClick(View v) {
+                Toast.makeText(mInflater.getContext(),"Showing Already! wait a sec to refresh",Toast.LENGTH_SHORT).show();
                 mActivite = mActivites.get(position);
-                mActivite.setStatus(String.valueOf(isChecked));
-                Toast.makeText(mInflater.getContext(),mActivite.key+"",Toast.LENGTH_SHORT).show();
-                Map<String,Object> childUpdates = new HashMap<>();
+                mActivite.setStatus("true");
 
-                childUpdates.put("/"+mActivite.key+"/status",String.valueOf(isChecked));
+                Map<String,Object> childUpdates = new HashMap<>();
+                childUpdates.put("/"+mActivite.key+"/status",String.valueOf(true));
                 myRef.updateChildren(childUpdates);
+                mViewHolder.butoff.setVisibility(View.VISIBLE);
+                mViewHolder.buton.setVisibility(View.GONE);
 
             }
         });
+
+        mViewHolder.butoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mInflater.getContext(),"Hiding Already! wait a sec to refresh",Toast.LENGTH_SHORT).show();
+                mActivite = mActivites.get(position);
+                mActivite.setStatus("false");
+
+                Map<String,Object> childUpdates = new HashMap<>();
+                childUpdates.put("/"+mActivite.key+"/status",String.valueOf(false));
+                myRef.updateChildren(childUpdates);
+                mViewHolder.butoff.setVisibility(View.GONE);
+                mViewHolder.buton.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
+
         Button editBut = (Button) convertView.findViewById(R.id.editBut);
         Button deleteBut = (Button) convertView.findViewById(R.id.deleteBut);
         TextView clickmore = (TextView) convertView.findViewById(R.id.clickmore);

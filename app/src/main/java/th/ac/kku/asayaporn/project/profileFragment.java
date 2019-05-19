@@ -6,6 +6,7 @@ import android.app.assist.AssistContent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,20 +51,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.content.Context.MODE_PRIVATE;
 
 public class profileFragment extends Fragment {
-    private FirebaseAuth mAuth;
+
     String email="";
     String uid="";
     String disname ="";
     String url_photo = "";
     FirebaseUser currentFirebaseUser ;
+    private FirebaseAuth mAuth;
     ArrayList<ExampleItem> mExampleList;
     TextView tv_num_favorite;
     TextView tv_num_event;
     TextView waiting;
     TextView already;
     TextView emailtv;
+    TextView waitingmod;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    DatabaseReference myRefActi;
     TextView tv_name_user;
     @Nullable
     @Override
@@ -78,6 +82,8 @@ public class profileFragment extends Fragment {
         tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
         waiting = (TextView) view.findViewById(R.id.waitingTv);
         already = (TextView) view.findViewById(R.id.alreadyAccTv);
+        waitingmod= (TextView) view.findViewById(R.id.activitesTv);
+
         final TextView statusTv = (TextView) view.findViewById(R.id.statusTv);
         Button btn = (Button) view.findViewById(R.id.logoutBut);
         Button adminBut = (Button) view.findViewById(R.id.adminBut);
@@ -90,6 +96,7 @@ public class profileFragment extends Fragment {
         currentFirebaseUser = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
+        myRefActi = database.getReference("activities");
         layoutadmon.setVisibility(View.GONE);
         layoutmanage.setVisibility(View.GONE);
         myRef.addValueEventListener(new ValueEventListener() {
@@ -140,7 +147,51 @@ public class profileFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        myRefActi.addValueEventListener(new ValueEventListener() {
+            private String TAG = "TAGGGG";
 
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                    int n = 0 ;
+                    int waitingnum=0;
+                    int pass=0;
+                    String email="";
+                    if(currentFirebaseUser!=null){
+                        email=currentFirebaseUser.getEmail();
+                    }
+                    if(dataSnapshot.getValue()!=null){
+
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    if(child.child("by").getValue().equals(email)){
+                        if(child.child("status").getValue().equals("pending")){
+                            waitingnum++;
+                        }
+                        if(child.child("status").getValue().equals("true")){
+                            pass++;
+                        }
+
+                    }
+                    if(child.child("status").getValue().equals("pending")){
+                        n++;
+                    }
+
+                }
+                waiting.setText(waitingnum+"");
+                already.setText(pass+"");
+                waitingmod.setText("Awaiting to Accept : "+n+" Now!");
+                    }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+        });
 
         if (currentFirebaseUser == null) {
             view = inflater.inflate(R.layout.activity_request_login, container, false);
@@ -159,15 +210,7 @@ public class profileFragment extends Fragment {
                 uid = currentFirebaseUser.getUid();
                 disname = "unknown";
             } else {
-                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
-                    if (userInfo.getProviderId().equals("facebook.com")) {
-                        Toast.makeText(getContext(), userInfo.getProviderId().toString(), Toast.LENGTH_SHORT).show();
-                    } else if (userInfo.getProviderId().equals("google.com")) {
-                        Toast.makeText(getContext(), userInfo.getProviderId().toString(), Toast.LENGTH_SHORT).show();
-                    } else if (userInfo.getProviderId().equals("firebase")) {
-                        Toast.makeText(getContext(), userInfo.getProviderId().toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }
+
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
                 disname = currentFirebaseUser.getDisplayName();
                 email = currentFirebaseUser.getEmail();

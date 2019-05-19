@@ -11,6 +11,8 @@ import java.util.Map;
 public class ActivityKKU {
 
 
+    private String by;
+
     public String getUrl() {
         return url;
     }
@@ -119,6 +121,7 @@ public class ActivityKKU {
         result.put("url",url);
         result.put("status",status);
         result.put("key",key);
+        result.put("by",by);
         return result;
     }
     public String getImage() {
@@ -193,15 +196,10 @@ public class ActivityKKU {
         this.sponsor = sponsor;
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    public String getBy(){
+        return by;
+    }
+    public void setBy(String by) {
+        this.by=by;
+    }
 }

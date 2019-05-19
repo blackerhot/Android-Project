@@ -21,7 +21,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +46,8 @@ public class feedFragment extends Fragment {
     protected EditText editSearch;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
+    FirebaseUser currentFirebaseUser;
+    private FirebaseAuth mAuth;
     public static feedFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -68,8 +72,13 @@ public class feedFragment extends Fragment {
         editSearch.setText("");
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("activities");
-
+        mAuth = FirebaseAuth.getInstance();
+        currentFirebaseUser = mAuth.getCurrentUser();
         // Read from the database
+        SharedPreferences sp1;
+        final SharedPreferences.Editor editor1;
+        sp1 = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
+        editor1 = sp1.edit();
         myRef.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
 
@@ -88,13 +97,9 @@ public class feedFragment extends Fragment {
                 if(s0.length()!=0){
                     s0=s0.substring(0,s0.length()-1);
                 }
-                mListView.setAdapter(mAdapter);
-                SharedPreferences sp;
-                SharedPreferences.Editor editor;
-                sp = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
-                editor = sp.edit();
-                editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
-                editor.commit();
+
+                editor1.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
+                editor1.commit();
             }
 
             @Override
@@ -111,6 +116,8 @@ public class feedFragment extends Fragment {
         String result1 = sp.getString("jsonByUSER", "");
         String result = sp.getString("json", "");
         result = result.replace("&quot;", "'");
+        editor.commit();
+
 
         if(handlerData(result1)==""){
             String fromeall = "{\"activities\":[" ;
@@ -123,8 +130,6 @@ public class feedFragment extends Fragment {
             Log.e("result1all", fromeall);
             showData(fromeall);
         }
-
-        editor.commit();
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -222,7 +227,12 @@ public class feedFragment extends Fragment {
 
         if (id == R.id.action_adding) {
 
-            startActivity(new Intent(getActivity(), AddingActivity.class));
+            if(currentFirebaseUser!=null){
+                startActivity(new Intent(getActivity(), AddingActivity.class));
+            }else {
+                Toast.makeText(getContext(),"Sign in to use this function",Toast.LENGTH_SHORT).show();
+            }
+
         }
         if (id == R.id.action_sortbydatelates) {
             ActivityKKU activityKKU;
@@ -361,10 +371,11 @@ public class feedFragment extends Fragment {
         List<ActivityKKU> activity = blog.getActivities();
 
         for (int i = 0; i < activity.size(); i++) {
-            if(new Boolean(activity.get(i).getStatus())==true){
-                string += gson.toJson(activity.get(i).toMap())+",";
-            }
-
+            if (!activity.get(i).getStatus().equals("pending")){
+                if (new Boolean(activity.get(i).getStatus()) == true) {
+                    string += gson.toJson(activity.get(i).toMap()) + ",";
+                }
+        }
         }
         if(string.length()==0){
             return "";
