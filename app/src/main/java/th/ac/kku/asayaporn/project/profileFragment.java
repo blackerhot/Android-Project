@@ -69,6 +69,7 @@ public class profileFragment extends Fragment {
     DatabaseReference myRef;
     DatabaseReference myRefActi;
     TextView tv_name_user;
+    SharedPreferences sharedPreferences;
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -228,12 +229,13 @@ public class profileFragment extends Fragment {
         }
 
 
-
+        sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         tv_name_user.setText(disname);
         emailtv.setText(email);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FacebookSdk.setApplicationId("302892413797138");
                 FacebookSdk.sdkInitialize(getContext());
                 mAuth.signOut();
@@ -241,6 +243,8 @@ public class profileFragment extends Fragment {
                 AccessToken.setCurrentAccessToken(null);//logout facebook
                 // settings.edit().remove("LOGIN").commit();
 
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.clear().commit();
                 startActivity(new Intent(getContext(), MainActivity.class));
 
             }
@@ -268,7 +272,7 @@ public class profileFragment extends Fragment {
     }
 
     private void loadData() {
-        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
         Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();

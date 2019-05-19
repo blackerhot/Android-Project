@@ -127,16 +127,16 @@ public class activitesFragment extends  Fragment {
         Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
             @Override
             public int compare(ExampleItem t0, ExampleItem t1) {
-                SimpleDateFormat formatter2 = new SimpleDateFormat("HH.SS");
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
                 Date time1 = null;
                 Date time2 = null;
                 try {
-                    time1 = formatter2.parse(t0.getTimestart());
+                    time1 = formatter2.parse(t0.getDatest() + " " + t0.getTimestart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    time2 = formatter2.parse(t1.getTimestart());
+                    time2 = formatter2.parse(t1.getDatest() + " " + t1.getTimestart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -151,16 +151,16 @@ public class activitesFragment extends  Fragment {
         Collections.sort(all_exampe, new Comparator<ExampleItem>() {
             @Override
             public int compare(ExampleItem p0, ExampleItem p1) {
-                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
                 Date date1 = null;
                 Date date2 = null;
                 try {
-                    date1 = formatter2.parse(p0.getDatest());
+                    date1 = formatter2.parse(p0.getDatest() + " " + p0.getTimestart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    date2 = formatter2.parse(p1.getDatest());
+                    date2 = formatter2.parse(p1.getDatest() + " " + p1.getTimestart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
