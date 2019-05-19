@@ -101,18 +101,18 @@ public class profileFragment extends Fragment {
                         if (data.child("email").getValue().toString()
                                 .equals(currentFirebaseUser.getEmail())) {
 
-                                if(data.child("status").getValue()!=null){
-                                    if (data.child("status").getValue().toString().equals("admin")) {
-                                        statusTv.setText("Administrator");
+                                if(data.child("class").getValue()!=null){
+                                    if (data.child("class").getValue().toString().equals("admin")) {
+                                        statusTv.setText("Class :: Administrator");
 
                                         layoutmanage.setVisibility(View.VISIBLE);
                                         layoutadmon.setVisibility(View.VISIBLE);
                                     } else if (data.child("status").getValue().toString().equals("mod")) {
-                                        statusTv.setText("Moderator");
+                                        statusTv.setText("Class :: Moderator");
                                         layoutadmon.setVisibility(View.VISIBLE);
                                     }
                                 }else {
-                                    statusTv.setText("User");
+                                    statusTv.setText("Class :: User");
                                     layoutadmon.setVisibility(View.INVISIBLE);
                                 }
 
