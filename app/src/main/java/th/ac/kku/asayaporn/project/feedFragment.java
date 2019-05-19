@@ -57,8 +57,9 @@ public class feedFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_feed,
                 container, false);
-        getActivity().setTitle("Feed Activities");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM);
+
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setCustomView(R.layout.actionbar_feed);
         setHasOptionsMenu(true);
         mListView = (ListView) view.findViewById(R.id.feedlistview);

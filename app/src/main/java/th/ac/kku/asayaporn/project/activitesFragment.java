@@ -69,9 +69,9 @@ public class activitesFragment extends  Fragment {
         final SwipeMenuListView all_ev_listview;
         today_event_listView = (SwipeMenuListView) view.findViewById(R.id.lst);
         all_ev_listview = (SwipeMenuListView) view.findViewById(R.id.all_swip);
-        getActivity().setTitle("ํYour Activities");
+        getActivity().setTitle("ํActivities");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
-                setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+                setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         setHasOptionsMenu(true);
         loadData();
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();

@@ -46,9 +46,17 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends Activity {
     private static final int REQUEST_CODE = 10;
@@ -60,7 +68,8 @@ public class Login extends Activity {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     private static final String TAGF = "FacebookLogin";
     private CallbackManager mCallbackManager;
 
@@ -81,7 +90,8 @@ public class Login extends Activity {
         printHashKey(this);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("user");
         SharedPreferences settings = getSharedPreferences("LOGIN", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("doskip", true);
@@ -95,7 +105,32 @@ public class Login extends Activity {
            startActivity(myIntent);
         }
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            private String TAG = "TAGGGG";
 
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String s0 = "";
+                Gson gson = new Gson();
+
+                s0=gson.toJson(dataSnapshot.getValue().toString());
+
+                SharedPreferences sp;
+                SharedPreferences.Editor editor;
+                sp = Login.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                editor = sp.edit();
+                editor.putString("USER", new String(String.valueOf("{\"User\":[" + s0 + "]}")));
+                editor.commit();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
         getWindow().setLayout((int)(width),(int)(height));
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -273,7 +308,6 @@ public class Login extends Activity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-
                             Intent myIntent = new Intent(Login.this, InsideMainActivity.class);
 
                             startActivityForResult(myIntent ,REQUEST_CODE);
@@ -290,7 +324,6 @@ public class Login extends Activity {
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
@@ -298,9 +331,11 @@ public class Login extends Activity {
     private void updateUI(FirebaseUser user) {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            Map<String,Object> childUpdates = new HashMap<>();
+            childUpdates.put("/"+user.getUid()+"/email",user.getEmail());
 
-            String uid = user.getUid();
-            Log.d(TAG,uid);
+            myRef.updateChildren(childUpdates);
+
         }
     }
 
