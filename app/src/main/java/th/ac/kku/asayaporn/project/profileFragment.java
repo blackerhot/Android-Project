@@ -26,11 +26,17 @@ import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.time.Instant;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class profileFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -39,8 +45,9 @@ public class profileFragment extends Fragment {
     String disname ="";
     String url_photo = "";
     FirebaseUser currentFirebaseUser ;
-
-
+    ArrayList<ExampleItem> mExampleList;
+    TextView tv_num_favorite;
+    TextView tv_num_event;
     @Nullable
     @Override
     public View onCreateView (final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -131,10 +138,26 @@ public class profileFragment extends Fragment {
                 startActivity(new Intent(getContext(),AdminActivity.class));
             }
         });
+        loadData();
+        tv_num_event = (TextView) view.findViewById(R.id.num_event_tv);
+        tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
+        String event_num_str = String.valueOf(mExampleList.size());
+        tv_num_event.setText(event_num_str);
         return view;
 
 
     }
 
+    private void loadData() {
+        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+        mExampleList = gson.fromJson(json, type);
+
+        if (mExampleList == null) {
+            mExampleList = new ArrayList<>();
+        }
+    }
 
 }

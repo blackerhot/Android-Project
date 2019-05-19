@@ -120,6 +120,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/num_favorite_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -146,6 +147,7 @@
                             android:src="@drawable/icon_activity"
                             android:layout_centerHorizontal="true"/>
                         <TextView
+                            android:id="@+id/num_event_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
