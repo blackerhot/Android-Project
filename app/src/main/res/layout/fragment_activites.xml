@@ -12,29 +12,109 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+
+         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
             android:layout_marginBottom="3dp">
-           
-        </LinearLayout>
 
-        <LinearLayout
+         </LinearLayout>
+
+         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
 
+                <TextView
+                    android:id="@+id/tv_to_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="To day"
+                    android:textColor="@color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@id/tv_to_day"
+                    android:background="@color/black"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/tv_to_day"
+                    android:background="@color/black"
+                    />
+
+            </RelativeLayout>
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/lst"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:divider="@null"
                 android:dividerHeight="1dp"
                 android:focusable="true">
 
             </com.baoyz.swipemenulistview.SwipeMenuListView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                >
+
+                <TextView
+                    android:id="@+id/tv_all_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Upcoming Event"
+                    android:textColor="@color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@id/tv_all_event"
+                    android:background="@color/black"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/tv_all_event"
+                    android:background="@color/black"
+                    />
+
+            </RelativeLayout>
+             <com.baoyz.swipemenulistview.SwipeMenuListView
+                 android:id="@+id/all_swip"
+                 android:layout_width="match_parent"
+                 android:layout_height="300dp"
+                 android:layout_gravity="center"
+                 android:divider="@null"
+                 android:dividerHeight="1dp"
+                 android:focusable="true">
+
+             </com.baoyz.swipemenulistview.SwipeMenuListView>
         </LinearLayout>
 
     </LinearLayout>

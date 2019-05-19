@@ -18,28 +18,56 @@ public class ExampleItem {
         address = address1;
     }
 
+    public void setTimestart(String timestart) {
+        this.timestart = timestart;
+    }
+
     public String getTimestart() {
         return timestart;
+    }
+
+    public void setTimeend(String timeend) {
+        this.timeend = timeend;
     }
 
     public String getTimeend() {
         return timeend;
     }
 
+    public void setDatest(String datest) {
+        this.datest = datest;
+    }
+
     public String getDatest() {
         return datest;
+    }
+
+    public void setDateend(String dateend) {
+        this.dateend = dateend;
     }
 
     public String getDateend() {
         return dateend;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
 
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     public String getDetail() {
         return detail;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getAddress() {

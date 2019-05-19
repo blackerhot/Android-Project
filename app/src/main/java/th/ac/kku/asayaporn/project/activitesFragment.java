@@ -37,7 +37,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,20 +56,8 @@ public class activitesFragment extends  Fragment {
     public Button btn_go_calen;
     Intent intentother = null;
     ArrayList<ExampleItem> mExampleList;
-    /*String[] lstTime = new String[]{
-            "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00","18:00","19:00"
-    };
+    int year,month,day;
 
-    String[] lstTitle = new String[]{
-            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
-            "Android ListView ", "Android ListView ", "Android ListView ", "Android ListView ",
-            "Android ListView ", "Android ListView "
-    };
-    String[] lstItems = new String[]{
-            "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
-            "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description", "Android ListView Short Description",
-            "Android ListView Short Description", "Android ListView Short Description"
-    };*/
     private static final String TAG = "MainActivity";
 
 
@@ -71,22 +65,125 @@ public class activitesFragment extends  Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites,container,false);
-        final SwipeMenuListView listView;
-
-        listView = (SwipeMenuListView) view.findViewById(R.id.lst);
+        final SwipeMenuListView  today_event_listView;
+        final SwipeMenuListView all_ev_listview;
+        today_event_listView = (SwipeMenuListView) view.findViewById(R.id.lst);
+        all_ev_listview = (SwipeMenuListView) view.findViewById(R.id.all_swip);
         getActivity().setTitle("ํYour Activities");
         ((AppCompatActivity)getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
         setHasOptionsMenu(true);
         loadData();
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+        final List<HashMap<String, String>> bList = new ArrayList<HashMap<String, String>>();
         // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
-
+        ExampleItem all_event_item;
+        ExampleItem today_event_item;
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        month = month + 1;
+        day = c.get(Calendar.DAY_OF_MONTH);
+        String today_str = year + "-" + month + "-" + day;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date strDate = null;
+        Date endDate = null;
+        Date todate = null;
+        final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
+        final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
         for (int i = 0; i < mExampleList.size(); i++) {
+            try {
+                strDate = sdf.parse(mExampleList.get(i).getDatest());
+                endDate = sdf.parse(mExampleList.get(i).getDateend());
+                todate = sdf.parse(today_str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (todate.after(strDate)) {
+                if (todate.after(endDate)){
+                    mExampleList.remove(i);
+                }
+            }
+        }
+        saveData();
+
+        for (int i = 0; i < mExampleList.size(); i++){
+            try {
+            strDate = sdf.parse(mExampleList.get(i).getDatest());
+            todate = sdf.parse(today_str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (strDate.equals(todate)) {
+                today_event_item = (ExampleItem) mExampleList.get(i);
+                to_day_exampe.add(today_event_item);
+
+            }else {
+                all_event_item = (ExampleItem) mExampleList.get(i);
+                all_exampe.add(all_event_item);
+            }
+
+        }
+        Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
+            @Override
+            public int compare(ExampleItem t0, ExampleItem t1) {
+                SimpleDateFormat formatter2 = new SimpleDateFormat("HH.SS");
+                Date time1 = null;
+                Date time2 = null;
+                try {
+                    time1 = formatter2.parse(t0.getTimestart());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    time2 = formatter2.parse(t1.getTimestart());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (time1.compareTo(time2) < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+
+            }
+        });
+        Collections.sort(all_exampe, new Comparator<ExampleItem>() {
+            @Override
+            public int compare(ExampleItem p0, ExampleItem p1) {
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = null;
+                Date date2 = null;
+                try {
+                    date1 = formatter2.parse(p0.getDatest());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    date2 = formatter2.parse(p1.getDatest());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (date1.compareTo(date2) < 0) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+
+            }
+        });
+        for (int i = 0; i < to_day_exampe.size(); i++){
+            HashMap<String, String> hm_td = new HashMap<String, String>();
+            hm_td.put("listview_datestr",to_day_exampe.get(i).getTimestart());
+            hm_td.put("listview_title",to_day_exampe.get(i).getTitle());
+            hm_td.put("listview_comment",to_day_exampe.get(i).getDetail());
+            bList.add(hm_td);
+        }
+        for (int i = 0; i < all_exampe.size(); i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
-            hm.put("listview_datestr",mExampleList.get(i).getTimestart());
-            hm.put("listview_title",mExampleList.get(i).getTitle());
-            hm.put("listview_comment",mExampleList.get(i).getDetail());
+            hm.put("listview_datestr",all_exampe.get(i).getTimestart());
+            hm.put("listview_title",all_exampe.get(i).getTitle());
+            hm.put("listview_comment",all_exampe.get(i).getDetail());
             /*hm.put("listview_title", lstTime[i]);
             hm.put("listview_discription", lstTitle[i]);
             hm.put("listview_item", lstItems[i]);*/
@@ -99,12 +196,14 @@ public class activitesFragment extends  Fragment {
         }
 
         String[] from = { "listview_datestr", "listview_title", "listview_comment"};
-        int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
+        final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
 
-        final SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(),
+        final SimpleAdapter aAdapter = new SimpleAdapter(getContext(),
                             aList, R.layout.listview_activity, from, to);
-        listView.setAdapter(simpleAdapter);
-
+        final SimpleAdapter bAdapter = new SimpleAdapter(getContext(),
+                bList, R.layout.listview_activity, from, to);
+        all_ev_listview.setAdapter(aAdapter);
+        today_event_listView.setAdapter(bAdapter);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             SwipeMenuItem deleteItem;
             @Override
@@ -121,17 +220,23 @@ public class activitesFragment extends  Fragment {
             }
         };
 
-        listView.setMenuCreator(creator);
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+        all_ev_listview.setMenuCreator(creator);
+        all_ev_listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        listView.smoothOpenMenu(position);
+                        all_ev_listview.smoothOpenMenu(position);
+                        for(int i = 0 ;i < mExampleList.size(); i++){
+                            if (aList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())){
+                                if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
+                                    mExampleList.remove(i);
+                                    saveData();
+                                }
+                            }
+                        }
                         aList.remove(position);
-                        listView.setAdapter(simpleAdapter);
-                        mExampleList.remove(position);
-                        saveData();
+                        all_ev_listview.setAdapter(aAdapter);
                         break;
                   /*  case 1:
                         Log.d(TAG, "onMenuItemClick: clicked item " + index);
@@ -143,9 +248,34 @@ public class activitesFragment extends  Fragment {
 
 
         });
+        today_event_listView.setMenuCreator(creator);
+        today_event_listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        today_event_listView.smoothOpenMenu(position);
+                        for(int i = 0 ;i < mExampleList.size(); i++){
+                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())){
+                                if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
+                                    mExampleList.remove(i);
+                                    saveData();
+                                }
+                            }
+                        }
+                        bList.remove(position);
+                        today_event_listView.setAdapter(bAdapter);
+                        break;
+                  /*  case 1:
+                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
+                        break; */
+                }
 
-        listView.setCloseInterpolator(new BounceInterpolator());
-        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+                return false;
+            }
+        });
+        today_event_listView.setCloseInterpolator(new BounceInterpolator());
+        today_event_listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
             @Override
             public void onSwipeStart(int position) {
 
