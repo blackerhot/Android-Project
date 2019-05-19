@@ -78,7 +78,19 @@
                             android:text="Status : "
                             android:layout_gravity="center_horizontal"
                             android:textSize="15sp"
-                            android:layout_marginTop="6dp"/>
+                            android:layout_marginTop="6dp"
+                            android:paddingBottom="5dp"/>
+                        <Button
+                            android:background="@drawable/click"
+                            android:id="@+id/logoutBut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sign Out"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:layout_gravity="center"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentBottom="true"/>
                     </LinearLayout>
 
                 </android.support.v7.widget.CardView>
@@ -207,17 +219,7 @@
                     android:layout_alignParentBottom="true"/>
 
             </LinearLayout>
-            <Button
-                android:background="@drawable/click"
-                android:id="@+id/logoutBut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_alignParentBottom="true"/>
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
