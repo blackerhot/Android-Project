@@ -186,6 +186,39 @@
                     android:layout_alignParentBottom="true"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutmanage"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+
+
+                <Button
+                    android:background="@drawable/click"
+                    android:id="@+id/userBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Manage"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"/>
+
+            </LinearLayout>
+            <Button
+                android:background="@drawable/click"
+                android:id="@+id/logoutBut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Out"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_alignParentBottom="true"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

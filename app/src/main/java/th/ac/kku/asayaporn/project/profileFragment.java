@@ -59,7 +59,7 @@ public class profileFragment extends Fragment {
     ArrayList<ExampleItem> mExampleList;
     TextView tv_num_favorite;
     TextView tv_num_event;
-    FirebaseUser currentFirebaseUser;
+
     FirebaseDatabase database;
     DatabaseReference myRef;
 
@@ -73,7 +73,7 @@ public class profileFragment extends Fragment {
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         TextView emailtv = (TextView) view.findViewById(R.id.emailTv);
         final TextView statusTv = (TextView) view.findViewById(R.id.statusTv);
-        Button btn = (Button) view.findViewById(R.id.buttonlogout);
+        Button btn = (Button) view.findViewById(R.id.logoutBut);
         Button adminBut = (Button) view.findViewById(R.id.adminBut);
         TextView tv_name_user = (TextView) view.findViewById(R.id.tv_name_user);
         CircleImageView user_photo = (CircleImageView) view.findViewById(R.id.user_photo_id);
