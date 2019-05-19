@@ -389,16 +389,16 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 int hour_end_PM = hour_end -12;
                 if (hour_end_PM < 10){
                     if (minute_start < 10){
-                        timeEd = "PM. 0" + hour_end_PM + ":0" + minute_end;
+                        timeEd = "PM. 0" + hour_end_PM + ".0" + minute_end;
                     } else {
-                        timeEd = "PM. 0" + hour_end_PM + ":" + minute_end;
+                        timeEd = "PM. 0" + hour_end_PM + "." + minute_end;
                     }
 
                 }else {
                     if (minute_start < 10){
-                        timeEd = "PM. " + hour_end_PM + ":0" + minute_end;
+                        timeEd = "PM. " + hour_end_PM + ".0" + minute_end;
                     } else {
-                        timeEd = "PM. " + hour_end_PM + ":" + minute_end;
+                        timeEd = "PM. " + hour_end_PM + "." + minute_end;
                     }
 
                 }
@@ -406,16 +406,16 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             }else {
                 if (hour_end < 10){
                     if (minute_start < 10){
-                        timeEd = "AM. 0" + hour_end + ":0" + minute_end;
+                        timeEd = "AM. 0" + hour_end + ".0" + minute_end;
                     } else {
-                        timeEd = "AM. 0" + hour_end + ":" + minute_end;
+                        timeEd = "AM. 0" + hour_end + "." + minute_end;
                     }
 
                 }else {
                     if (minute_end < 10){
-                        timeEd = "AM. " + hour_end + ":0" + minute_end;
+                        timeEd = "AM. " + hour_end + ".0" + minute_end;
                     } else {
-                        timeEd = "AM. " + hour_end + ":" + minute_end;
+                        timeEd = "AM. " + hour_end + "." + minute_end;
                     }
 
                 }
