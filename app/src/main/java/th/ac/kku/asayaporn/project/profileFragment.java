@@ -101,13 +101,13 @@ public class profileFragment extends Fragment {
                         if (data.child("email").getValue().toString()
                                 .equals(currentFirebaseUser.getEmail())) {
 
-                                if(data.child("class").getValue()!=null){
-                                    if (data.child("class").getValue().toString().equals("admin")) {
+                                if(data.child("classes").getValue()!=null){
+                                    if (data.child("classes").getValue().toString().equals("admin")) {
                                         statusTv.setText("Class :: Administrator");
 
                                         layoutmanage.setVisibility(View.VISIBLE);
                                         layoutadmon.setVisibility(View.VISIBLE);
-                                    } else if (data.child("class").getValue().toString().equals("mod")) {
+                                    } else if (data.child("classes").getValue().toString().equals("mod")) {
                                         statusTv.setText("Class :: Moderator");
                                         layoutadmon.setVisibility(View.VISIBLE);
                                         layoutmanage.setVisibility(View.INVISIBLE);
@@ -201,6 +201,12 @@ public class profileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AdminActivity.class));
+            }
+        });
+        manageBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), UserActivity.class));
             }
         });
         loadData();

@@ -40,7 +40,7 @@ public class AdminActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Administrator");
+            actionBar.setTitle("Manage Activities");
         }
         mListView = (ListView) findViewById(R.id.feedlistview);
         database = FirebaseDatabase.getInstance();

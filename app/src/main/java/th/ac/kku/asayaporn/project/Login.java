@@ -333,7 +333,7 @@ public class Login extends Activity {
         if (user != null) {
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put("/"+user.getUid()+"/email",user.getEmail());
-
+            childUpdates.put("/"+user.getUid()+"/uid",user.getUid());
             myRef.updateChildren(childUpdates);
 
         }

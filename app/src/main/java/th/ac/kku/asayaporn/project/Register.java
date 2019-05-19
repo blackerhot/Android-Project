@@ -153,7 +153,7 @@ public class Register extends Activity {
             // Name, email address, and profile photo Url
             Map<String,Object> childUpdates = new HashMap<>();
             childUpdates.put("/"+user.getUid()+"/email",user.getEmail());
-
+            childUpdates.put("/"+user.getUid()+"/uid",user.getUid());
             myRef.updateChildren(childUpdates);
         }
     }
