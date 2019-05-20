@@ -2,7 +2,11 @@ package th.ac.kku.asayaporn.project;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +20,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +59,9 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
     String place;
     String content;
 
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    ConnectivityManager manager ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +78,8 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
         sendBut = (Button) findViewById(R.id.btn_send_for_me);
         btnstartdate = (Button) findViewById(R.id.btn_start_date_for_me);
         btnenddate = (Button) findViewById(R.id.btn_end_date_for_me);
-
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("user");
         sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +150,22 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
             String json = gson.toJson(mExampleList);
             editor.putString("task list", json);
             editor.apply();
+            manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null){
+                    Map<String,Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/TimeStart",timeSt);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/TimeEnd",timeEd);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/DateStart",dateSt);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title +"/DateEnd",dateEd);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/content",content);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/place",place);
+                    myRef.updateChildren(childUpdates);
+                }
+            }
+
             onBackPressed();
 
     }
@@ -161,6 +187,14 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AddActivityForme.this, InsideMainActivity.class);
+       // startActivity(intent);
+       // finish();
     }
 
     @Override

@@ -43,6 +43,8 @@ import com.google.api.services.calendar.model.Events;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -56,7 +58,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
@@ -82,6 +86,9 @@ public class ItemActivity extends AppCompatActivity {
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
     ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
     String timestr , timeEndstr;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +109,8 @@ public class ItemActivity extends AppCompatActivity {
         butAddEvent = (Button) findViewById(R.id.butAddEvent);
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         para = getIntent().getExtras();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("user");
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collap);
         getSupportActionBar().setTitle(para.getString("title"));
 
@@ -126,7 +135,6 @@ public class ItemActivity extends AppCompatActivity {
         final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
         if(currentFirebaseUser!=null){
 
-
         for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
             if (userInfo.getProviderId().equals("google.com")) {
@@ -149,7 +157,18 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 saveData();
                 if(currentFirebaseUser!=null){
-
+                    timestr = para.getString("timest");
+                    timestr = timestr.substring(4);
+                    timeEndstr = para.getString("timeed");
+                    timeEndstr = timeEndstr.substring(4);
+                    Map<String,Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/TimeStart",timestr);
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/TimeEnd",timeEndstr);
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/DateStart",para.getString("detest"));
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" +  para.getString("title") +"/DateEnd",para.getString("dateend"));
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/content",para.getString("detail"));
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/place",para.getString("address"));
+                    myRef.updateChildren(childUpdates);
                 for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                     if (userInfo.getProviderId().equals("google.com")) {
