@@ -228,19 +228,19 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                 if (hour_start_PM < 10){
                     if (minute_start < 10){
                         //timeSt = "PM. 0" + hour_start_PM + ".0" + minute_start;
-                        timeSt = "0" + hour_start_PM + ".0" + minute_start;
+                        timeSt = "" + hour_start + ".0" + minute_start;
                     } else {
                         //timeSt = "PM. 0" + hour_start_PM + "." + minute_start;
-                        timeSt = "0" + hour_start_PM + "." + minute_start;
+                        timeSt = "" + hour_start + "." + minute_start;
                     }
 
                 }else {
                     if (minute_start < 10){
                        // timeSt = "PM. " + hour_start_PM + ".0" + minute_start;
-                        timeSt = "" + hour_start_PM + ".0" + minute_start;
+                        timeSt = "" + hour_start + ".0" + minute_start;
                     } else {
                         //timeSt = "PM. " + hour_start_PM + "." + minute_start;
-                        timeSt = "" + hour_start_PM + "." + minute_start;
+                        timeSt = "" + hour_start + "." + minute_start;
                     }
 
                 }
@@ -258,15 +258,16 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                 }else {
                     if (minute_end < 10){
                        // timeSt = "AM. " + hour_end + ".0" + minute_start;
-                        timeSt = "" + hour_end + ".0" + minute_start;
+                        timeSt = "" + hour_start + ".0" + minute_start;
                     } else {
                         //timeSt = "AM. " + hour_end + "." + minute_start;
-                        timeSt = "" + hour_end + "." + minute_start;
+                        timeSt = "" + hour_start + "." + minute_start;
                     }
 
 
-                } btnstartdate.setText(dateSt + ", " + timeSt);
+                }
             }
+            btnstartdate.setText(dateSt + ", " + timeSt);
         }else if (state == true){
 
             hour_end = i;
@@ -280,19 +281,19 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                 if (hour_end_PM < 10){
                     if (minute_start < 10){
                        // timeEd = "PM. 0" + hour_end_PM + ".0" + minute_end;
-                        timeEd = "0" + hour_end_PM + ".0" + minute_end;
+                        timeEd = "" + hour_end + ".0" + minute_end;
                     } else {
                        // timeEd = "PM. 0" + hour_end_PM + "." + minute_end;
-                        timeEd = "0" + hour_end_PM + "." + minute_end;
+                        timeEd = "" + hour_end + "." + minute_end;
                     }
 
                 }else {
                     if (minute_start < 10){
                        // timeEd = "PM. " + hour_end_PM + ".0" + minute_end;
-                        timeEd = "" + hour_end_PM + ".0" + minute_end;
+                        timeEd = "" + hour_end + ".0" + minute_end;
                     } else {
                         // timeEd = "PM. " + hour_end_PM + "." + minute_end;
-                        timeEd = "" + hour_end_PM + "." + minute_end;
+                        timeEd = "" + hour_end + "." + minute_end;
                     }
 
                 }

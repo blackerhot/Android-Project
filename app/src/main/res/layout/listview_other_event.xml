@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/android_list_view_tutorial_with_example"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:id="@+id/bgActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:background="@drawable/selector_btn_notify"
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingLeft="35dp"
+        android:layout_margin="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/lsttime_other_event"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/pb"
+                android:layout_height="0dp"
+                android:layout_weight="1.2"
+                android:text="10:00"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lstdate_other_event"
+                android:layout_weight="0.8"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/pb"
+                android:text="day"
+                android:textSize="20dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="40dp">
+            <TextView
+                android:id="@+id/lstTitle_other_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pb"
+                android:text="Title"
+                android:inputType="textAutoComplete"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/lstItems_other_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pr"
+                android:text="message"
+                android:inputType="textAutoComplete"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

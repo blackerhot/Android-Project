@@ -181,7 +181,8 @@ public class activitesFragment extends  Fragment {
         }
         for (int i = 0; i < all_exampe.size(); i++) {
             HashMap<String, String> hm = new HashMap<String, String>();
-            hm.put("listview_datestr",all_exampe.get(i).getTimestart());
+            hm.put("listview_timestr",all_exampe.get(i).getTimestart());
+            hm.put("listview_datestr",all_exampe.get(i).getDatest());
             hm.put("listview_title",all_exampe.get(i).getTitle());
             hm.put("listview_comment",all_exampe.get(i).getDetail());
             /*hm.put("listview_title", lstTime[i]);
@@ -197,9 +198,10 @@ public class activitesFragment extends  Fragment {
 
         String[] from = { "listview_datestr", "listview_title", "listview_comment"};
         final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
-
+        String[] from_other_event = { "listview_timestr", "listview_datestr","listview_title", "listview_comment"};
+        final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event,R.id.lstItems_other_event};
         final SimpleAdapter aAdapter = new SimpleAdapter(getContext(),
-                            aList, R.layout.listview_activity, from, to);
+                            aList, R.layout.listview_other_event, from_other_event, to_other_event);
         final SimpleAdapter bAdapter = new SimpleAdapter(getContext(),
                 bList, R.layout.listview_activity, from, to);
         all_ev_listview.setAdapter(aAdapter);
@@ -228,7 +230,7 @@ public class activitesFragment extends  Fragment {
                     case 0:
                         all_ev_listview.smoothOpenMenu(position);
                         for(int i = 0 ;i < mExampleList.size(); i++){
-                            if (aList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())){
+                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimestart())){
                                 if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
                                     mExampleList.remove(i);
                                     saveData();

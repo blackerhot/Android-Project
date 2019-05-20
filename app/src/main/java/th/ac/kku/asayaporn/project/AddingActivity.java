@@ -354,8 +354,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     }
 
                 }
-                btnstartdate.setText(dateSt + ", " + timeSt);
-            }
+
+            } btnstartdate.setText(dateSt + ", " + timeSt);
         } else if (state == true) {
 
             hour_end = i;
@@ -398,8 +398,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     }
 
                 }
-                btnenddate.setText(dateEd + ", " + timeEd);
-            }
+
+            } btnenddate.setText(dateEd + ", " + timeEd);
         }
     }
 
