@@ -50,7 +50,7 @@ import java.util.Map;
 
 import static java.nio.file.Files.copy;
 
-public class CustomAdapter2 extends BaseAdapter {
+public class CustomAdapter4user extends BaseAdapter {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -62,7 +62,7 @@ public class CustomAdapter2 extends BaseAdapter {
     protected ActivityKKU mActivite;
 
 
-    public CustomAdapter2(Activity activity, List<ActivityKKU> posts) {
+    public CustomAdapter4user(Activity activity, List<ActivityKKU> posts) {
         activity = activity;
         mInflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -103,7 +103,7 @@ public class CustomAdapter2 extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.activites_kku_approve, parent, false);
+            convertView = mInflater.inflate(R.layout.activites_kku_user, parent, false);
             mViewHolder = new ViewHolder();
             mViewHolder.pic = (ImageView) convertView.findViewById(R.id.post_pic);
             mViewHolder.title = (TextView) convertView.findViewById(R.id.post_title);
@@ -116,8 +116,6 @@ public class CustomAdapter2 extends BaseAdapter {
             //  mViewHolder.website = (TextView) convertView.findViewById(R.id.post_website);
             //  mViewHolder.sponser = (TextView) convertView.findViewById(R.id.post_sponser);
             mViewHolder.address = (TextView) convertView.findViewById(R.id.post_address);
-            mViewHolder.buton = (Button) convertView.findViewById(R.id.buton);
-            mViewHolder.butoff = (Button) convertView.findViewById(R.id.butoff);
             convertView.setTag(mViewHolder);
 
         } else {
@@ -127,8 +125,8 @@ public class CustomAdapter2 extends BaseAdapter {
         myRef = database.getReference("activities");
         mActivite = mActivites.get(position);
 
-            Picasso.get().load(mActivite.image).resize(2048, 1600).
-                    onlyScaleDown().into(mViewHolder.pic);//wait for img
+        Picasso.get().load(mActivite.image).resize(2048, 1600).
+                onlyScaleDown().into(mViewHolder.pic);//wait for img
         mViewHolder.title.setText(mActivite.title);
         mViewHolder.address.setText("สถานที่จัดงาน : " + mActivite.place);
         mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt + " (" + mActivite.timeSt + ")");
@@ -136,21 +134,15 @@ public class CustomAdapter2 extends BaseAdapter {
 
         if(!mActivite.status.equals("pending")){
             if(new Boolean(mActivite.status)){
-                mViewHolder.buton.setVisibility(View.GONE);
-                mViewHolder.butoff.setVisibility(View.VISIBLE);
+
                 mViewHolder.statusTv.setText("Status : Showing ");
 
             }else{
-                mViewHolder.butoff.setVisibility(View.GONE);
-                mViewHolder.buton.setVisibility(View.VISIBLE);
+
                 mViewHolder.statusTv.setText("Status : Hiding ");
             }
         }else {
-            mViewHolder.butoff.setVisibility(View.VISIBLE);
-            mViewHolder.buton.setVisibility(View.VISIBLE);
-            Map<String,Object> childUpdates = new HashMap<>();
-            childUpdates.put("/"+mActivite.key+"/status",String.valueOf(false));
-            myRef.updateChildren(childUpdates);
+            mViewHolder.statusTv.setText("Status : Pending ");
         }
 
 
@@ -169,7 +161,6 @@ public class CustomAdapter2 extends BaseAdapter {
 
                     //Here you can access the child.getKey()
                     ActivityKKU user = child.getValue(ActivityKKU.class);
-
                     s0 += gson.toJson(user.toMap()) + ",";
                 }
                 if(s0.length()!=0){
@@ -190,39 +181,6 @@ public class CustomAdapter2 extends BaseAdapter {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-        mViewHolder.buton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mInflater.getContext(),"Showing Already! wait a sec to refresh",Toast.LENGTH_SHORT).show();
-                mActivite = mActivites.get(position);
-                mActivite.setStatus("true");
-
-                Map<String,Object> childUpdates = new HashMap<>();
-                childUpdates.put("/"+mActivite.key+"/status",String.valueOf(true));
-                myRef.updateChildren(childUpdates);
-                mViewHolder.butoff.setVisibility(View.VISIBLE);
-                mViewHolder.buton.setVisibility(View.GONE);
-
-            }
-        });
-
-        mViewHolder.butoff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mInflater.getContext(),"Hiding Already! wait a sec to refresh",Toast.LENGTH_SHORT).show();
-                mActivite = mActivites.get(position);
-                mActivite.setStatus("false");
-
-                Map<String,Object> childUpdates = new HashMap<>();
-                childUpdates.put("/"+mActivite.key+"/status",String.valueOf(false));
-                myRef.updateChildren(childUpdates);
-                mViewHolder.butoff.setVisibility(View.GONE);
-                mViewHolder.buton.setVisibility(View.VISIBLE);
-
-            }
-        });
-
 
 
         Button editBut = (Button) convertView.findViewById(R.id.editBut);

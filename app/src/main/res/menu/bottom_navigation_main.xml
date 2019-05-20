@@ -6,19 +6,19 @@
         android:id="@+id/activiteBar"
         android:enabled="true"
         android:icon="@drawable/iconbell"
-        android:title="Activites"
+        android:title="My Activities"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/feedBar"
         android:enabled="true"
         android:icon="@drawable/iconfeed"
-        android:title="Feed"
+        android:title="Feed Event"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/Profile"
         android:enabled="true"
         android:icon="@drawable/iconprofile"
-        android:title="Profile"
+        android:title="Management"
         app:showAsAction="ifRoom" />
 </menu>

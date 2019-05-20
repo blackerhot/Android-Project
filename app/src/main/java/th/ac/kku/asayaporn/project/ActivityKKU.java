@@ -13,6 +13,8 @@ public class ActivityKKU {
 
     private String by;
 
+
+
     public String getUrl() {
         return url;
     }
@@ -40,9 +42,13 @@ public class ActivityKKU {
         this.status = status;
     }
 
+    public ActivityKKU(){
+
+    }
     String status;
     public ActivityKKU(JsonObject contact, String url, String image, String title, String place,
-                       String content, String dateSt, String dateEd, String phone, String website, String timeSt, String timeEt, String sponsor) {
+                       String content, String dateSt, String dateEd, String phone, String website,
+                       String timeSt, String timeEt, String sponsor) {
         this.contact = contact;
         this.url = url;
         this.image = image;
@@ -88,10 +94,6 @@ public class ActivityKKU {
     String timeEd;
     String sponsor;
 
-    public ActivityKKU(){
-
-
-    }
 
     public String getKey() {
         return key;

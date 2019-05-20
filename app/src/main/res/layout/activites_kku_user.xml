@@ -98,18 +98,7 @@
                 android:text="ddddddd"
                 android:textSize="18dp"
                 android:id="@+id/stateTv"/>
-         <Button
-             android:id="@+id/buton"
-             android:textColor="@color/lightgreen"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Approve"/>
-            <Button
-                android:id="@+id/butoff"
-                android:textColor="@color/red"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="disApprove"/>
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -118,27 +107,27 @@
             android:id="@+id/keyTv"
             android:text="xxxxxxxxxxxxxxxxxxxxxxxxx"/>
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:gravity="center"
-           android:orientation="horizontal">
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="16dp"
-               android:layout_gravity="center"
-               android:id="@+id/editBut"
-               android:text="Edit"/>
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="16dp"
-               android:layout_gravity="center"
-               android:id="@+id/deleteBut"
-               android:text="Delete"/>
-       </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_gravity="center"
+                android:id="@+id/editBut"
+                android:text="Edit"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_gravity="center"
+                android:id="@+id/deleteBut"
+                android:text="Delete"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/clickmore"
             android:layout_width="wrap_content"

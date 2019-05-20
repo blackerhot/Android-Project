@@ -206,8 +206,9 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/imag_store"
+                        <ImageButton
+                            android:background="@android:color/transparent"
+                            android:id="@+id/waitingBut"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:src="@drawable/icon_box"
@@ -218,9 +219,9 @@
                             android:id="@+id/textwaiting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Watiing to Accept"
+                            android:text="Waiting to Accept"
                             android:textSize="20sp"
-                            android:layout_below="@+id/imag_store"
+                            android:layout_below="@+id/waitingBut"
                             android:layout_centerHorizontal="true"/>
                         <TextView
                             android:id="@+id/waitingTv"
@@ -241,9 +242,11 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/no_com_id"
-                            android:layout_width="60dp"
+                        <ImageButton
+                            android:background="@android:color/transparent"
+
+                            android:id="@+id/acceptedBut"
+                            android:layout_width="40dp"
                             android:layout_height="60dp"
                             android:layout_marginTop="20dp"
                             android:src="@drawable/icon_activity"
@@ -253,9 +256,9 @@
                             android:id="@+id/Tvalreay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/no_com_id"
+                            android:layout_below="@+id/acceptedBut"
                             android:layout_centerHorizontal="true"
-                            android:text="Accepting"
+                            android:text="Accepted"
                             android:textSize="20sp" />
                         <TextView
                             android:id="@+id/alreadyAccTv"

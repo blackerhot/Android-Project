@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,109 +24,103 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class AdminActivity extends AppCompatActivity {
+public class MyActivities extends AppCompatActivity {
 
     protected ListView mListView;
-    protected CustomAdapter2 mAdapter;
-
+    protected CustomAdapter4user mAdapter;
+    Bundle para;
     FirebaseDatabase database;
     DatabaseReference myRef;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_activites);
+        setContentView(R.layout.activites_user);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Manage Activities");
+            actionBar.setTitle("My Activities(Pending)");
         }
         mListView = (ListView) findViewById(R.id.feedlistview);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("activities");
-
+        para = getIntent().getExtras();
 
         myRef.addChildEventListener(new ChildEventListener() {
-                                        @Override
-                                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                                        }
+            }
 
-                                        @Override
-                                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                            mAdapter.notifyDataSetChanged();
-                                        }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                mAdapter.notifyDataSetChanged();
+            }
 
-                                        @Override
-                                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                                            mAdapter.notifyDataSetChanged();
-                                        }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                mAdapter.notifyDataSetChanged();
+            }
 
-                                        @Override
-                                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                                        }
+            }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                        }
-                                    });
+            }
+        });
 
-                myRef.addValueEventListener(new ValueEventListener() {
-                    private String TAG = "TAGGGG";
+        myRef.addValueEventListener(new ValueEventListener() {
+            private String TAG = "TAGGGG";
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
-                        String s0 = "";
-                        Gson gson = new Gson();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String s0 = "";
+                Gson gson = new Gson();
 
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            //Here you can access the child.getKey()
-                            ActivityKKU user = child.getValue(ActivityKKU.class);
-
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    //Here you can access the child.getKey()
+                    ActivityKKU user = child.getValue(ActivityKKU.class);
+                    if((user.getBy()+"").equals(para.getString("email"))){
+                        if(user.getStatus().equals("pending")){
                             s0 += gson.toJson(user.toMap()) + ",";
                         }
-                        if (s0.length() != 0) {
-                            s0 = s0.substring(0, s0.length() - 1);
-                        }
 
-                        SharedPreferences sp;
-                        SharedPreferences.Editor editor;
-                        sp = AdminActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
-                        editor = sp.edit();
-                        editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
-                        editor.commit();
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
+                }
+                if (s0.length() != 0) {
+                    s0 = s0.substring(0, s0.length() - 1);
+                }
 
-        SharedPreferences sp;
-        SharedPreferences.Editor editor;
-        sp = AdminActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
-        editor = sp.edit();
-        String result1 = sp.getString("jsonByUSER", "");
-        editor.commit();
-        String fromeall = "{\"activities\":[" + handlerData1(result1) + "]}";
+                String result1 = new String(String.valueOf("{\"activities\":[" + s0 + "]}"));
+                String fromeall = "{\"activities\":[" + handlerData1(result1) + "]}";
 
-        showData(fromeall);
+                showData(fromeall);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
 
 
-        final Intent intent = new Intent(AdminActivity.this, ItemActivity2.class);
+
+
+        final Intent intent = new Intent(MyActivities.this, ItemActivity2.class);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ActivityKKU mActivite = (ActivityKKU) parent.getItemAtPosition(position);
-
 
                 intent.putExtra("img", String.valueOf(mActivite.image));
                 intent.putExtra("title", String.valueOf(mActivite.title));
@@ -165,7 +158,7 @@ public class AdminActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Blog blog = gson.fromJson(json, Blog.class);
         List<ActivityKKU> activity = blog.getActivities();
-        mAdapter = new CustomAdapter2(AdminActivity.this, activity);
+        mAdapter = new CustomAdapter4user(MyActivities.this, activity);
         mListView.setAdapter(mAdapter);
 
     }

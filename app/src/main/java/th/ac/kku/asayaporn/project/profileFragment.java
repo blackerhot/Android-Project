@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,11 +53,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class profileFragment extends Fragment {
 
-    String email="";
-    String uid="";
-    String disname ="";
+    String email = "";
+    String uid = "";
+    String disname = "";
     String url_photo = "";
-    FirebaseUser currentFirebaseUser ;
+    FirebaseUser currentFirebaseUser;
     private FirebaseAuth mAuth;
     ArrayList<ExampleItem> mExampleList;
     TextView tv_num_favorite;
@@ -67,9 +68,12 @@ public class profileFragment extends Fragment {
     TextView waitingmod;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    ImageButton waitinBut;
+    ImageButton acceptBut;
     DatabaseReference myRefActi;
     TextView tv_name_user;
     SharedPreferences sharedPreferences;
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -78,13 +82,14 @@ public class profileFragment extends Fragment {
         getActivity().setTitle("Management");
         ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
-        emailtv= (TextView) view.findViewById(R.id.emailTv);
+        emailtv = (TextView) view.findViewById(R.id.emailTv);
         tv_num_event = (TextView) view.findViewById(R.id.num_event_tv);
         tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
         waiting = (TextView) view.findViewById(R.id.waitingTv);
         already = (TextView) view.findViewById(R.id.alreadyAccTv);
-        waitingmod= (TextView) view.findViewById(R.id.activitesTv);
-
+        waitingmod = (TextView) view.findViewById(R.id.activitesTv);
+        waitinBut = (ImageButton) view.findViewById(R.id.waitingBut);
+        acceptBut = (ImageButton) view.findViewById(R.id.acceptedBut);
         final TextView statusTv = (TextView) view.findViewById(R.id.statusTv);
         Button btn = (Button) view.findViewById(R.id.logoutBut);
         Button adminBut = (Button) view.findViewById(R.id.adminBut);
@@ -112,10 +117,11 @@ public class profileFragment extends Fragment {
 
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
 
-                        if (data.child("email").getValue().toString()
-                                .equals(currentFirebaseUser.getEmail())) {
+                        if (data.child("email").getValue() != null) {
+                            if (data.child("email").getValue().toString()
+                                    .equals(currentFirebaseUser.getEmail())) {
 
-                                if(data.child("classes").getValue()!=null){
+                                if (data.child("classes").getValue() != null) {
                                     if (data.child("classes").getValue().toString().equals("admin")) {
                                         statusTv.setText("Class :: Administrator");
 
@@ -124,18 +130,22 @@ public class profileFragment extends Fragment {
                                     } else if (data.child("classes").getValue().toString().equals("mod")) {
                                         statusTv.setText("Class :: Moderator");
                                         layoutadmon.setVisibility(View.VISIBLE);
-                                        layoutmanage.setVisibility(View.INVISIBLE);
-                                    }else{
+                                        layoutmanage.setVisibility(View.GONE);
+                                    } else {
 
                                         statusTv.setText("Class :: User");
                                         layoutadmon.setVisibility(View.GONE);
                                         layoutmanage.setVisibility(View.GONE);
                                     }
-                                }else {
+                                } else {
                                     statusTv.setText("Class :: User");
                                     layoutadmon.setVisibility(View.GONE);
-                                    layoutmanage.setVisibility(View.GONE);;
+                                    layoutmanage.setVisibility(View.GONE);
+
                                 }
+
+                            }
+                        } else {
 
                         }
                     }
@@ -148,6 +158,27 @@ public class profileFragment extends Fragment {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        waitinBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MyActivities.class);
+
+                intent.putExtra("email",currentFirebaseUser.getEmail()+"");
+                v.getContext().startActivity(intent);
+
+            }
+        });
+        acceptBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ShowAcceptActivites.class);
+
+                intent.putExtra("email",currentFirebaseUser.getEmail()+"");
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
         myRefActi.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
 
@@ -155,35 +186,35 @@ public class profileFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                    int n = 0 ;
-                    int waitingnum=0;
-                    int pass=0;
-                    String email="";
-                    if(currentFirebaseUser!=null){
-                        email=currentFirebaseUser.getEmail();
-                    }
-                    if(dataSnapshot.getValue()!=null){
-
-
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    if(child.child("by").getValue().equals(email)){
-                        if(child.child("status").getValue().equals("pending")){
-                            waitingnum++;
-                        }
-                        if(child.child("status").getValue().equals("true")){
-                            pass++;
-                        }
-
-                    }
-                    if(child.child("status").getValue().equals("pending")){
-                        n++;
-                    }
-
+                int n = 0;
+                int waitingnum = 0;
+                int pass = 0;
+                String email = "";
+                if (currentFirebaseUser != null) {
+                    email = currentFirebaseUser.getEmail();
                 }
-                waiting.setText(waitingnum+"");
-                already.setText(pass+"");
-                waitingmod.setText("Awaiting to Accept : "+n+" Now!");
+                if (dataSnapshot.getValue() != null) {
+
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        if ((child.child("by").getValue() + "").equals(email)) {
+                            if (child.child("status").getValue().equals("pending")) {
+                                waitingnum++;
+                            }
+                            if (child.child("status").getValue().equals("true")) {
+                                pass++;
+                            }
+
+                        }
+                        if (child.child("status").getValue().equals("pending")) {
+                            n++;
+                        }
+
                     }
+                    waiting.setText(waitingnum + "");
+                    already.setText(pass + "");
+                    waitingmod.setText("Awaiting to Accept : " + n + " Now!");
+                }
             }
 
             @Override
@@ -229,7 +260,7 @@ public class profileFragment extends Fragment {
         }
 
 
-        sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        sharedPreferences = this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         tv_name_user.setText(disname);
         emailtv.setText(email);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -272,10 +303,11 @@ public class profileFragment extends Fragment {
     }
 
     private void loadData() {
-        sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        sharedPreferences = this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+        Type type = new TypeToken<ArrayList<ExampleItem>>() {
+        }.getType();
         mExampleList = gson.fromJson(json, type);
 
         if (mExampleList == null) {

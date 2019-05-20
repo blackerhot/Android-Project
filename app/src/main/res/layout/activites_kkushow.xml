@@ -7,20 +7,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgfeed_data"
+        android:background="@drawable/bgfeed"
         android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp">
+        android:paddingBottom="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="1dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bgfeed_data">
+            android:background="@drawable/bgfeed">
             <ImageView
                 android:id="@+id/post_pic"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
@@ -35,7 +35,22 @@
             android:text="Title"
             android:layout_gravity="center"
             android:textColor="@color/grey"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingTop="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="10dp"/>
+        <TextView
+            android:id="@+id/post_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_pic"
+            android:fontFamily="@font/pb"
+            android:text="Title"
+            android:layout_gravity="center"
+            android:textColor="@color/colorOrange"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:paddingTop="3dp"
             android:paddingLeft="10dp"
@@ -59,7 +74,7 @@
                 android:fontFamily="@font/pr"
                 android:textColor="@color/grey_white"
                 android:text="Address"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
@@ -82,63 +97,11 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/grey_white"
                 android:text="Date"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:paddingLeft="5dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:textColor="@color/colorOrange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ddddddd"
-                android:textSize="18dp"
-                android:id="@+id/stateTv"/>
-         <Button
-             android:id="@+id/buton"
-             android:textColor="@color/lightgreen"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Approve"/>
-            <Button
-                android:id="@+id/butoff"
-                android:textColor="@color/red"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="disApprove"/>
-        </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:id="@+id/keyTv"
-            android:text="xxxxxxxxxxxxxxxxxxxxxxxxx"/>
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:gravity="center"
-           android:orientation="horizontal">
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="16dp"
-               android:layout_gravity="center"
-               android:id="@+id/editBut"
-               android:text="Edit"/>
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="16dp"
-               android:layout_gravity="center"
-               android:id="@+id/deleteBut"
-               android:text="Delete"/>
-       </LinearLayout>
         <TextView
             android:id="@+id/clickmore"
             android:layout_width="wrap_content"
@@ -151,7 +114,7 @@
             android:textStyle="bold"
             android:textColor="@color/grey"
             android:textSize="16sp"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="19dp"/>
 
 
     </LinearLayout>

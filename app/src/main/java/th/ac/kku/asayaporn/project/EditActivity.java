@@ -3,11 +3,6 @@ package th.ac.kku.asayaporn.project;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,13 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -50,7 +39,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
+public class EditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
         , TimePickerDialog.OnTimeSetListener {
     FirebaseUser currentFirebaseUser;
     private FirebaseAuth mAuth;
@@ -73,6 +62,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     String dateEd = "ยังว่าง";
     String timeSt = "ยังว่าง";
     String timeEd = "ยังว่าง";
+   Bundle para;
+    String stausfi="pending";
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_EX = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -87,9 +78,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Sending Activities");
+            actionBar.setTitle("Edit Activities");
         }
-
         etitle = (EditText) findViewById(R.id.etitle);
         eurl = (EditText) findViewById(R.id.eurl);
         ephone = (EditText) findViewById(R.id.ephone);
@@ -101,11 +91,38 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         myRef = database.getReference("activities");
         btnstartdate = (Button) findViewById(R.id.edatest);
         btnenddate = (Button) findViewById(R.id.edateend);
-
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
+       para = getIntent().getExtras();
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if ((ds.child("key").getValue() + "").equals(para.getString("key"))) {
+                        stausfi=ds.child("status").getValue() + "";
+                        etitle.setText(ds.child("title").getValue() + "");
+                        eurl.setText(ds.child("url").getValue() + "");
+                        ephone.setText(ds.child("phone").getValue() + "");
+                        eplace.setText(ds.child("place").getValue() + "");
+                        esponsor.setText(ds.child("sponsor").getValue() + "");
+                        econtent.setText(ds.child("content").getValue() + "");
+                        btnenddate.setText(ds.child("dateEd").getValue() + " : " + ds.child("timeEd").getValue());
+                        btnstartdate.setText(ds.child("dateSt").getValue() + " : " + ds.child("timeSt").getValue());
+                        timeEd = ds.child("timeEd").getValue() + "";
+                        timeSt = ds.child("timeSt").getValue() + "";
+                        dateSt = ds.child("dateSt").getValue() + "";
+                        dateEd = ds.child("dateEd").getValue() + "";
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +138,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                         hour_start == hour_end && minute_start <= minute_end) {
                     addEvent();
                 } else {
-                    Toast.makeText(AddingActivity.this, "Please Check Start Date And End Date incorrect", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditActivity.this, "Please Check Start Date And End Date incorrect", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -133,7 +150,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 year = c.get(Calendar.YEAR);
                 month = c.get(Calendar.MONTH);
                 day = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickDialog = new DatePickerDialog(AddingActivity.this, AddingActivity.this, year, month, day);
+                DatePickerDialog datePickDialog = new DatePickerDialog(EditActivity.this, EditActivity.this, year, month, day);
                 datePickDialog.show();
                 state = false;
             }
@@ -146,7 +163,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 year = c.get(Calendar.YEAR);
                 month = c.get(Calendar.MONTH);
                 day = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickDialog = new DatePickerDialog(AddingActivity.this, AddingActivity.this, year_start, month, day);
+                DatePickerDialog datePickDialog = new DatePickerDialog(EditActivity.this, EditActivity.this, year_start, month, day);
                 datePickDialog.show();
                 state = true;
             }
@@ -178,14 +195,14 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             int columnIndex = cursor.getColumnIndex(filePC[0]);
             final String pic = cursor.getString(columnIndex);
             cursor.close();
-            verifyStoragePermissions(AddingActivity.this);
+            verifyStoragePermissions(EditActivity.this);
             ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
             btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
         }
     }
 
     // load img form media
-    private static void verifyStoragePermissions(AddingActivity activity) {
+    private static void verifyStoragePermissions(EditActivity activity) {
         int permission = ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -198,7 +215,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
     private void addEvent() {
         String url = eurl.getText() + "เว็ปยังว่างเปล่า";
-        String image = "";
+        String image ="";
         String title = etitle.getText() + "ยังว่างง";
         String place = eplace.getText() + "ยังว่าง";
         String content = econtent.getText() + "ยังว่าง";
@@ -209,8 +226,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         writeNewPost(null, url, image, title, place, content,
                 dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
         readNewUser();
-        Toast.makeText(AddingActivity.this,
-                "Added Already", Toast.LENGTH_SHORT).show();
+        Toast.makeText(EditActivity.this,
+                "Refresh for updating!", Toast.LENGTH_SHORT).show();
         onBackPressed();
     }
 
@@ -221,10 +238,11 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         if (image == "") {
             image = "https://it.nkc.kku.ac.th/frontend/images/logo-color.png";
         }
-        String key = myRef.child("activities").push().getKey();
+        String key = para.getString("key");
         ActivityKKU post = new ActivityKKU(contact, url, image, title, place, content,
                 dateSt, dateEd, phone, website, timeSt, timeEt, sponsor);
-        post.setStatus("pending");
+
+        post.setStatus(stausfi);
         post.setKey(key);
         if (currentFirebaseUser != null) {
             post.setBy(currentFirebaseUser.getEmail());
@@ -248,18 +266,18 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     //Here you can access the child.getKey()
 
 
-                    ActivityKKU user1 = new ActivityKKU( null,child.child("url").getValue()+"",
-                            child.child("image").getValue()+"",
-                            child.child("title").getValue()+"",
-                            child.child("title").getValue()+"",
-                            child.child("content").getValue()+"",
-                            child.child("dateSt").getValue()+"",
-                            child.child("dateEd").getValue()+"",
-                            child.child("phone").getValue()+"",
-                            child.child("website").getValue()+"",
-                            child.child("timeSt").getValue()+"",
-                            child.child("timeEt").getValue()+"",
-                            child.child("sponsor").getValue()+"");
+                    ActivityKKU user1 = new ActivityKKU(null, child.child("url").getValue() + "",
+                            child.child("image").getValue() + "",
+                            child.child("title").getValue() + "",
+                            child.child("title").getValue() + "",
+                            child.child("content").getValue() + "",
+                            child.child("dateSt").getValue() + "",
+                            child.child("dateEd").getValue() + "",
+                            child.child("phone").getValue() + "",
+                            child.child("website").getValue() + "",
+                            child.child("timeSt").getValue() + "",
+                            child.child("timeEt").getValue() + "",
+                            child.child("sponsor").getValue() + "");
 
                     user1.setKey(child.getKey());
                     user1.setStatus("pending");
@@ -272,7 +290,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
                 SharedPreferences sp;
                 SharedPreferences.Editor editor;
-                sp = AddingActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
+                sp = EditActivity.this.getSharedPreferences("USER", Context.MODE_PRIVATE);
                 editor = sp.edit();
                 editor.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
                 editor.commit();
@@ -314,13 +332,13 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             year_start = i;
             month_start = i1 + 1;
             day_start = i2;
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddingActivity.this, AddingActivity.this, hour, minute, true);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(EditActivity.this, EditActivity.this, hour, minute, true);
             timePickerDialog.show();
         } else if (state == true) {
             year_end = i;
             month_end = i1 + 1;
             day_end = i2;
-            TimePickerDialog timePickerDialog = new TimePickerDialog(AddingActivity.this, AddingActivity.this, hour, minute, true);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(EditActivity.this, EditActivity.this, hour, minute, true);
             timePickerDialog.show();
         }
     }
@@ -369,7 +387,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
                 }
 
-            } btnstartdate.setText(dateSt + ", " + timeSt);
+            }
+            btnstartdate.setText(dateSt + ", " + timeSt);
         } else if (state == true) {
 
             hour_end = i;
@@ -413,9 +432,9 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
                 }
 
-            } btnenddate.setText(dateEd + ", " + timeEd);
+            }
+            btnenddate.setText(dateEd + ", " + timeEd);
         }
     }
-
-
 }
+

@@ -2,6 +2,8 @@ package th.ac.kku.asayaporn.project;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -153,10 +156,39 @@ public class CustomAdapter3 extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                mActivite = mActivites.get(position);
-                myRef.child(mActivite.uid).removeValue();
-                mActivite.setEmail("ลบเรียบร้อย");
-                mActivites.remove(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(mInflater.getContext());
+                alert.setTitle("Delete");
+                alert.setMessage("Are you sure you want to delete?");
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        mActivite = mActivites.get(position);
+                        if(!mActivite.email.equals("knwknw1@gmail.com")){
+
+                        myRef.child(mActivite.uid).removeValue();
+                        mActivite.setEmail("ลบเรียบร้อย");
+                        mActivites.remove(position);
+                        Toast.makeText(mInflater.getContext(),"Deleted Already!",Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(mInflater.getContext(),"Failed! to Delete",Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
 
             }
         });

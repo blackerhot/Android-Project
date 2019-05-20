@@ -91,6 +91,8 @@ public class activitesFragment extends  Fragment {
         Date todate = null;
         final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
         final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
+        if(mExampleList.size()!=0){
+
         for (int i = 0; i < mExampleList.size(); i++) {
             try {
                 strDate = sdf.parse(mExampleList.get(i).getDatest());
@@ -105,8 +107,9 @@ public class activitesFragment extends  Fragment {
                 }
             }
         }
+        }
         saveData();
-
+        if(mExampleList.size()!=0){
         for (int i = 0; i < mExampleList.size(); i++){
             try {
             strDate = sdf.parse(mExampleList.get(i).getDatest());
@@ -123,6 +126,7 @@ public class activitesFragment extends  Fragment {
                 all_exampe.add(all_event_item);
             }
 
+        }
         }
         Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
             @Override
@@ -172,6 +176,9 @@ public class activitesFragment extends  Fragment {
 
             }
         });
+        if(to_day_exampe.size()!=0){
+
+
         for (int i = 0; i < to_day_exampe.size(); i++){
             HashMap<String, String> hm_td = new HashMap<String, String>();
             hm_td.put("listview_datestr",to_day_exampe.get(i).getTimestart());
@@ -179,12 +186,14 @@ public class activitesFragment extends  Fragment {
             hm_td.put("listview_comment",to_day_exampe.get(i).getDetail());
             bList.add(hm_td);
         }
-        for (int i = 0; i < all_exampe.size(); i++) {
-            HashMap<String, String> hm = new HashMap<String, String>();
-            hm.put("listview_timestr",all_exampe.get(i).getTimestart());
-            hm.put("listview_datestr",all_exampe.get(i).getDatest());
-            hm.put("listview_title",all_exampe.get(i).getTitle());
-            hm.put("listview_comment",all_exampe.get(i).getDetail());
+        }
+        if(all_exampe.size()!=0) {
+            for (int i = 0; i < all_exampe.size(); i++) {
+                HashMap<String, String> hm = new HashMap<String, String>();
+                hm.put("listview_timestr", all_exampe.get(i).getTimestart());
+                hm.put("listview_datestr", all_exampe.get(i).getDatest());
+                hm.put("listview_title", all_exampe.get(i).getTitle());
+                hm.put("listview_comment", all_exampe.get(i).getDetail());
             /*hm.put("listview_title", lstTime[i]);
             hm.put("listview_discription", lstTitle[i]);
             hm.put("listview_item", lstItems[i]);*/
@@ -193,7 +202,8 @@ public class activitesFragment extends  Fragment {
                 } else{
                     linearLayout.setBackgroundResource(R.drawable.bgnotify);
                 } */
-            aList.add(hm);
+                aList.add(hm);
+            }
         }
 
         String[] from = { "listview_datestr", "listview_title", "listview_comment"};

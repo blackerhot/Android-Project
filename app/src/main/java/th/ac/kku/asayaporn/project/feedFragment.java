@@ -3,6 +3,7 @@ package th.ac.kku.asayaporn.project;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,6 +81,35 @@ public class feedFragment extends Fragment {
         final SharedPreferences.Editor editor1;
         sp1 = getContext().getSharedPreferences("USER", Context.MODE_PRIVATE);
         editor1 = sp1.edit();
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         myRef.addValueEventListener(new ValueEventListener() {
             private String TAG = "TAGGGG";
 
@@ -371,7 +402,7 @@ public class feedFragment extends Fragment {
         List<ActivityKKU> activity = blog.getActivities();
 
         for (int i = 0; i < activity.size(); i++) {
-            if (!activity.get(i).getStatus().equals("pending")){
+            if (!(activity.get(i).getStatus()+"").equals("pending")){
                 if (new Boolean(activity.get(i).getStatus()) == true) {
                     string += gson.toJson(activity.get(i).toMap()) + ",";
                 }

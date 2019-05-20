@@ -35,7 +35,7 @@
                 android:paddingBottom="16dp"
                 android:layout_marginTop="16dp">
                 <ListView
-                    android:id="@+id/listview1"
+                    android:id="@+id/feedlistview"
                     android:focusable="true"
                     android:divider="@null"
                     android:clickable="true"

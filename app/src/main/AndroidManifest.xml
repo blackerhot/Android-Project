@@ -48,6 +48,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".AddActivityForme"
             android:screenOrientation="portrait"/>
+        <activity android:name=".EditActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MyActivities"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ShowAcceptActivites"
+            android:screenOrientation="portrait"/>
         <activity android:name=".UserActivity"
             android:screenOrientation="portrait"/>
         <activity
