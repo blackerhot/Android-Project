@@ -19,8 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/bgfeed"
-                android:orientation="vertical">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
 
 
                 <EditText
@@ -56,12 +57,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:gravity="center"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
                     <Button
                         android:id="@+id/edatest"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/grey"
@@ -71,7 +73,7 @@
 
                     <Button
                         android:id="@+id/edateend"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@color/grey"
@@ -145,6 +147,7 @@
                     android:layout_width="200dp"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:background="@drawable/selector_click2"
                     android:padding="16dp"
                     android:fontFamily="@font/pb"
