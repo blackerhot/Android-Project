@@ -60,8 +60,7 @@ public class profileFragment extends Fragment {
     FirebaseUser currentFirebaseUser;
     private FirebaseAuth mAuth;
     ArrayList<ExampleItem> mExampleList;
-    TextView tv_num_favorite;
-    TextView tv_num_event;
+
     TextView waiting;
     TextView already;
     TextView emailtv;
@@ -83,8 +82,7 @@ public class profileFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         emailtv = (TextView) view.findViewById(R.id.emailTv);
-        tv_num_event = (TextView) view.findViewById(R.id.num_event_tv);
-        tv_num_favorite = (TextView) view.findViewById(R.id.num_favorite_tv);
+
         waiting = (TextView) view.findViewById(R.id.waitingTv);
         already = (TextView) view.findViewById(R.id.alreadyAccTv);
         waitingmod = (TextView) view.findViewById(R.id.activitesTv);
@@ -163,7 +161,7 @@ public class profileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MyActivities.class);
 
-                intent.putExtra("email",currentFirebaseUser.getEmail()+"");
+                intent.putExtra("email", currentFirebaseUser.getEmail() + "");
                 v.getContext().startActivity(intent);
 
             }
@@ -173,7 +171,7 @@ public class profileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowAcceptActivites.class);
 
-                intent.putExtra("email",currentFirebaseUser.getEmail()+"");
+                intent.putExtra("email", currentFirebaseUser.getEmail() + "");
                 v.getContext().startActivity(intent);
 
             }
@@ -293,26 +291,14 @@ public class profileFragment extends Fragment {
                 startActivity(new Intent(getContext(), UserActivity.class));
             }
         });
-        loadData();
 
-        String event_num_str = String.valueOf(mExampleList.size());
-        tv_num_event.setText(event_num_str);
+
+
         return view;
 
 
     }
 
-    private void loadData() {
-        sharedPreferences = this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {
-        }.getType();
-        mExampleList = gson.fromJson(json, type);
-
-        if (mExampleList == null) {
-            mExampleList = new ArrayList<>();
-        }
-    }
 
 }
+

@@ -10,6 +10,32 @@
         android:icon="@drawable/ic_addbut"
         android:title="menuadding"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_sortbydatelates"
+        android:enabled="true"
+        android:title="เรียงตามวันที่ล่าสุด-เก่า"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sortbydateleast"
+        android:enabled="true"
+        android:title="เรียงตามวันที่เก่า-ล่าสุด"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_inthismonth"
+        android:enabled="true"
+        android:title="กิจกรรมภายในเดือนนี้"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_onlyuser"
+        android:enabled="true"
+        android:title="กิจกรรมจากผู้ใช้"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_onlykku"
+        android:enabled="true"
+        android:title="กิจกรรมจากมหาวิทยาลัย"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_sortbytitle2"
         android:enabled="true"
@@ -20,16 +46,4 @@
         android:enabled="true"
         android:title="เรียงตามชื่อ ฮ-ก"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_sortbydateleast"
-        android:enabled="true"
-        android:title="เรียงตามวันที่น้อย-มาก"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_sortbydatelates"
-        android:enabled="true"
-        android:title="เรียงตามวันที่มาก-น้อย"
-        app:showAsAction="never" />
-
 </menu>

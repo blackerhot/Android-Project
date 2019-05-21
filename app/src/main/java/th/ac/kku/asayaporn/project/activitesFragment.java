@@ -168,12 +168,20 @@ public class activitesFragment extends  Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (date1.compareTo(date2) < 0) {
-                    return -1;
-                } else {
-                    return 1;
+                try {
+                    if (date1.compareTo(date2) < 0) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
                 }
 
+
+
+                return 1;
             }
         });
         if(to_day_exampe.size()!=0){

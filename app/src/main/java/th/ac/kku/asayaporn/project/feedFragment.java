@@ -265,6 +265,147 @@ public class feedFragment extends Fragment {
             }
 
         }
+        if (id == R.id.action_onlyuser) {
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra = new ArrayList<>();
+
+
+            for (int i = 0; i < mAdapter.getCount(); i++) {
+                activityKKU = (ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra, new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = null;
+                    Date date2 = null;
+                    try {
+                        date1 = formatter2.parse(p0.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        date2 = formatter2.parse(p1.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (date1.compareTo(date2) < 0) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+
+
+                    return -1;
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        if (id == R.id.action_onlykku) {
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra = new ArrayList<>();
+
+
+            for (int i = 0; i < mAdapter.getCount(); i++) {
+                activityKKU = (ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra, new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = null;
+                    Date date2 = null;
+                    try {
+                        date1 = formatter2.parse(p0.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        date2 = formatter2.parse(p1.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (date1.compareTo(date2) < 0) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+
+
+                    return -1;
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
+        if (id == R.id.action_inthismonth) {
+            ActivityKKU activityKKU;
+            final ArrayList<ActivityKKU> arra = new ArrayList<>();
+
+
+            for (int i = 0; i < mAdapter.getCount(); i++) {
+                activityKKU = (ActivityKKU) mAdapter.getItem(i);
+                arra.add(activityKKU);
+
+            }
+
+
+            Collections.sort(arra, new Comparator<ActivityKKU>() {
+                @Override
+                public int compare(ActivityKKU p0, ActivityKKU p1) {
+                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = null;
+                    Date date2 = null;
+                    try {
+                        date1 = formatter2.parse(p0.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        date2 = formatter2.parse(p1.getDateSt());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (date1.compareTo(date2) < 0) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+
+
+                    return -1;
+
+                }
+            });
+            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
+            return true;
+        }
         if (id == R.id.action_sortbydatelates) {
             ActivityKKU activityKKU;
             final ArrayList<ActivityKKU> arra = new ArrayList<>();
@@ -293,11 +434,19 @@ public class feedFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if (date1.compareTo(date2) < 0) {
-                        return 1;
-                    } else {
-                        return -1;
+                    try {
+                        if (date1.compareTo(date2) < 0) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
                     }
+
+
+                    return -1;
 
                 }
             });
@@ -327,11 +476,19 @@ public class feedFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if (date1.compareTo(date2) < 0) {
-                        return -1;
-                    } else {
-                        return 1;
+
+                    try {
+                        if (date1.compareTo(date2) < 0) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
                     }
+
+                    return 1;
 
                 }
             });
