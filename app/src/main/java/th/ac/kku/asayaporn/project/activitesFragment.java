@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -224,6 +225,10 @@ public class activitesFragment extends  Fragment {
                 bList, R.layout.listview_activity, from, to);
         all_ev_listview.setAdapter(aAdapter);
         today_event_listView.setAdapter(bAdapter);
+        // class
+        ListUtils.setDynamicHeight(all_ev_listview);
+        ListUtils.setDynamicHeight(today_event_listView);
+
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             SwipeMenuItem deleteItem;
             @Override
@@ -343,6 +348,27 @@ public class activitesFragment extends  Fragment {
 
         if (mExampleList == null) {
             mExampleList = new ArrayList<>();
+        }
+    }
+
+    public static class ListUtils {
+        public static void setDynamicHeight(ListView mListView) {
+            ListAdapter mListAdapter = mListView.getAdapter();
+            if (mListAdapter == null) {
+                // when adapter is null
+                return;
+            }
+            int height = 0;
+            int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+            for (int i = 0; i < mListAdapter.getCount(); i++) {
+                View listItem = mListAdapter.getView(i, null, mListView);
+                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                height += listItem.getMeasuredHeight();
+            }
+            ViewGroup.LayoutParams params = mListView.getLayoutParams();
+            params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
+            mListView.setLayoutParams(params);
+            mListView.requestLayout();
         }
     }
 }
