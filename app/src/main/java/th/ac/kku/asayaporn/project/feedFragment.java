@@ -1,5 +1,6 @@
 package th.ac.kku.asayaporn.project;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,11 +37,16 @@ import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class feedFragment extends Fragment {
     protected ListView mListView;
@@ -50,6 +56,7 @@ public class feedFragment extends Fragment {
     DatabaseReference myRef;
     FirebaseUser currentFirebaseUser;
     private FirebaseAuth mAuth;
+
     public static feedFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -125,8 +132,8 @@ public class feedFragment extends Fragment {
                     ActivityKKU user = child.getValue(ActivityKKU.class);
                     s0 += gson.toJson(user.toMap()) + ",";
                 }
-                if(s0.length()!=0){
-                    s0=s0.substring(0,s0.length()-1);
+                if (s0.length() != 0) {
+                    s0 = s0.substring(0, s0.length() - 1);
                 }
 
                 editor1.putString("jsonByUSER", new String(String.valueOf("{\"activities\":[" + s0 + "]}")));
@@ -150,14 +157,14 @@ public class feedFragment extends Fragment {
         editor.commit();
 
 
-        if(handlerData(result1)==""){
-            String fromeall = "{\"activities\":[" ;
-            fromeall += handlerData1(result) +"]}";
+        if (handlerData(result1) == "") {
+            String fromeall = "{\"activities\":[";
+            fromeall += handlerData1(result) + "]}";
             Log.e("result1all", fromeall);
             showData(fromeall);
-        }else {
+        } else {
             String fromeall = "{\"activities\":[" + handlerData(result1);
-            fromeall +=","+  handlerData1(result) +"]}";
+            fromeall += "," + handlerData1(result) + "]}";
             Log.e("result1all", fromeall);
             showData(fromeall);
         }
@@ -197,9 +204,10 @@ public class feedFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Boolean isnull = false;
+
                 ActivityKKU activityKKU;
                 ArrayList<String> str = new ArrayList<String>();
                 str.add("ไม่พบคำที่ค้นหา");
@@ -209,17 +217,10 @@ public class feedFragment extends Fragment {
                         activityKKU = (ActivityKKU) mAdapter.getItem(i);
 
                         if (activityKKU.getTitle().toString().contains(s)) {
-                            isnull = false;
                             arra.add(activityKKU);
-                        } else {
-                            isnull = true;
+                        }
+                        mListView.setAdapter(new CustomAdapter(getActivity(), arra));
 
-                        }
-                        if (isnull) {
-                            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
-                        } else {
-                            mListView.setAdapter(new CustomAdapter(getActivity(), arra));
-                        }
 
                     }
                 } else {
@@ -258,10 +259,10 @@ public class feedFragment extends Fragment {
 
         if (id == R.id.action_adding) {
 
-            if(currentFirebaseUser!=null){
+            if (currentFirebaseUser != null) {
                 startActivity(new Intent(getActivity(), AddingActivity.class));
-            }else {
-                Toast.makeText(getContext(),"Sign in to use this function",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Sign in to use this function", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -272,46 +273,17 @@ public class feedFragment extends Fragment {
 
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 activityKKU = (ActivityKKU) mAdapter.getItem(i);
-                arra.add(activityKKU);
+                if (activityKKU.getBy() != null) {
+                    arra.add(activityKKU);
+                }
+
 
             }
 
-
-            Collections.sort(arra, new Comparator<ActivityKKU>() {
-                @Override
-                public int compare(ActivityKKU p0, ActivityKKU p1) {
-                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date1 = null;
-                    Date date2 = null;
-                    try {
-                        date1 = formatter2.parse(p0.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        date2 = formatter2.parse(p1.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (date1.compareTo(date2) < 0) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                    }
-
-
-                    return -1;
-
-                }
-            });
             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
             return true;
         }
+
         if (id == R.id.action_onlykku) {
             ActivityKKU activityKKU;
             final ArrayList<ActivityKKU> arra = new ArrayList<>();
@@ -319,43 +291,11 @@ public class feedFragment extends Fragment {
 
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 activityKKU = (ActivityKKU) mAdapter.getItem(i);
-                arra.add(activityKKU);
-
+                if (activityKKU.getBy() == null) {
+                    arra.add(activityKKU);
+                }
             }
 
-
-            Collections.sort(arra, new Comparator<ActivityKKU>() {
-                @Override
-                public int compare(ActivityKKU p0, ActivityKKU p1) {
-                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date1 = null;
-                    Date date2 = null;
-                    try {
-                        date1 = formatter2.parse(p0.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        date2 = formatter2.parse(p1.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (date1.compareTo(date2) < 0) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                    }
-
-
-                    return -1;
-
-                }
-            });
             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
             return true;
         }
@@ -363,46 +303,29 @@ public class feedFragment extends Fragment {
             ActivityKKU activityKKU;
             final ArrayList<ActivityKKU> arra = new ArrayList<>();
 
-
             for (int i = 0; i < mAdapter.getCount(); i++) {
                 activityKKU = (ActivityKKU) mAdapter.getItem(i);
-                arra.add(activityKKU);
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = null;
+
+                try {
+                    date1 = formatter2.parse(activityKKU.getDateSt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar calendar1 = new GregorianCalendar();
+                Calendar calendar2 = new GregorianCalendar();
+                calendar1.setTime(date1);
+                calendar2.setTime(new Date());
+
+                if ( calendar1.get(Calendar.YEAR)== calendar2.get(Calendar.YEAR)
+                        && calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH)) {
+                    arra.add(activityKKU);
+                }
 
             }
 
-
-            Collections.sort(arra, new Comparator<ActivityKKU>() {
-                @Override
-                public int compare(ActivityKKU p0, ActivityKKU p1) {
-                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-                    Date date1 = null;
-                    Date date2 = null;
-                    try {
-                        date1 = formatter2.parse(p0.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        date2 = formatter2.parse(p1.getDateSt());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (date1.compareTo(date2) < 0) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                    }
-
-
-                    return -1;
-
-                }
-            });
             mListView.setAdapter(new CustomAdapter(getActivity(), arra));
             return true;
         }
@@ -416,7 +339,6 @@ public class feedFragment extends Fragment {
                 arra.add(activityKKU);
 
             }
-
 
             Collections.sort(arra, new Comparator<ActivityKKU>() {
                 @Override
@@ -559,13 +481,13 @@ public class feedFragment extends Fragment {
         List<ActivityKKU> activity = blog.getActivities();
 
         for (int i = 0; i < activity.size(); i++) {
-            if (!(activity.get(i).getStatus()+"").equals("pending")){
+            if (!(activity.get(i).getStatus() + "").equals("pending")) {
                 if (new Boolean(activity.get(i).getStatus()) == true) {
                     string += gson.toJson(activity.get(i).toMap()) + ",";
                 }
+            }
         }
-        }
-        if(string.length()==0){
+        if (string.length() == 0) {
             return "";
         }
         string = string.substring(0, string.length() - 1);
@@ -583,7 +505,7 @@ public class feedFragment extends Fragment {
 
         for (int i = 0; i < activity.size(); i++) {
 
-                string += gson.toJson(activity.get(i).toMap())+",";
+            string += gson.toJson(activity.get(i).toMap()) + ",";
         }
 
         string = string.substring(0, string.length() - 1);

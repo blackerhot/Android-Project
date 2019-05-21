@@ -12,7 +12,8 @@
         android:layout_marginRight="5dp"
         android:background="@color/primary"
         android:orientation="vertical"
-        android:paddingBottom="1dp">
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/emailTv"
@@ -39,33 +40,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxxxx"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
             android:id="@+id/classesTV"
             android:textSize="16sp"/>
-        <RadioGroup
-            android:id="@+id/rdg"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/adminr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="admin"/>
-            <RadioButton
-                android:id="@+id/modr"
-                android:checked="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mod"/>
-            <RadioButton
-                android:id="@+id/userr"
-                android:checked="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="user"/>
-        </RadioGroup>
+
+    <Button
+        android:id="@+id/adminr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:text="admin"/>
+    <Button
+        android:id="@+id/modr"
+        android:textColor="@color/lightgreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mod"/>
+    <Button
+        android:id="@+id/userr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="user"/>
+</LinearLayout>
+
+
         <Button
             android:id="@+id/deleteBut"
             android:layout_width="wrap_content"

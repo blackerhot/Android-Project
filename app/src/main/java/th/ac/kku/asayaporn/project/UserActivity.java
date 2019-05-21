@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,7 +31,7 @@ public class UserActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     protected CustomAdapter3 mAdapter;
-
+    EditText editSearch;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +41,11 @@ public class UserActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Manage User");
         }
+        ((AppCompatActivity) UserActivity.this).getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        ((AppCompatActivity) UserActivity.this).getSupportActionBar().setCustomView(R.layout.actionbar_feed);
         listView = (ListView) findViewById(R.id.listview1);
-
+        editSearch = (EditText) findViewById(R.id.edit_search);
+        editSearch.setHint("Search by Email");
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -49,7 +55,7 @@ public class UserActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String s0="";
+                String s0 = "";
                 Gson gson = new Gson();
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -57,14 +63,14 @@ public class UserActivity extends AppCompatActivity {
 
                     ActivityUser user = child.getValue(ActivityUser.class);
 
-                    s0 += gson.toJson(user.toMap()) +",";
+                    s0 += gson.toJson(user.toMap()) + ",";
 
                 }
-                if(s0.length()!=0){
-                    s0=s0.substring(0,s0.length()-1);
+                if (s0.length() != 0) {
+                    s0 = s0.substring(0, s0.length() - 1);
                 }
 
-                String json = new String(String.valueOf("{\"user\":["+s0+"]}"));
+                String json = new String(String.valueOf("{\"user\":[" + s0 + "]}"));
 
                 Blog blog = gson.fromJson(json, Blog.class);
                 List<ActivityUser> activity = blog.getUser();
@@ -79,8 +85,42 @@ public class UserActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ActivityUser activityKKU;
+                ArrayList<String> str = new ArrayList<String>();
+                str.add("ไม่พบคำที่ค้นหา");
+                final ArrayList<ActivityUser> arra = new ArrayList<>();
+                if (editSearch.length() != 0) {
+                    for (int i = 0; i < mAdapter.getCount(); i++) {
+                        activityKKU = (ActivityUser) mAdapter.getItem(i);
+
+                        if (activityKKU.getEmail().toString().contains(s)) {
+
+                            arra.add(activityKKU);
+                        }
+
+                            listView.setAdapter(new CustomAdapter3(UserActivity.this, arra));
+                    }
+                } else {
+                    listView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

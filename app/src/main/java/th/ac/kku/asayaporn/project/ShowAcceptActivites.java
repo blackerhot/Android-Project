@@ -88,7 +88,10 @@ public class ShowAcceptActivites extends AppCompatActivity {
                     ActivityKKU user = child.getValue(ActivityKKU.class);
                     if((user.getBy()+"").equals(para.getString("email"))){
 
+                        if(!user.getStatus().equals("pending")){
                             s0 += gson.toJson(user.toMap()) + ",";
+                        }
+
 
 
                     }

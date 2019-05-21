@@ -102,11 +102,16 @@ public class activitesFragment extends  Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (todate.after(strDate)) {
-                if (todate.after(endDate)){
-                    mExampleList.remove(i);
+            try {
+                if (todate.after(strDate)) {
+                    if (todate.after(endDate)){
+                        mExampleList.remove(i);
+                    }
                 }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
         }
         saveData();
@@ -118,14 +123,19 @@ public class activitesFragment extends  Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (strDate.equals(todate)) {
-                today_event_item = (ExampleItem) mExampleList.get(i);
-                to_day_exampe.add(today_event_item);
+            try {
+                if (strDate.equals(todate)) {
+                    today_event_item = (ExampleItem) mExampleList.get(i);
+                    to_day_exampe.add(today_event_item);
 
-            }else {
-                all_event_item = (ExampleItem) mExampleList.get(i);
-                all_exampe.add(all_event_item);
+                }else {
+                    all_event_item = (ExampleItem) mExampleList.get(i);
+                    all_exampe.add(all_event_item);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
 
         }
         }

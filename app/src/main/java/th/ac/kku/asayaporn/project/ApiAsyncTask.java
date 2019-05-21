@@ -159,8 +159,13 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
             date = parseFormat.parse(str);
         } catch (ParseException e) {
             e.printStackTrace();
+        }DateTime startDateTime = null;
+        try {
+            startDateTime   = new DateTime(para.getString("datest")+"T"+displayFormat.format(date)+":00.000");
+        } catch (Exception e) {
+            return;
         }
-        DateTime startDateTime = new DateTime(para.getString("datest")+"T"+displayFormat.format(date)+":00.000");
+
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime);
         start.setTimeZone(start.getTimeZone());

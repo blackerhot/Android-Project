@@ -56,12 +56,11 @@ public class CustomAdapter3 extends BaseAdapter {
 
     private static class ViewHolder {
         TextView uid;
-        RadioGroup rdg;
         TextView email;
         TextView classes;
-        RadioButton admin;
-        RadioButton mod;
-        RadioButton user;
+        Button admin;
+        Button mod;
+        Button user;
 
     }
 
@@ -83,10 +82,10 @@ public class CustomAdapter3 extends BaseAdapter {
             mViewHolder.uid = (TextView) convertView.findViewById(R.id.uidTv);
             mViewHolder.email = (TextView) convertView.findViewById(R.id.emailTv);
             mViewHolder.classes = (TextView) convertView.findViewById(R.id.classesTV);
-            mViewHolder.rdg = (RadioGroup) convertView.findViewById(R.id.rdg);
-            mViewHolder.admin = (RadioButton) convertView.findViewById(R.id.adminr);
-            mViewHolder.user = (RadioButton) convertView.findViewById(R.id.userr);
-            mViewHolder.mod = (RadioButton) convertView.findViewById(R.id.modr);
+
+            mViewHolder.admin = (Button) convertView.findViewById(R.id.adminr);
+            mViewHolder.user = (Button) convertView.findViewById(R.id.userr);
+            mViewHolder.mod = (Button) convertView.findViewById(R.id.modr);
             convertView.setTag(mViewHolder);
 
         } else {
@@ -97,28 +96,13 @@ public class CustomAdapter3 extends BaseAdapter {
         mViewHolder.uid.setText("uid : " + mActivite.uid);
         mViewHolder.email.setText("email : " + mActivite.email);
         mViewHolder.classes.setText("classes : " + mActivite.classes);
-        if (mActivite.classes != null) {
-            if (mActivite.classes.equals("admin")) {
-                mViewHolder.rdg.check(R.id.adminr);
-            }
-            if (mActivite.classes.equals("mod")) {
-                mViewHolder.rdg.check(R.id.modr);
-            }
-            if (mActivite.classes.equals("user")) {
-                mViewHolder.rdg.check(R.id.userr);
-            }
-        } else {
-            mActivite.setClasses("user");
-            if (mActivite.classes.equals("user")) {
-                mViewHolder.rdg.check(R.id.userr);
-            }
-        }
+
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user");
 
-        mViewHolder.rdg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mViewHolder.admin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onClick(View v) {
                 mActivite = mActivites.get(position);
                 Map<String, Object> childUpdates = new HashMap<>();
 
@@ -126,26 +110,42 @@ public class CustomAdapter3 extends BaseAdapter {
                     return;
                 }
 
-                switch (checkedId) {
-                    case R.id.adminr:
-                        mActivite.setClasses("admin");
-                        childUpdates.put("/" + mActivite.uid + "/classes", "admin");
-                        break;
-                    case R.id.modr:
-                        mActivite.setClasses("mod");
-                        childUpdates.put("/" + mActivite.uid + "/classes", "mod");
-                        break;
-                    case R.id.userr:
-                        mActivite.setClasses("user");
-                        childUpdates.put("/" + mActivite.uid + "/classes", "user");
-                        break;
-                    default:
-                        break;
-                }
-
-
+                mActivite.setClasses("admin");
+                mViewHolder.classes.setText("classes : " + mActivite.classes);
+                childUpdates.put("/" + mActivite.uid + "/classes", "admin");
                 myRef.updateChildren(childUpdates);
 
+            }
+        });
+        mViewHolder.mod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivite = mActivites.get(position);
+                Map<String, Object> childUpdates = new HashMap<>();
+
+                if (mActivite.email.equals("knwknw1@gmail.com")) {
+                    return;
+                }
+
+                mActivite.setClasses("mod");
+                mViewHolder.classes.setText("classes : " + mActivite.classes);
+                childUpdates.put("/" + mActivite.uid + "/classes", "mod");
+                myRef.updateChildren(childUpdates);
+            }
+        });
+        mViewHolder.user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivite = mActivites.get(position);
+                Map<String, Object> childUpdates = new HashMap<>();
+
+                if (mActivite.email.equals("knwknw1@gmail.com")) {
+                    return;
+                }
+                mActivite.setClasses("user");
+                mViewHolder.classes.setText("classes : " + mActivite.classes);
+                childUpdates.put("/" + mActivite.uid + "/classes", "user");
+                myRef.updateChildren(childUpdates);
             }
         });
 
