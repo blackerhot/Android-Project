@@ -6,6 +6,7 @@ import android.app.assist.AssistContent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -248,7 +250,34 @@ public class profileFragment extends Fragment {
                 if (url_photo.equals("")) {
 
                 } else {
-                    Picasso.get().load(url_photo).into(user_photo);
+                    Uri photoUrl = Uri.parse(url_photo);
+
+                    // Variable holding the original String portion of the url that will be replaced
+                    String originalPieceOfUrl = "s96-c/photo.jpg";
+
+                    // Variable holding the new String portion of the url that does the replacing, to improve image quality
+                    String newPieceOfUrlToAdd = "s400-c/photo.jpg";
+
+                    // Check if the Url path is null
+                    if (photoUrl != null) {
+
+                        // Convert the Url to a String and store into a variable
+                        String photoPath = photoUrl.toString();
+
+                        // Replace the original part of the Url with the new part
+                        String newString = photoPath.replace(originalPieceOfUrl, newPieceOfUrlToAdd);
+
+                        // Load user's profile photo from their signed-in provider into the image view (with newly edited Url for resolution improvement)
+
+                        if(FacebookAuthProvider.PROVIDER_ID.equals(currentFirebaseUser.getProviderId())) {
+                            String photoUrl1 = "http://graph.facebook.com/"+currentFirebaseUser.getProviderId()+"/picture?type=large";
+                            Picasso.get().load(photoUrl1).fit().into(user_photo);
+
+                        }else {
+                            Picasso.get().load(newString).fit().into(user_photo);
+                        }
+                    } // End if
+
                 }
             }
         } catch (Exception e) {

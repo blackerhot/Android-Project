@@ -152,6 +152,7 @@ public class CustomAdapter2 extends BaseAdapter {
             }
         }else {
             mViewHolder.statusTv.setTextColor(Color.YELLOW);
+            mViewHolder.statusTv.setText("Status : Pending");
             mViewHolder.butoff.setVisibility(View.VISIBLE);
             mViewHolder.buton.setVisibility(View.VISIBLE);
             Map<String,Object> childUpdates = new HashMap<>();
