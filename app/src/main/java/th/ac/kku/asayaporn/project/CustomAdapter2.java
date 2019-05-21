@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -138,14 +139,19 @@ public class CustomAdapter2 extends BaseAdapter {
             if(new Boolean(mActivite.status)){
                 mViewHolder.buton.setVisibility(View.GONE);
                 mViewHolder.butoff.setVisibility(View.VISIBLE);
+                mViewHolder.statusTv.setTextColor(Color.GREEN);
                 mViewHolder.statusTv.setText("Status : Showing ");
 
+
             }else{
+
                 mViewHolder.butoff.setVisibility(View.GONE);
                 mViewHolder.buton.setVisibility(View.VISIBLE);
+                mViewHolder.statusTv.setTextColor(Color.RED);
                 mViewHolder.statusTv.setText("Status : Hiding ");
             }
         }else {
+            mViewHolder.statusTv.setTextColor(Color.YELLOW);
             mViewHolder.butoff.setVisibility(View.VISIBLE);
             mViewHolder.buton.setVisibility(View.VISIBLE);
             Map<String,Object> childUpdates = new HashMap<>();

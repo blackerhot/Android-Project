@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -134,14 +135,15 @@ public class CustomAdapter4user extends BaseAdapter {
 
         if(!mActivite.status.equals("pending")){
             if(new Boolean(mActivite.status)){
-
+                mViewHolder.statusTv.setTextColor(Color.GREEN);
                 mViewHolder.statusTv.setText("Status : Showing ");
 
             }else{
-
+                mViewHolder.statusTv.setTextColor(Color.RED);
                 mViewHolder.statusTv.setText("Status : Hiding ");
             }
         }else {
+            mViewHolder.statusTv.setTextColor(Color.YELLOW);
             mViewHolder.statusTv.setText("Status : Pending ");
         }
 

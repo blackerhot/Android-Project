@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -118,10 +119,11 @@ public class CustomAdapter5 extends BaseAdapter {
 
         }
         if(new Boolean(mActivite.status)){
+            mViewHolder.status.setTextColor(Color.GREEN);
             mViewHolder.status.setText("Status : Showing ");
 
         }else{
-
+            mViewHolder.status.setTextColor(Color.RED);
             mViewHolder.status.setText("Status : Hiding ");
         }
 
