@@ -27,7 +27,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1.2"
                 android:text="10:00"
-                android:textSize="20dp"
+                android:textSize="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/lstdate_other_event"
@@ -36,7 +38,8 @@
                 android:layout_height="0dp"
                 android:fontFamily="@font/pb"
                 android:text="day"
-                android:textSize="20dp"/>
+                android:layout_marginTop="5dp"
+                android:textSize="18dp"/>
         </LinearLayout>
 
 
