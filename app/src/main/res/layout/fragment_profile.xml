@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bgpro">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@drawable/backgr_profile"
+        android:background="@drawable/bg"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,8 +58,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Unkhown name"
+                            android:fontFamily="@font/pb"
                             android:textStyle="bold"
                             android:textSize="25sp"
+                            android:textColor="@color/grey"
                             android:layout_marginTop="60dp"
                             android:layout_gravity="center_horizontal"
                             />
@@ -67,6 +70,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Email"
+                            android:fontFamily="@font/pb"
+                            android:textColor="@color/grey"
                             android:layout_gravity="center_horizontal"
                             android:textSize="20sp"
                             android:layout_marginTop="10dp"/>
@@ -76,6 +81,7 @@
                             android:layout_height="wrap_content"
                             android:text="Status : "
                             android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/pr"
                             android:textSize="15sp"
                             android:layout_marginTop="6dp"
                             android:paddingBottom="5dp"/>
@@ -86,7 +92,9 @@
                             android:layout_height="wrap_content"
                             android:text="Sign Out"
                             android:textColor="@color/white"
+                            android:fontFamily="@font/pb"
                             android:textAllCaps="false"
+                            android:textSize="20dp"
                             android:layout_gravity="center"
                             android:layout_centerInParent="true"
                             android:layout_alignParentBottom="true"/>
@@ -100,16 +108,124 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/cardview_shadow_start_color"/>
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:layout_gravity="center"
-                android:text="My Event"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/pb"
+                    android:textColor="@color/grey"
+                    android:text="My Event"/>
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_grey"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/imag_store1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/icon_box"
+                            android:scaleType="fitCenter"
+                            android:layout_marginTop="20dp"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/textevent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Event"
+                            android:textSize="20sp"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/pr"
+                            android:layout_below="@+id/imag_store1"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/num_event_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/textevent"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/no_com_id1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/icon_activity"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/tvfav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Favorite"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/pr"
+                            android:textColor="@color/grey"
+                            android:layout_below="@+id/no_com_id1"
+                            android:layout_centerHorizontal="true"/>
+                        <TextView
+                            android:id="@+id/num_favorite_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:layout_below="@+id/tvfav"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:layout_gravity="left"
+                    android:fontFamily="@font/pb"
+                    android:textColor="@color/grey"
+                    android:text="Event Add Management"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white_grey"/>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,6 +254,8 @@
                             android:layout_height="wrap_content"
                             android:text="Waiting to Accept"
                             android:textSize="20sp"
+                            android:fontFamily="@font/pr"
+                            android:textColor="@color/grey"
                             android:layout_below="@+id/waitingBut"
                             android:layout_centerHorizontal="true"/>
                         <TextView
@@ -145,6 +263,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:fontFamily="@font/pr"
                             android:textSize="20sp"
                             android:layout_below="@+id/textwaiting"
                             android:layout_centerHorizontal="true"/>
@@ -163,8 +282,10 @@
                             android:background="@android:color/transparent"
 
                             android:id="@+id/acceptedBut"
-                            android:layout_width="40dp"
+                            android:layout_width="60dp"
                             android:layout_height="60dp"
+                            android:src="@drawable/icon_location"
+                            android:scaleType="fitCenter"
                             android:layout_marginTop="20dp"
                             android:src="@drawable/icon_activity"
                             android:layout_centerHorizontal="true"/>
@@ -176,6 +297,9 @@
                             android:layout_below="@+id/acceptedBut"
                             android:layout_centerHorizontal="true"
                             android:text="Accepted"
+
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/pr"
                             android:textSize="20sp" />
                         <TextView
                             android:id="@+id/alreadyAccTv"
@@ -183,6 +307,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="20sp"
+                            android:fontFamily="@font/pr"
                             android:layout_below="@+id/Tvalreay"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
@@ -193,7 +318,7 @@
 
             <LinearLayout
                 android:id="@+id/layoutadmin"
-                android:background="@color/colorOrange"
+                android:background="@color/colorwhiteblue"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -204,20 +329,22 @@
                     android:id="@+id/activitesTv"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
-                    android:text="Awaiting to Approve : 0"
+                    android:text="Awaiting to Approve : "
                     android:textSize="20sp"
                     android:paddingBottom="5dp"
+                    android:fontFamily="@font/pb"
                     android:layout_height="wrap_content" />
 
                 <Button
                     android:background="@drawable/click"
                     android:id="@+id/adminBut"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="       Management Activities     "
-                    android:textColor="@color/white"
+                    android:text="Management Activities"
+                    android:textColor="@drawable/selector_text"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/pb"
                     android:layout_centerInParent="true"
                     android:layout_alignParentBottom="true"/>
 
@@ -228,7 +355,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="5dp"
-                android:background="@color/Orange"
+                android:background="@color/colorwhiteblue"
                 android:layout_height="match_parent">
 
 
@@ -236,10 +363,10 @@
                     android:background="@drawable/click"
                     android:id="@+id/userBut"
                     android:gravity="center"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="     User Management    "
-                    android:textColor="@color/white"
+                    android:text="User Management"
+                    android:textColor="@drawable/selector_text"
                     android:textAllCaps="false"
                     android:layout_gravity="center"
                     />
