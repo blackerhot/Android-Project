@@ -299,9 +299,8 @@ public class profileFragment extends Fragment {
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
                 AccessToken.setCurrentAccessToken(null);//logout facebook
-               // settings.edit().remove("LOGIN").commit();
-                SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.clear().commit();
+                // settings.edit().remove("LOGIN").commit();
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
 

@@ -281,6 +281,12 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
+                if (pd.isShowing()) {
+                    pd.dismiss();
+                    Toast.makeText(AddingActivity.this,
+                            "Failed to upload Event. Try again!", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 

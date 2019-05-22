@@ -14,7 +14,6 @@ import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,8 +23,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.BounceInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -66,16 +63,16 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class activitesFragment extends  Fragment {
+public class activitesFragment extends Fragment {
     public TextView testtv;
     public Button btn_go_calen;
     Intent intentother = null;
     ArrayList<ExampleItem> mExampleList;
     ArrayList<ExampleItem> readfirebaselist = null;
-    int year,month,day ,aftermonth;
+    int year, month, day, aftermonth;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    ConnectivityManager manager ;
+    ConnectivityManager manager;
     private static final String TAG = "MainActivity";
     String today_str;
     String after_two_month_str;
@@ -83,16 +80,17 @@ public class activitesFragment extends  Fragment {
     Date endDate = null;
     Date todate = null;
     Date after_two_monthdate = null;
+
     @Nullable
     @Override
-    public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_activites,container,false);
-        final SwipeMenuListView  today_event_listView;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_activites, container, false);
+        final SwipeMenuListView today_event_listView;
         final SwipeMenuListView all_ev_listview;
         today_event_listView = (SwipeMenuListView) view.findViewById(R.id.lst);
         all_ev_listview = (SwipeMenuListView) view.findViewById(R.id.all_swip);
         getActivity().setTitle("ํActivities");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().
+        ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         setHasOptionsMenu(true);
         loadData();
@@ -108,72 +106,73 @@ public class activitesFragment extends  Fragment {
         aftermonth = month - 2;
         day = c.get(Calendar.DAY_OF_MONTH);
         today_str = year + "-" + month + "-" + day;
-        after_two_month_str = year + "-" + aftermonth  + "-" + day;
+        after_two_month_str = year + "-" + aftermonth + "-" + day;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
         final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
 
 
-        if(mExampleList.size()!=0){
+        if (mExampleList.size() != 0) {
 
-        for (int i = 0; i < mExampleList.size(); i++) {
-            try {
-                strDate = sdf.parse(mExampleList.get(i).getDateStart());
-                endDate = sdf.parse(mExampleList.get(i).getDateEnd());
-                after_two_monthdate = sdf.parse(after_two_month_str);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (after_two_monthdate.after(strDate)) {
-                    if (after_two_monthdate.after(endDate)){
-                       mExampleList.remove(i);
-                    }
+            for (int i = 0; i < mExampleList.size(); i++) {
+                try {
+                    Log.e("actiti",mExampleList.get(i).getDateStart()+"") ;
+                    strDate = sdf.parse(mExampleList.get(i).getDateStart());
+                    endDate = sdf.parse(mExampleList.get(i).getDateEnd());
+                    after_two_monthdate = sdf.parse(after_two_month_str);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+                try {
+                    if (after_two_monthdate.after(strDate)) {
+                        if (after_two_monthdate.after(endDate)) {
+                            mExampleList.remove(i);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        }
+            }
         }
         saveData();
-        if(mExampleList.size()!=0){
-        for (int i = 0; i < mExampleList.size(); i++){
-            try {
-            strDate = sdf.parse(mExampleList.get(i).getDateStart());
-            endDate = sdf.parse(mExampleList.get(i).getDateEnd());
-            todate = sdf.parse(today_str);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (strDate.equals(todate)) {
-                    today_event_item = (ExampleItem) mExampleList.get(i);
-                    to_day_exampe.add(today_event_item);
-
-                }else if (strDate.before(todate)){
-                    if (endDate.after(todate)){
-                        today_event_item = (ExampleItem) mExampleList.get(i);
-                        to_day_exampe.add(today_event_item);
-                    }else if (endDate.equals(todate)){
-                        today_event_item = (ExampleItem) mExampleList.get(i);
-                        to_day_exampe.add(today_event_item);
-                    }
-
-                }else if (strDate.after(todate)){
-                    if (endDate.after(todate)){
-                        all_event_item = (ExampleItem) mExampleList.get(i);
-                        all_exampe.add(all_event_item);
-                    }
-
+        if (mExampleList.size() != 0) {
+            for (int i = 0; i < mExampleList.size(); i++) {
+                try {
+                    strDate = sdf.parse(mExampleList.get(i).getDateStart());
+                    endDate = sdf.parse(mExampleList.get(i).getDateEnd());
+                    todate = sdf.parse(today_str);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    if (strDate.equals(todate)) {
+                        today_event_item = (ExampleItem) mExampleList.get(i);
+                        to_day_exampe.add(today_event_item);
+
+                    } else if (strDate.before(todate)) {
+                        if (endDate.after(todate)) {
+                            today_event_item = (ExampleItem) mExampleList.get(i);
+                            to_day_exampe.add(today_event_item);
+                        } else if (endDate.equals(todate)) {
+                            today_event_item = (ExampleItem) mExampleList.get(i);
+                            to_day_exampe.add(today_event_item);
+                        }
+
+                    } else if (strDate.after(todate)) {
+                        if (endDate.after(todate)) {
+                            all_event_item = (ExampleItem) mExampleList.get(i);
+                            all_exampe.add(all_event_item);
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
-
-
-        }
         }
         Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
             @Override
@@ -227,22 +226,21 @@ public class activitesFragment extends  Fragment {
                 }
 
 
-
                 return 1;
             }
         });
-        if(to_day_exampe.size()!=0){
+        if (to_day_exampe.size() != 0) {
 
 
-        for (int i = 0; i < to_day_exampe.size(); i++){
-            HashMap<String, String> hm_td = new HashMap<String, String>();
-            hm_td.put("listview_datestr",to_day_exampe.get(i).getTimeStart());
-            hm_td.put("listview_title",to_day_exampe.get(i).getTitle());
-            hm_td.put("listview_comment",to_day_exampe.get(i).getContent());
-            bList.add(hm_td);
+            for (int i = 0; i < to_day_exampe.size(); i++) {
+                HashMap<String, String> hm_td = new HashMap<String, String>();
+                hm_td.put("listview_datestr", to_day_exampe.get(i).getTimeStart());
+                hm_td.put("listview_title", to_day_exampe.get(i).getTitle());
+                hm_td.put("listview_comment", to_day_exampe.get(i).getContent());
+                bList.add(hm_td);
+            }
         }
-        }
-        if(all_exampe.size()!=0) {
+        if (all_exampe.size() != 0) {
             for (int i = 0; i < all_exampe.size(); i++) {
                 HashMap<String, String> hm = new HashMap<String, String>();
                 hm.put("listview_timestr", all_exampe.get(i).getTimeStart());
@@ -261,12 +259,12 @@ public class activitesFragment extends  Fragment {
             }
         }
 
-        String[] from = { "listview_datestr", "listview_title", "listview_comment"};
+        String[] from = {"listview_datestr", "listview_title", "listview_comment"};
         final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
-        String[] from_other_event = { "listview_timestr", "listview_datestr","listview_title", "listview_comment"};
-        final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event,R.id.lstItems_other_event};
+        String[] from_other_event = {"listview_timestr", "listview_datestr", "listview_title", "listview_comment"};
+        final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event, R.id.lstItems_other_event};
         final SimpleAdapter aAdapter = new SimpleAdapter(getContext(),
-                            aList, R.layout.listview_other_event, from_other_event, to_other_event);
+                aList, R.layout.listview_other_event, from_other_event, to_other_event);
         final SimpleAdapter bAdapter = new SimpleAdapter(getContext(),
                 bList, R.layout.listview_activity, from, to);
         all_ev_listview.setAdapter(aAdapter);
@@ -277,6 +275,7 @@ public class activitesFragment extends  Fragment {
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             SwipeMenuItem deleteItem;
+
             @Override
             public void create(SwipeMenu menu) {
                 // deleteItem
@@ -298,9 +297,9 @@ public class activitesFragment extends  Fragment {
                 switch (index) {
                     case 0:
                         all_ev_listview.smoothOpenMenu(position);
-                        for(int i = 0 ;i < mExampleList.size(); i++){
-                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimeStart())){
-                                if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
+                        for (int i = 0; i < mExampleList.size(); i++) {
+                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimeStart())) {
+                                if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
                                     mExampleList.remove(i);
                                     saveData();
                                 }
@@ -328,9 +327,9 @@ public class activitesFragment extends  Fragment {
                 switch (index) {
                     case 0:
                         today_event_listView.smoothOpenMenu(position);
-                        for(int i = 0 ;i < mExampleList.size(); i++){
-                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimeStart())){
-                                if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
+                        for (int i = 0; i < mExampleList.size(); i++) {
+                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimeStart())) {
+                                if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
                                     mExampleList.remove(i);
                                     saveData();
                                 }
@@ -361,10 +360,8 @@ public class activitesFragment extends  Fragment {
             }
         });
 
-
         return view;
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -378,7 +375,7 @@ public class activitesFragment extends  Fragment {
 
 
         if (id == R.id.action_add_event_me) {
-            startActivity(new Intent(getActivity(),AddActivityForme.class));
+            startActivity(new Intent(getActivity(), AddActivityForme.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -391,18 +388,19 @@ public class activitesFragment extends  Fragment {
         editor.putString("task list", json);
         editor.apply();
     }
+
     private void loadData() {
-        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
         Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+
         mExampleList = gson.fromJson(json, type);
+
         if (mExampleList == null) {
             mExampleList = new ArrayList<>();
         }
-
-
-
 
     }
 

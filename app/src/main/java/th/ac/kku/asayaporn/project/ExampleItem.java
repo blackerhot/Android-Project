@@ -6,18 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExampleItem {
-    private String timeStart;
-    private String timeEnd;
-    private String dateStart;
-    private String dateEnd;
+    private String timestart;
+    private String timeend;
+    private String datest;
+    private String dateend;
     private String title;
     private String content;
     private String place;
     public ExampleItem(String timeStart, String timeEnd,String dateStart,String dateEnd, String title ,String content,String place) {
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+        this.timestart = timeStart;
+        this.timeend = timeEnd;
+        this.datest = dateStart;
+        this.dateend = dateEnd;
         this.title = title;
         this.content = content;
         this.place = place;
@@ -40,35 +40,35 @@ public class ExampleItem {
     }
 
     public String getDateStart() {
-        return dateStart;
+        return datest;
     }
 
     public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+        this.datest = dateStart;
     }
 
     public String getDateEnd() {
-        return dateEnd;
+        return dateend;
     }
 
     public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+        this.dateend = dateEnd;
     }
 
     public String getTimeStart() {
-        return timeStart;
+        return timestart;
     }
 
     public void setTimeStart(String timeStart) {
-        this.timeStart = timeStart;
+        this.timestart = timeStart;
     }
 
     public String getTimeEnd() {
-        return timeEnd;
+        return timeend;
     }
 
     public void setTimeEnd(String timeEnd) {
-        this.timeEnd = timeEnd;
+        this.timeend = timeEnd;
     }
 
     public String getPlace() {
@@ -82,10 +82,10 @@ public class ExampleItem {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("timeStart", timeStart);
-        result.put("timeEnd", timeEnd);
-        result.put("dateStart", dateStart);
-        result.put("dateEnd", dateEnd);
+        result.put("timestart", timestart);
+        result.put("timeend", timeend);
+        result.put("datest", datest);
+        result.put("dateend", dateend);
         result.put("title", title);
         result.put("content", content);
         result.put("place", place);

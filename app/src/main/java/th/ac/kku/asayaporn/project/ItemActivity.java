@@ -1,4 +1,5 @@
 package th.ac.kku.asayaporn.project;
+
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -74,6 +76,7 @@ public class ItemActivity extends AppCompatActivity {
     ImageButton phone;
     ImageButton website;
     TextView sponser;
+    FloatingActionButton floatingActionButton;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -84,16 +87,18 @@ public class ItemActivity extends AppCompatActivity {
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     Intent intentother = null;
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
-    ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
-    String timestr , timeEndstr;
+    ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();
+    ;
+    String timestr, timeEndstr;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activites_kkudialog);
-
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatAlert);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,70 +125,76 @@ public class ItemActivity extends AppCompatActivity {
         int width = size.x;
         Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
 
-       
+
         title.setText(para.getString("title"));
         getSupportActionBar().setTitle("");
 
         //website.setText(para.getString("website"));
         sponser.setText(para.getString("sponsor"));
         detail.setText(para.getString("detail"));
-        datest.setText("วันที่เริ่มงาน : "+para.getString("datest") +"\nเวลา : ("+para.getString("timest")+")");
-        dateend.setText("วันสุดท้าย : "+para.getString("dateend") +"\nเวลา : ("+para.getString("timeed")+")");
+        datest.setText("วันที่เริ่มงาน : " + para.getString("datest") + "\nเวลา : (" + para.getString("timest") + ")");
+        dateend.setText("วันสุดท้าย : " + para.getString("dateend") + "\nเวลา : (" + para.getString("timeed") + ")");
         //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
-        final FirebaseUser currentFirebaseUser =  FirebaseAuth.getInstance().getCurrentUser();
-        if(currentFirebaseUser!=null){
+        final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentFirebaseUser != null) {
 
-        for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+            for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
-            if (userInfo.getProviderId().equals("google.com")) {
-                credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                        getApplicationContext(), Arrays.asList(SCOPES))
-                        .setBackOff(new ExponentialBackOff())
-                        .setSelectedAccount(googleSignInAccount.getAccount());
-                mService = new com.google.api.services.calendar.Calendar.Builder(
-                        transport, jsonFactory, credentialCaledndar)
-                        .setApplicationName("Google Calendar API Android Quickstart")
-                        .build();
-                create = false;
-                new ApiAsyncTask(ItemActivity.this).execute();
+                if (userInfo.getProviderId().equals("google.com")) {
+                    credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                            getApplicationContext(), Arrays.asList(SCOPES))
+                            .setBackOff(new ExponentialBackOff())
+                            .setSelectedAccount(googleSignInAccount.getAccount());
+                    mService = new com.google.api.services.calendar.Calendar.Builder(
+                            transport, jsonFactory, credentialCaledndar)
+                            .setApplicationName("Google Calendar API Android Quickstart")
+                            .build();
+                    create = false;
+                    new ApiAsyncTask(ItemActivity.this).execute();
+                }
             }
-        }
         }
 
         butAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();
-                if(currentFirebaseUser != null){
 
-                    timestr = para.getString("timest");
-                    timestr = timestr.substring(4);
-                    timeEndstr = para.getString("timeed");
-                    timeEndstr = timeEndstr.substring(4);
-                    Map<String,Object> childUpdates = new HashMap<>();
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/title",para.getString("title"));
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/TimeStart",timestr);
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/TimeEnd",timeEndstr);
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/DateStart",para.getString("detest"));
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" +  para.getString("title") +"/DateEnd",para.getString("dateend"));
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/content",para.getString("detail"));
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/place",para.getString("address"));
-                    myRef.updateChildren(childUpdates);
+                if (currentFirebaseUser != null) {
 
-                for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
+                    for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
-                    if (userInfo.getProviderId().equals("google.com")) {
-                        create = true;
-                        new ApiAsyncTask(ItemActivity.this).execute();
-                    } else {
-                        //Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
+                        if (userInfo.getProviderId().equals("google.com")) {
+                            Toast.makeText(ItemActivity.this, userInfo.getProviderId(), Toast.LENGTH_SHORT).show();
+                            create = true;
+                            new ApiAsyncTask(ItemActivity.this).execute();
+                        } else {
+
+                        }
                     }
+                } else {
+                    Toast.makeText(ItemActivity.this, "Please using google account", Toast.LENGTH_SHORT).show();
                 }
-            }else {
-                      //  Toast.makeText(ItemActivity.this, "Please using google account only", Toast.LENGTH_SHORT).show();
-                }
+            }
+        });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
+                timestr = para.getString("timest");
+                timestr = timestr.substring(4);
+                timeEndstr = para.getString("timeed");
+                timeEndstr = timeEndstr.substring(4);
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/title", para.getString("title"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timestart", timestr);
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timeend", timeEndstr);
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detest", para.getString("detest"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/dateend", para.getString("dateend"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detail", para.getString("detail"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/address", para.getString("address"));
+                myRef.updateChildren(childUpdates);
             }
         });
         website.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +215,6 @@ public class ItemActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void saveData() {
@@ -213,9 +223,29 @@ public class ItemActivity extends AppCompatActivity {
         timestr = timestr.substring(4);
         timeEndstr = para.getString("timeed");
         timeEndstr = timeEndstr.substring(4);
-        mExampleList.add(new ExampleItem(timestr,timeEndstr,para.getString("datest"),
-                para.getString("dateend"),para.getString("title"),para.getString("detail"),
-                (String) para.get("address")));
+        if (mExampleList.size() != 0) {
+            Boolean added = true;
+            for (int i = 0; i < mExampleList.size(); i++) {
+
+                if (mExampleList.get(i).getTitle().equals(para.getString("title"))) {
+                    added = false;
+                    Toast.makeText(ItemActivity.this,"Event is already added!!",Toast.LENGTH_SHORT).show();
+                }
+            }
+            if (added) {
+                Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
+                mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest"),
+                        para.getString("dateend"), para.getString("title"), para.getString("detail"),
+                        (String) para.get("address")));
+            }
+
+        }else {
+            Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
+            mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest"),
+                    para.getString("dateend"), para.getString("title"), para.getString("detail"),
+                    (String) para.get("address")));
+        }
+
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -226,10 +256,11 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        SharedPreferences sharedPreferences =  getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+        Type type = new TypeToken<ArrayList<ExampleItem>>() {
+        }.getType();
         mExampleList = gson.fromJson(json, type);
 
         if (mExampleList == null) {
