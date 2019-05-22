@@ -166,7 +166,6 @@ public class ItemActivity extends AppCompatActivity {
                     for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                         if (userInfo.getProviderId().equals("google.com")) {
-                            Toast.makeText(ItemActivity.this, userInfo.getProviderId(), Toast.LENGTH_SHORT).show();
                             create = true;
                             new ApiAsyncTask(ItemActivity.this).execute();
                         } else {
@@ -187,13 +186,13 @@ public class ItemActivity extends AppCompatActivity {
                 timeEndstr = para.getString("timeed");
                 timeEndstr = timeEndstr.substring(4);
                 Map<String, Object> childUpdates = new HashMap<>();
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/title", para.getString("title"));
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timestart", timestr);
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timeend", timeEndstr);
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detest", para.getString("datest")+"");
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/dateend", para.getString("dateend"));
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detail", para.getString("detail"));
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/address", para.getString("address"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/title", EncodeString(para.getString("title")));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/timestart", timestr);
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" +   EncodeString(para.getString("title")) + "/timeend", timeEndstr);
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/detest", para.getString("datest"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/dateend", para.getString("dateend"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/detail", EncodeString(para.getString("detail")));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/address", para.getString("address"));
                 myRef.updateChildren(childUpdates);
             }
         });
@@ -216,6 +215,9 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+    public static String EncodeString(String string) {
+        return string.replace(".", " ");
+    }
 
     private void saveData() {
         loadData();
@@ -234,15 +236,15 @@ public class ItemActivity extends AppCompatActivity {
             }
             if (added) {
                 Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
-                mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest"),
-                        para.getString("dateend"), para.getString("title"), para.getString("detail"),
+                mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest")+"x",
+                        para.getString("dateend")+"", para.getString("title"), para.getString("detail"),
                         (String) para.get("address")));
             }
 
         }else {
             Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
-            mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest"),
-                    para.getString("dateend"), para.getString("title"), para.getString("detail"),
+            mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest")+"x ",
+                    para.getString("dateend")+"", para.getString("title"), para.getString("detail"),
                     (String) para.get("address")));
         }
 

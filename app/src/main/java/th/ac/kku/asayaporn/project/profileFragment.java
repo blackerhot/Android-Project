@@ -48,6 +48,8 @@ import com.squareup.picasso.Picasso;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -61,7 +63,6 @@ public class profileFragment extends Fragment {
     String url_photo = "";
     FirebaseUser currentFirebaseUser;
     private FirebaseAuth mAuth;
-    ArrayList<ExampleItem> mExampleList;
 
     TextView waiting;
     TextView already;
@@ -69,6 +70,7 @@ public class profileFragment extends Fragment {
     TextView waitingmod;
     FirebaseDatabase database;
     DatabaseReference myRef;
+
     ImageButton waitinBut;
     ImageButton acceptBut;
     DatabaseReference myRefActi;
@@ -300,6 +302,10 @@ public class profileFragment extends Fragment {
                 LoginManager.getInstance().logOut();
                 AccessToken.setCurrentAccessToken(null);//logout facebook
                 // settings.edit().remove("LOGIN").commit();
+
+
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.clear().commit();
 
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);

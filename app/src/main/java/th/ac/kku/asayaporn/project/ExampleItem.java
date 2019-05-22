@@ -7,20 +7,37 @@ import java.util.Map;
 
 public class ExampleItem {
     private String timestart;
-    private String timeend;
-    private String datest;
-    private String dateend;
-    private String title;
-    private String content;
-    private String place;
-    public ExampleItem(String timeStart, String timeEnd,String dateStart,String dateEnd, String title ,String content,String place) {
-        this.timestart = timeStart;
-        this.timeend = timeEnd;
-        this.datest = dateStart;
-        this.dateend = dateEnd;
-        this.title = title;
-        this.content = content;
-        this.place = place;
+
+    public String getTimestart() {
+        return timestart;
+    }
+
+    public void setTimestart(String timestart) {
+        this.timestart = timestart;
+    }
+
+    public String getTimeend() {
+        return timeend;
+    }
+
+    public void setTimeend(String timeend) {
+        this.timeend = timeend;
+    }
+
+    public String getDatest() {
+        return datest;
+    }
+
+    public void setDatest(String datest) {
+        this.datest = datest;
+    }
+
+    public String getDateend() {
+        return dateend;
+    }
+
+    public void setDateend(String dateend) {
+        this.dateend = dateend;
     }
 
     public String getTitle() {
@@ -31,54 +48,41 @@ public class ExampleItem {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
-    public String getDateStart() {
-        return datest;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDateStart(String dateStart) {
-        this.datest = dateStart;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getDateEnd() {
-        return dateend;
-    }
-
-    public void setDateEnd(String dateEnd) {
-        this.dateend = dateEnd;
-    }
-
-    public String getTimeStart() {
-        return timestart;
-    }
-
-    public void setTimeStart(String timeStart) {
+    private String timeend;
+    private String datest;
+    private String dateend;
+    private String title;
+    private String detail;
+    private String address;
+    public ExampleItem(String timeStart, String timeEnd,String dateStart,String dateEnd, String title ,String content,String place) {
         this.timestart = timeStart;
-    }
-
-    public String getTimeEnd() {
-        return timeend;
-    }
-
-    public void setTimeEnd(String timeEnd) {
         this.timeend = timeEnd;
+        this.datest = dateStart;
+        this.dateend = dateEnd;
+        this.title = title;
+        this.detail = content;
+        this.address = place;
     }
 
-    public String getPlace() {
-        return place;
-    }
+    public ExampleItem(){
 
-    public void setPlace(String place) {
-        this.place = place;
     }
-
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -87,8 +91,8 @@ public class ExampleItem {
         result.put("datest", datest);
         result.put("dateend", dateend);
         result.put("title", title);
-        result.put("content", content);
-        result.put("place", place);
+        result.put("detail", detail);
+        result.put("address", address);
         return result;
     }
 }
