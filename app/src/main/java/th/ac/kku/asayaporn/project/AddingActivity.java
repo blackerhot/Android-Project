@@ -133,7 +133,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 if (title.isEmpty() || image.isEmpty() && dateSt.equals("ยังว่าง") || dateEd.equals("ยังว่าง") || timeSt.equals("ยังว่าง")
                         || timeEd.equals("ยังว่าง") || content.isEmpty() || place.isEmpty() || sponsor.isEmpty()
                         || url.isEmpty() || phone.isEmpty() || website.isEmpty() || imgurl.isEmpty()){
-                    Toast.makeText(AddingActivity.this,"Check information",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddingActivity.this,"Please fill all a box",Toast.LENGTH_LONG).show();
                 }else {
                     if (year_start <= year_end && month_start < month_end) {
                         addEvent();
@@ -146,7 +146,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                             hour_start == hour_end && minute_start <= minute_end) {
                         addEvent();
                     } else {
-                        Toast.makeText(AddingActivity.this, "Please Check Start Date And End Date incorrect", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddingActivity.this, "Start Date and End Date is incorrect", Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -237,6 +237,9 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
+                        if (pd.isShowing()) {
+                            pd.dismiss();
+                        }
                         Uri downloadUrl = Uri.parse(taskSnapshot.getMetadata()
                                 .getReference().getDownloadUrl().toString());
                         Toast.makeText(AddingActivity.this,
@@ -258,14 +261,14 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
                 imgurl=uri.toString();
-                String url = eurl.getText() + "เว็ปยังว่างเปล่า";
+                String url = eurl.getText() +"";
                 String image = imgurl+"";
-                String title = etitle.getText() + "ยังว่างง";
-                String place = eplace.getText() + "ยังว่าง";
-                String content = econtent.getText() + "ยังว่าง";
-                String phone = ephone.getText() + "ยังว่าง";
-                String website = eurl.getText() + "ยังว่าง";
-                String sponsor = esponsor.getText() + "ยังว่าง";
+                String title = etitle.getText() + "";
+                String place = eplace.getText() + "";
+                String content = econtent.getText() + "";
+                String phone = ephone.getText() + "";
+                String website = eurl.getText() + "";
+                String sponsor = esponsor.getText() + "";
                 writeNewPost(null, url, image, title, place, content,
                         dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
                 readNewUser();
@@ -283,8 +286,9 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 // Handle any errors
                 if (pd.isShowing()) {
                     pd.dismiss();
+                    pd.show();
                     Toast.makeText(AddingActivity.this,
-                            "Picture is uploading.. Try again!", Toast.LENGTH_SHORT).show();
+                            "Picture is uploading.. A sec!", Toast.LENGTH_SHORT).show();
 
                 }
             }
