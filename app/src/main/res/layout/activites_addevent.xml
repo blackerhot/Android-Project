@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/greyfeed">
+    android:background="@color/greyfeed"
+    android:layout_margin="16dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -85,7 +86,7 @@
                     android:id="@+id/edt_place_for_me"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="10dp"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/pr"
                     android:hint="สถานที่จัดงาน**"
