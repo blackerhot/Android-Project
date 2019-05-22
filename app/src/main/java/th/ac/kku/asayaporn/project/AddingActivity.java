@@ -240,7 +240,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                         Uri downloadUrl = Uri.parse(taskSnapshot.getMetadata()
                                 .getReference().getDownloadUrl().toString());
                         Toast.makeText(AddingActivity.this,
-                                "Uploading picture... " ,
+                                "Uploading picture Already! " ,
                                 Toast.LENGTH_LONG).show();
 
                     }
@@ -249,7 +249,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         Toast.makeText(AddingActivity.this,
-                                "Fail", Toast.LENGTH_LONG).show();
+                                "Please sending again", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -284,7 +284,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 if (pd.isShowing()) {
                     pd.dismiss();
                     Toast.makeText(AddingActivity.this,
-                            "Failed to upload Event. Try again!", Toast.LENGTH_SHORT).show();
+                            "Picture is uploading.. Try again!", Toast.LENGTH_SHORT).show();
 
                 }
             }
