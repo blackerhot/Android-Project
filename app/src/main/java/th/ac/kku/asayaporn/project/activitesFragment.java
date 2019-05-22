@@ -88,7 +88,7 @@ public class activitesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites, container, false);
         final SwipeMenuListView today_event_listView;
         final SwipeMenuListView all_ev_listview;
@@ -137,9 +137,10 @@ public class activitesFragment extends Fragment {
                         Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
                         mExampleList = gson.fromJson("[" + s1 + "]", type);
                         Log.e("activi", "[" + s1 + "]");
-                        if (mExampleList != null) {
-                            mExampleList = new ArrayList<>();
-                        }
+                            if(mExampleList==null){
+                                mExampleList = new ArrayList<>();
+                            }
+
                         }
                         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
                         final List<HashMap<String, String>> bList = new ArrayList<HashMap<String, String>>();
@@ -309,9 +310,10 @@ public class activitesFragment extends Fragment {
                         final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
                         String[] from_other_event = {"listview_timestr", "listview_datestr", "listview_title", "listview_comment"};
                         final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event, R.id.lstItems_other_event};
-                        final SimpleAdapter aAdapter = new SimpleAdapter(getContext(),
+
+                        final SimpleAdapter aAdapter = new SimpleAdapter(inflater.getContext(),
                                 aList, R.layout.listview_other_event, from_other_event, to_other_event);
-                        final SimpleAdapter bAdapter = new SimpleAdapter(getContext(),
+                        final SimpleAdapter bAdapter = new SimpleAdapter(inflater.getContext(),
                                 bList, R.layout.listview_activity, from, to);
 
                         all_ev_listview.setAdapter(aAdapter);

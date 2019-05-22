@@ -133,7 +133,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 String sponsor = esponsor.getText() + "";
                 if (title.isEmpty() || image.isEmpty() && dateSt.equals("ยังว่าง") || dateEd.equals("ยังว่าง") || timeSt.equals("ยังว่าง")
                         || timeEd.equals("ยังว่าง") || content.isEmpty() || place.isEmpty() || sponsor.isEmpty()
-                        || url.isEmpty() || phone.isEmpty() || website.isEmpty() || imgurl.isEmpty()){
+                        || url.isEmpty() || phone.isEmpty() || website.isEmpty() ){
                     Toast.makeText(AddingActivity.this,"Please fill all a box",Toast.LENGTH_LONG).show();
                 }else {
                     if (year_start <= year_end && month_start < month_end) {

@@ -214,14 +214,14 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     private void addEvent() {
-        String url = eurl.getText() + "เว็ปยังว่างเปล่า";
+        String url = eurl.getText() + "";
         String image ="";
-        String title = etitle.getText() + "ยังว่างง";
-        String place = eplace.getText() + "ยังว่าง";
-        String content = econtent.getText() + "ยังว่าง";
-        String phone = ephone.getText() + "ยังว่าง";
-        String website = eurl.getText() + "ยังว่าง";
-        String sponsor = esponsor.getText() + "ยังว่าง";
+        String title = etitle.getText() + "";
+        String place = eplace.getText() + "";
+        String content = econtent.getText() + "";
+        String phone = ephone.getText() + "";
+        String website = eurl.getText() + "";
+        String sponsor = esponsor.getText() + "";
 
         writeNewPost(null, url, image, title, place, content,
                 dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
