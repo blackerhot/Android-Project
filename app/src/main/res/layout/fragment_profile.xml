@@ -31,7 +31,7 @@
           android:id="@+id/user_photo_id"
           android:layout_width="150dp"
           android:layout_height="150dp"
-          android:src="@drawable/iconprofile"
+          android:src="@drawable/profilenull"
           android:background=""
           app:civ_border_width="2dp"
           app:civ_border_color="@color/white"
