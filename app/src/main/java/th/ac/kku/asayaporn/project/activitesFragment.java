@@ -238,11 +238,17 @@ public class activitesFragment extends Fragment {
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-                                if (time1.compareTo(time2) < 0) {
+
+                                try {
+                                if (time1.compareTo(time2) <= 0) {
                                     return -1;
                                 } else {
                                     return 1;
+                                } }catch (Exception e) {
+
+                                    e.printStackTrace();
                                 }
+                                return 1;
 
                             }
                         });
