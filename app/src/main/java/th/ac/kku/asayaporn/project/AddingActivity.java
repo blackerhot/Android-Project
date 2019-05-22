@@ -1,6 +1,7 @@
 package th.ac.kku.asayaporn.project;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 
@@ -32,9 +33,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -43,9 +47,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +61,8 @@ import java.util.Map;
 public class AddingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
         , TimePickerDialog.OnTimeSetListener {
     FirebaseUser currentFirebaseUser;
+    private StorageReference mStorageRef;
+
     private FirebaseAuth mAuth;
     EditText etitle;
     EditText eurl;
@@ -69,10 +79,13 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     int year_start, month_start, day_start, hour_start, minute_start;
     int year_end, month_end, day_end, hour_end, minute_end;
     Boolean state;
+    TextView imgTv;
     String dateSt = "ยังว่าง";
     String dateEd = "ยังว่าง";
     String timeSt = "ยังว่าง";
     String timeEd = "ยังว่าง";
+    ProgressDialog pd;
+    String imgurl="";
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_EX = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -89,7 +102,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Sending Activities");
         }
-
+        imgTv = (TextView) findViewById(R.id.imgTv);
         etitle = (EditText) findViewById(R.id.etitle);
         eurl = (EditText) findViewById(R.id.eurl);
         ephone = (EditText) findViewById(R.id.ephone);
@@ -104,8 +117,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
 
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
-
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +168,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         btnImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                verifyStoragePermissions(AddingActivity.this);
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -173,14 +186,16 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         if (requrestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null) {
             Uri selec = data.getData();
             String[] filePC = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selec, filePC, null, null, null);
+            Cursor cursor = getContentResolver().query(selec, filePC,
+                    null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePC[0]);
             final String pic = cursor.getString(columnIndex);
+            imgurl=pic;
             cursor.close();
-            verifyStoragePermissions(AddingActivity.this);
             ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
             btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
+            imgTv.setText("สถาณะ : เลือกรูปเรียบร้อย");
         }
     }
 
@@ -196,22 +211,74 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         }
     }
 
-    private void addEvent() {
-        String url = eurl.getText() + "เว็ปยังว่างเปล่า";
-        String image = "";
-        String title = etitle.getText() + "ยังว่างง";
-        String place = eplace.getText() + "ยังว่าง";
-        String content = econtent.getText() + "ยังว่าง";
-        String phone = ephone.getText() + "ยังว่าง";
-        String website = eurl.getText() + "ยังว่าง";
-        String sponsor = esponsor.getText() + "ยังว่าง";
+    private void uploadFile(final String picturePath) {
+        final Uri file = Uri.fromFile(new File(picturePath));
+        final StorageReference riversRef = mStorageRef.child("images/" + file.getLastPathSegment());
+        UploadTask uploadTask = riversRef.putFile(file);
 
-        writeNewPost(null, url, image, title, place, content,
-                dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
-        readNewUser();
-        Toast.makeText(AddingActivity.this,
-                "Added Already", Toast.LENGTH_SHORT).show();
-        onBackPressed();
+
+        uploadTask
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        Uri downloadUrl = Uri.parse(taskSnapshot.getMetadata()
+                                .getReference().getDownloadUrl().toString());
+                        Toast.makeText(AddingActivity.this,
+                                "Uploading picture... " ,
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(AddingActivity.this,
+                                "Fail", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+        mStorageRef.child("images/" + file.getLastPathSegment()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                imgurl=uri.toString();
+                String url = eurl.getText() + "เว็ปยังว่างเปล่า";
+                String image = imgurl+"";
+                String title = etitle.getText() + "ยังว่างง";
+                String place = eplace.getText() + "ยังว่าง";
+                String content = econtent.getText() + "ยังว่าง";
+                String phone = ephone.getText() + "ยังว่าง";
+                String website = eurl.getText() + "ยังว่าง";
+                String sponsor = esponsor.getText() + "ยังว่าง";
+                writeNewPost(null, url, image, title, place, content,
+                        dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
+                readNewUser();
+                if (pd.isShowing()) {
+                    pd.dismiss();
+                    Toast.makeText(AddingActivity.this,
+                            "Event is pending to accept!!", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+    }
+
+    private void addEvent() {
+
+        pd = new ProgressDialog(AddingActivity.this);
+        pd.setMessage("Please wait");
+        pd.setCancelable(false);
+        pd.show();
+        uploadFile(imgurl);
+
     }
 
     private void writeNewPost(JsonObject contact, String url, String image, String title, String place,
