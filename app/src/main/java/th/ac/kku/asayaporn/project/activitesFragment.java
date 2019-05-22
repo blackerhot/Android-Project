@@ -247,14 +247,6 @@ public class activitesFragment extends Fragment {
                 hm.put("listview_datestr", all_exampe.get(i).getDateStart());
                 hm.put("listview_title", all_exampe.get(i).getTitle());
                 hm.put("listview_comment", all_exampe.get(i).getContent());
-            /*hm.put("listview_title", lstTime[i]);
-            hm.put("listview_discription", lstTitle[i]);
-            hm.put("listview_item", lstItems[i]);*/
-              /*  if( i % 2 ==0) {
-                    linearLayout.setBackgroundResource(R.drawable.bgnotify2);
-                } else{
-                    linearLayout.setBackgroundResource(R.drawable.bgnotify);
-                } */
                 aList.add(hm);
             }
         }
