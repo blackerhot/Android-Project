@@ -88,7 +88,7 @@
                             android:layout_marginTop="6dp"
                             android:fontFamily="@font/pr"
                             android:paddingBottom="5dp"
-                            android:text="Status : "
+                            android:text="Class :: User"
                             android:textSize="15sp" />
 
                         <Button

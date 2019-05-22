@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "635590935",
-    "firebase_url": "https://project-615dc.firebaseio.com",
-    "project_id": "project-615dc",
-    "storage_bucket": "project-615dc.appspot.com"
+    "project_number": "679920843132",
+    "firebase_url": "https://projectfianl.firebaseio.com",
+    "project_id": "projectfianl",
+    "storage_bucket": "projectfianl.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:635590935:android:a06d4d2d6e286bc4",
+        "mobilesdk_app_id": "1:679920843132:android:a06d4d2d6e286bc4",
         "android_client_info": {
           "package_name": "th.ac.kku.asayaporn.project"
         }
       },
       "oauth_client": [
         {
-          "client_id": "635590935-8gpf9tp1lulne3n2k99lvu4gqmrha0oa.apps.googleusercontent.com",
+          "client_id": "679920843132-cnfupai73acphih6v9viuppq923herq0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "th.ac.kku.asayaporn.project",
@@ -23,30 +23,23 @@
           }
         },
         {
-          "client_id": "635590935-1stuu0imr4n1d1cosdps0919enbqggti.apps.googleusercontent.com",
+          "client_id": "679920843132-ta9plvouk26pfavatt15cgho04h86f8p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBjynzMm4DhTy_vfYfXBcbC_pFggLcRtqk"
+          "current_key": "AIzaSyBTqHLrtu2qv6KScQ9lM1sSpX3IMdoqMgQ"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "635590935-1stuu0imr4n1d1cosdps0919enbqggti.apps.googleusercontent.com",
+              "client_id": "679920843132-ta9plvouk26pfavatt15cgho04h86f8p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

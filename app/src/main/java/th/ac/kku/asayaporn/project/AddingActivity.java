@@ -69,7 +69,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     EditText ephone;
     EditText eplace;
     EditText esponsor;
-    EditText econtent;
+    EditText econtent,eimg;
     Button sendBut;
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -106,6 +106,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         etitle = (EditText) findViewById(R.id.etitle);
         eurl = (EditText) findViewById(R.id.eurl);
         ephone = (EditText) findViewById(R.id.ephone);
+        eimg = (EditText) findViewById(R.id.eimg);
         eplace = (EditText) findViewById(R.id.eplace);
         esponsor = (EditText) findViewById(R.id.esponsor);
         econtent = (EditText) findViewById(R.id.econtent);

@@ -137,7 +137,7 @@ public class activitesFragment extends Fragment {
 
                             mExampleList = gson.fromJson("[" + s1 + "]", type);
                             Log.e("activi", "[" + s1 + "]");
-                            if (mExampleList == null) {
+                            if (mExampleList != null) {
                                 mExampleList = new ArrayList<>();
                             }
 
