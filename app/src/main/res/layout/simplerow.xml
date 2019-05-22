@@ -53,17 +53,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="3">
 
 
     <Button
         android:id="@+id/adminr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/red"
+        android:layout_weight="1"
+        android:background="@color/colorbgaddmin"
         android:fontFamily="@font/pb"
+        android:text="Admin"
         android:textAllCaps="false"
-        android:text="Admin"/>
+        android:textColor="@color/Orange"
+        android:layout_margin="10dp"/>
     <Button
         android:id="@+id/modr"
         android:textColor="@color/lightgreen"
@@ -71,14 +75,20 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:fontFamily="@font/pb"
-        android:text="Mod"/>
+        android:background="@color/colorbgaddmin"
+        android:layout_weight="1"
+        android:text="Mod"
+        android:layout_margin="10dp"/>
     <Button
         android:id="@+id/userr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
+        android:layout_weight="1"
+        android:background="@color/colorbgaddmin"
         android:fontFamily="@font/pb"
-        android:text="User"/>
+        android:text="User"
+        android:layout_margin="10dp"/>
 </LinearLayout>
 
 
@@ -90,7 +100,8 @@
             android:text="Delete User"
             android:textAllCaps="false"
             android:fontFamily="@font/pb"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:textColor="@color/red"/>
 
 
     </LinearLayout>
