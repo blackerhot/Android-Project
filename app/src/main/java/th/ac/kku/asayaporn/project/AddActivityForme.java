@@ -69,7 +69,7 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Sending Activities");
+            actionBar.setTitle("Add my Activities");
         }
 
         etitle = (EditText) findViewById(R.id.edt_title_for_me);
@@ -101,7 +101,7 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                                 hour_start == hour_end && minute_start <= minute_end){
                             addEvent();
                         }else {
-                            Toast.makeText(AddActivityForme.this,"Please Check Start Date And End Date incorrect",Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddActivityForme.this,"Please Check Start Date and End Date incorrect",Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -140,27 +140,21 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
     private void addEvent() {
        place = eplace.getText() + "";
        content = econtent.getText() + "";
-            loaddata();
-            mExampleList.add(new ExampleItem(timeSt,timeEd,dateSt, dateEd,title,content, place));
-            SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Gson gson = new Gson();
-            String json = gson.toJson(mExampleList);
-            editor.putString("task list", json);
-            editor.apply();
+
             manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.isConnected()){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
                     Map<String,Object> childUpdates = new HashMap<>();
+                    title = EncodeString(title);
                     childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/title",title);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/TimeStart",timeSt);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/TimeEnd",timeEd);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/DateStart",dateSt);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title +"/DateEnd",dateEd);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/content",content);
-                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/place",place);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/timestart",timeSt);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/timeend",timeEd);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/datest",dateSt);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title +"/dateend",dateEd);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/detail",content);
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/address",place);
                     myRef.updateChildren(childUpdates);
                 }
             }
@@ -169,16 +163,9 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
 
     }
 
-    private void loaddata() {
-        SharedPreferences sharedPreferences =  getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
-        mExampleList = gson.fromJson(json, type);
+    public static String EncodeString(String string) {
+        return string.replace(".", " ");
 
-        if (mExampleList == null) {
-            mExampleList = new ArrayList<>();
-        }
     }
 
 

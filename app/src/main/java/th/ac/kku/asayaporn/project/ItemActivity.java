@@ -76,6 +76,7 @@ public class ItemActivity extends AppCompatActivity {
     ImageButton phone;
     ImageButton website;
     TextView sponser;
+    DatabaseReference myRef2;
     FloatingActionButton floatingActionButton;
     com.google.api.services.calendar.Calendar mService;
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -137,7 +138,13 @@ public class ItemActivity extends AppCompatActivity {
         //phone.setText(para.getString("phone"));
         address.setText(para.getString("address"));
 
+
         final FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentFirebaseUser != null) {
+            myRef2 = database.getReference().child("user").child(currentFirebaseUser.getUid()).child("Activities_me");
+        }
+
         if (currentFirebaseUser != null) {
 
             for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
@@ -180,7 +187,10 @@ public class ItemActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveData();
+
+                if(currentFirebaseUser!=null){
+
+
                 timestr = para.getString("timest");
                 timestr = timestr.substring(4);
                 timeEndstr = para.getString("timeed");
@@ -188,12 +198,17 @@ public class ItemActivity extends AppCompatActivity {
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/title", EncodeString(para.getString("title")));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/timestart", timestr);
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" +   EncodeString(para.getString("title")) + "/timeend", timeEndstr);
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/detest", para.getString("datest"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/timeend", timeEndstr);
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/datest", para.getString("datest"));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/dateend", para.getString("dateend"));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/detail", EncodeString(para.getString("detail")));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + EncodeString(para.getString("title")) + "/address", para.getString("address"));
                 myRef.updateChildren(childUpdates);
+                Toast.makeText(ItemActivity.this,"Sending to my Activities!!",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ItemActivity.this, "Please using google account", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         website.setOnClickListener(new View.OnClickListener() {
@@ -215,60 +230,14 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+
     public static String EncodeString(String string) {
         return string.replace(".", " ");
-    }
-
-    private void saveData() {
-        loadData();
-        timestr = para.getString("timest");
-        timestr = timestr.substring(4);
-        timeEndstr = para.getString("timeed");
-        timeEndstr = timeEndstr.substring(4);
-        if (mExampleList.size() != 0) {
-            Boolean added = true;
-            for (int i = 0; i < mExampleList.size(); i++) {
-
-                if (mExampleList.get(i).getTitle().equals(para.getString("title"))) {
-                    added = false;
-                    Toast.makeText(ItemActivity.this,"Event is already added!!",Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (added) {
-                Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
-                mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest")+"x",
-                        para.getString("dateend")+"", para.getString("title"), para.getString("detail"),
-                        (String) para.get("address")));
-            }
-
-        }else {
-            Toast.makeText(ItemActivity.this,"Add event Already!!",Toast.LENGTH_SHORT).show();
-            mExampleList.add(new ExampleItem(timestr, timeEndstr, para.getString("datest")+"x ",
-                    para.getString("dateend")+"", para.getString("title"), para.getString("detail"),
-                    (String) para.get("address")));
-        }
-
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(mExampleList);
-        editor.putString("task list", json);
-        editor.apply();
 
     }
 
-    private void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {
-        }.getType();
-        mExampleList = gson.fromJson(json, type);
 
-        if (mExampleList == null) {
-            mExampleList = new ArrayList<>();
-        }
-    }
+
 
     void showGooglePlayServicesAvailabilityErrorDialog(
             final int connectionStatusCode) {

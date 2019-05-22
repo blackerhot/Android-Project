@@ -86,13 +86,14 @@ public class ExampleItem {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("timestart", timestart);
-        result.put("timeend", timeend);
-        result.put("datest", datest);
-        result.put("dateend", dateend);
-        result.put("title", title);
-        result.put("detail", detail);
         result.put("address", address);
+        result.put("dateend", dateend);
+        result.put("detail", detail);
+        result.put("datest", datest);
+        result.put("timeend", timeend);
+        result.put("timestart", timestart);
+        result.put("title", title);
+
         return result;
     }
 }
