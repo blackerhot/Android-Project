@@ -69,13 +69,17 @@ public class activitesFragment extends  Fragment {
     Intent intentother = null;
     ArrayList<ExampleItem> mExampleList;
     ArrayList<ExampleItem> readfirebaselist = null;
-    int year,month,day;
+    int year,month,day ,aftermonth;
     FirebaseDatabase database;
     DatabaseReference myRef;
     ConnectivityManager manager ;
     private static final String TAG = "MainActivity";
-
-
+    String today_str;
+    String after_two_month_str;
+    Date strDate = null;
+    Date endDate = null;
+    Date todate = null;
+    Date after_two_monthdate = null;
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
@@ -98,12 +102,12 @@ public class activitesFragment extends  Fragment {
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
         month = month + 1;
+        aftermonth = month - 2;
         day = c.get(Calendar.DAY_OF_MONTH);
-        String today_str = year + "-" + month + "-" + day;
+        today_str = year + "-" + month + "-" + day;
+        after_two_month_str = year + "-" + aftermonth  + "-" + day;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date strDate = null;
-        Date endDate = null;
-        Date todate = null;
+
         final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
         final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
 
@@ -114,14 +118,14 @@ public class activitesFragment extends  Fragment {
             try {
                 strDate = sdf.parse(mExampleList.get(i).getDateStart());
                 endDate = sdf.parse(mExampleList.get(i).getDateEnd());
-                todate = sdf.parse(today_str);
+                after_two_monthdate = sdf.parse(after_two_month_str);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             try {
-                if (todate.after(strDate)) {
-                    if (todate.after(endDate)){
-                        mExampleList.remove(i);
+                if (after_two_monthdate.after(strDate)) {
+                    if (after_two_monthdate.after(endDate)){
+                       mExampleList.remove(i);
                     }
                 }
             }catch (Exception e){
@@ -135,6 +139,7 @@ public class activitesFragment extends  Fragment {
         for (int i = 0; i < mExampleList.size(); i++){
             try {
             strDate = sdf.parse(mExampleList.get(i).getDateStart());
+            endDate = sdf.parse(mExampleList.get(i).getDateEnd());
             todate = sdf.parse(today_str);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -144,9 +149,21 @@ public class activitesFragment extends  Fragment {
                     today_event_item = (ExampleItem) mExampleList.get(i);
                     to_day_exampe.add(today_event_item);
 
-                }else {
-                    all_event_item = (ExampleItem) mExampleList.get(i);
-                    all_exampe.add(all_event_item);
+                }else if (strDate.before(todate)){
+                    if (endDate.after(todate)){
+                        today_event_item = (ExampleItem) mExampleList.get(i);
+                        to_day_exampe.add(today_event_item);
+                    }else if (endDate.equals(todate)){
+                        today_event_item = (ExampleItem) mExampleList.get(i);
+                        to_day_exampe.add(today_event_item);
+                    }
+
+                }else if (strDate.after(todate)){
+                    if (endDate.after(todate)){
+                        all_event_item = (ExampleItem) mExampleList.get(i);
+                        all_exampe.add(all_event_item);
+                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -288,6 +305,8 @@ public class activitesFragment extends  Fragment {
                         }
                         aList.remove(position);
                         all_ev_listview.setAdapter(aAdapter);
+                        ListUtils.setDynamicHeight(all_ev_listview);
+
                         break;
                   /*  case 1:
                         Log.d(TAG, "onMenuItemClick: clicked item " + index);
@@ -316,6 +335,7 @@ public class activitesFragment extends  Fragment {
                         }
                         bList.remove(position);
                         today_event_listView.setAdapter(bAdapter);
+                        ListUtils.setDynamicHeight(today_event_listView);
                         break;
                   /*  case 1:
                         Log.d(TAG, "onMenuItemClick: clicked item " + index);

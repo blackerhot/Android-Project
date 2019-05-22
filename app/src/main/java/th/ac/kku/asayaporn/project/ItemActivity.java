@@ -156,14 +156,14 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
-                if(currentFirebaseUser!=null){
-                    Toast.makeText(ItemActivity.this,"hh",Toast.LENGTH_SHORT).show();
+                if(currentFirebaseUser != null){
+
                     timestr = para.getString("timest");
                     timestr = timestr.substring(4);
                     timeEndstr = para.getString("timeed");
                     timeEndstr = timeEndstr.substring(4);
                     Map<String,Object> childUpdates = new HashMap<>();
-                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/title",title);
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/title",para.getString("title"));
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/TimeStart",timestr);
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/TimeEnd",timeEndstr);
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/DateStart",para.getString("detest"));
@@ -171,6 +171,7 @@ public class ItemActivity extends AppCompatActivity {
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/content",para.getString("detail"));
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/place",para.getString("address"));
                     myRef.updateChildren(childUpdates);
+
                 for (UserInfo userInfo : currentFirebaseUser.getProviderData()) {
 
                     if (userInfo.getProviderId().equals("google.com")) {

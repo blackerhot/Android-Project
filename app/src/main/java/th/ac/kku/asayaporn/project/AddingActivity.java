@@ -122,6 +122,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (year_start <= year_end && month_start < month_end) {
                     addEvent();
                 } else if (year_start <= year_end && month_start == month_end && day_start < day_end) {
