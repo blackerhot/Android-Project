@@ -414,7 +414,12 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             minute_start = i1;
             //  Toast.makeText(AddingActivity.this,"AM"+ year_start+" "+month_start+
             //         " "+day_start+" "+hour_start+" "+minute_start,Toast.LENGTH_LONG).show();
-            dateSt = year_start + "-" + month_start + "-" + day_start;
+            if (month_start < 10){
+                dateSt = year_start + "-0" +  month_start + "-" + day_start;
+            }else {
+                dateSt = year_start + "-" + month_start + "-" + day_start;
+            }
+
             if (hour_start >= 12) {
 
                 int hour_start_PM = hour_start - 12;
@@ -458,7 +463,12 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             minute_end = i1;
             // Toast.makeText(AddingActivity.this,"PM" + year_end+" "+month_end+
             //         " "+day_end+" "+hour_end+" "+minute_end,Toast.LENGTH_LONG).show();
-            dateEd = year_end + "-" + month_end + "-" + day_end;
+
+            if (month_end < 10){
+                dateEd = year_end + "-0" +  month_end + "-" + day_end;
+            }else {
+                dateEd = year_end + "-" + month_end + "-" + day_end;
+            }
             if (hour_end >= 12) {
 
                 int hour_end_PM = hour_end - 12;
