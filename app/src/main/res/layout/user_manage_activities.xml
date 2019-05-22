@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bgaddmin">
 
     <LinearLayout
         android:focusable="false"
@@ -9,7 +10,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:descendantFocusability="blocksDescendants">
-
 
         <LinearLayout
             android:focusable="false"
@@ -34,13 +34,14 @@
                 android:layout_marginLeft="10dp"
                 android:paddingBottom="16dp"
                 android:layout_marginTop="16dp">
+
                 <ListView
                     android:id="@+id/listview1"
-                    android:focusable="true"
-                    android:divider="@null"
-                    android:clickable="true"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:divider="@null"
+                    android:focusable="true" />
             </LinearLayout>
 
         </LinearLayout>

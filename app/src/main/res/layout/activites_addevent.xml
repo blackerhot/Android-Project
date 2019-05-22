@@ -30,10 +30,9 @@
 
                     android:id="@+id/edt_title_for_me"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bgfeed"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/pb"
                     android:gravity="center"
@@ -103,7 +102,7 @@
                     android:padding="16dp"
                     android:text="Send"
                     android:textAllCaps="false"
-                    android:textColor="@drawable/btn_text"
+                    android:textColor="@drawable/selector_text2"
                     android:textSize="30dp" />
 
                 <RelativeLayout

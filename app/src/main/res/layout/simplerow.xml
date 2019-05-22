@@ -2,18 +2,18 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/primary"
+        android:background="@drawable/border"
         android:orientation="vertical"
         android:layout_marginBottom="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/emailTv"
@@ -27,22 +27,27 @@
             android:paddingRight="5dp"
             android:paddingBottom="10dp"
             android:text="Title"
-            android:textColor="@color/grey"
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/uidTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/pr"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
             android:text="xxxxxxxxxxxxxxxxxxxxxxxxx"
             android:textSize="16sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="xxxxxxxxxxxxx"
-            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:fontFamily="@font/pb"
+            android:textColor="@color/white"
             android:id="@+id/classesTV"
+            android:layout_marginLeft="10dp"
             android:textSize="16sp"/>
 <LinearLayout
     android:layout_width="match_parent"
@@ -56,18 +61,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red"
-        android:text="admin"/>
+        android:fontFamily="@font/pb"
+        android:textAllCaps="false"
+        android:text="Admin"/>
     <Button
         android:id="@+id/modr"
         android:textColor="@color/lightgreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mod"/>
+        android:textAllCaps="false"
+        android:fontFamily="@font/pb"
+        android:text="Mod"/>
     <Button
         android:id="@+id/userr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="user"/>
+        android:textAllCaps="false"
+        android:fontFamily="@font/pb"
+        android:text="User"/>
 </LinearLayout>
 
 
@@ -77,6 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Delete User"
+            android:textAllCaps="false"
+            android:fontFamily="@font/pb"
             android:textSize="16dp" />
 
 

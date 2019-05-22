@@ -225,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/butAddEvent"
-                        android:textColor="@drawable/selector_text"
+                        android:textColor="@drawable/selector_text2"
                         android:layout_weight="1"
                         android:text="Add Event"
                         android:fontFamily="@font/pr"
