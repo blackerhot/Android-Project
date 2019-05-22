@@ -1,76 +1,94 @@
 package th.ac.kku.asayaporn.project;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ExampleItem {
-    private String timestart;
-    private String timeend;
-    private String datest;
-    private String dateend;
+    private String timeStart;
+    private String timeEnd;
+    private String dateStart;
+    private String dateEnd;
     private String title;
-    private String detail;
-    private String address;
-    public ExampleItem(String timestart1, String timeend1,String datest1,String dateend1, String title1 ,String detail1,String address1) {
-        timestart = timestart1;
-        timeend = timeend1;
-        datest = datest1;
-        dateend = dateend1;
-        title = title1;
-        detail = detail1;
-        address = address1;
-    }
-
-    public void setTimestart(String timestart) {
-        this.timestart = timestart;
-    }
-
-    public String getTimestart() {
-        return timestart;
-    }
-
-    public void setTimeend(String timeend) {
-        this.timeend = timeend;
-    }
-
-    public String getTimeend() {
-        return timeend;
-    }
-
-    public void setDatest(String datest) {
-        this.datest = datest;
-    }
-
-    public String getDatest() {
-        return datest;
-    }
-
-    public void setDateend(String dateend) {
-        this.dateend = dateend;
-    }
-
-    public String getDateend() {
-        return dateend;
-    }
-
-    public void setTitle(String title) {
+    private String content;
+    private String place;
+    public ExampleItem(String timeStart, String timeEnd,String dateStart,String dateEnd, String title ,String content,String place) {
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
         this.title = title;
+        this.content = content;
+        this.place = place;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getContent() {
+        return content;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("timeStart", timeStart);
+        result.put("timeEnd", timeEnd);
+        result.put("dateStart", dateStart);
+        result.put("dateEnd", dateEnd);
+        result.put("title", title);
+        result.put("content", content);
+        result.put("place", place);
+        return result;
     }
 }

@@ -238,7 +238,7 @@ public class profileFragment extends Fragment {
             if (currentFirebaseUser.getDisplayName() == null) {
                 email = currentFirebaseUser.getEmail();
                 uid = currentFirebaseUser.getUid();
-                disname = "unknown";
+                disname = "Normal person";
             } else {
 
                 url_photo = currentFirebaseUser.getPhotoUrl().toString();
@@ -254,7 +254,7 @@ public class profileFragment extends Fragment {
         } catch (Exception e) {
             email = currentFirebaseUser.getEmail();
             uid = currentFirebaseUser.getUid();
-            disname = "unknown";
+            disname = "Normal person";
         }
 
 

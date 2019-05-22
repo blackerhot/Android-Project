@@ -46,7 +46,7 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
     Button sendBut;
     Button btnstartdate;
     Button btnenddate;
-    ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();;
+    ArrayList<ExampleItem> mExampleList = new ArrayList<ExampleItem>();
     int year , month,day,hour,minute;
     int year_start , month_start,day_start,hour_start,minute_start;
     int year_end, month_end, day_end, hour_end, minute_end;
@@ -141,9 +141,7 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
        place = eplace.getText() + "";
        content = econtent.getText() + "";
             loaddata();
-            mExampleList.add(new ExampleItem(timeSt,timeEd,dateSt,
-                    dateEd,title,content,
-                    place ));
+            mExampleList.add(new ExampleItem(timeSt,timeEd,dateSt, dateEd,title,content, place));
             SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             Gson gson = new Gson();
@@ -156,6 +154,7 @@ public class AddActivityForme  extends AppCompatActivity implements DatePickerDi
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null){
                     Map<String,Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/title",title);
                     childUpdates.put("/"+user.getUid()+"/Activities_me/" + title + "/TimeStart",timeSt);
                     childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/TimeEnd",timeEd);
                     childUpdates.put("/"+user.getUid()+"/Activities_me/"+ title +"/DateStart",dateSt);

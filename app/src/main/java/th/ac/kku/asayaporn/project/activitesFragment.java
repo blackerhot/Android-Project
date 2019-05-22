@@ -1,11 +1,15 @@
 package th.ac.kku.asayaporn.project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -34,6 +38,13 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -57,8 +68,11 @@ public class activitesFragment extends  Fragment {
     public Button btn_go_calen;
     Intent intentother = null;
     ArrayList<ExampleItem> mExampleList;
+    ArrayList<ExampleItem> readfirebaselist = null;
     int year,month,day;
-
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    ConnectivityManager manager ;
     private static final String TAG = "MainActivity";
 
 
@@ -92,12 +106,14 @@ public class activitesFragment extends  Fragment {
         Date todate = null;
         final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
         final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
+
+
         if(mExampleList.size()!=0){
 
         for (int i = 0; i < mExampleList.size(); i++) {
             try {
-                strDate = sdf.parse(mExampleList.get(i).getDatest());
-                endDate = sdf.parse(mExampleList.get(i).getDateend());
+                strDate = sdf.parse(mExampleList.get(i).getDateStart());
+                endDate = sdf.parse(mExampleList.get(i).getDateEnd());
                 todate = sdf.parse(today_str);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -118,7 +134,7 @@ public class activitesFragment extends  Fragment {
         if(mExampleList.size()!=0){
         for (int i = 0; i < mExampleList.size(); i++){
             try {
-            strDate = sdf.parse(mExampleList.get(i).getDatest());
+            strDate = sdf.parse(mExampleList.get(i).getDateStart());
             todate = sdf.parse(today_str);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -146,12 +162,12 @@ public class activitesFragment extends  Fragment {
                 Date time1 = null;
                 Date time2 = null;
                 try {
-                    time1 = formatter2.parse(t0.getDatest() + " " + t0.getTimestart());
+                    time1 = formatter2.parse(t0.getDateStart() + " " + t0.getTimeStart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    time2 = formatter2.parse(t1.getDatest() + " " + t1.getTimestart());
+                    time2 = formatter2.parse(t1.getDateStart() + " " + t1.getTimeStart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -170,12 +186,12 @@ public class activitesFragment extends  Fragment {
                 Date date1 = null;
                 Date date2 = null;
                 try {
-                    date1 = formatter2.parse(p0.getDatest() + " " + p0.getTimestart());
+                    date1 = formatter2.parse(p0.getDateStart() + " " + p0.getTimeStart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    date2 = formatter2.parse(p1.getDatest() + " " + p1.getTimestart());
+                    date2 = formatter2.parse(p1.getDateStart() + " " + p1.getTimeStart());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -200,19 +216,19 @@ public class activitesFragment extends  Fragment {
 
         for (int i = 0; i < to_day_exampe.size(); i++){
             HashMap<String, String> hm_td = new HashMap<String, String>();
-            hm_td.put("listview_datestr",to_day_exampe.get(i).getTimestart());
+            hm_td.put("listview_datestr",to_day_exampe.get(i).getTimeStart());
             hm_td.put("listview_title",to_day_exampe.get(i).getTitle());
-            hm_td.put("listview_comment",to_day_exampe.get(i).getDetail());
+            hm_td.put("listview_comment",to_day_exampe.get(i).getContent());
             bList.add(hm_td);
         }
         }
         if(all_exampe.size()!=0) {
             for (int i = 0; i < all_exampe.size(); i++) {
                 HashMap<String, String> hm = new HashMap<String, String>();
-                hm.put("listview_timestr", all_exampe.get(i).getTimestart());
-                hm.put("listview_datestr", all_exampe.get(i).getDatest());
+                hm.put("listview_timestr", all_exampe.get(i).getTimeStart());
+                hm.put("listview_datestr", all_exampe.get(i).getDateStart());
                 hm.put("listview_title", all_exampe.get(i).getTitle());
-                hm.put("listview_comment", all_exampe.get(i).getDetail());
+                hm.put("listview_comment", all_exampe.get(i).getContent());
             /*hm.put("listview_title", lstTime[i]);
             hm.put("listview_discription", lstTitle[i]);
             hm.put("listview_item", lstItems[i]);*/
@@ -263,7 +279,7 @@ public class activitesFragment extends  Fragment {
                     case 0:
                         all_ev_listview.smoothOpenMenu(position);
                         for(int i = 0 ;i < mExampleList.size(); i++){
-                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimestart())){
+                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimeStart())){
                                 if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
                                     mExampleList.remove(i);
                                     saveData();
@@ -291,7 +307,7 @@ public class activitesFragment extends  Fragment {
                     case 0:
                         today_event_listView.smoothOpenMenu(position);
                         for(int i = 0 ;i < mExampleList.size(); i++){
-                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())){
+                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimeStart())){
                                 if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())){
                                     mExampleList.remove(i);
                                     saveData();
@@ -355,10 +371,13 @@ public class activitesFragment extends  Fragment {
         String json = sharedPreferences.getString("task list", null);
         Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
         mExampleList = gson.fromJson(json, type);
-
         if (mExampleList == null) {
             mExampleList = new ArrayList<>();
         }
+
+
+
+
     }
 
     public static class ListUtils {

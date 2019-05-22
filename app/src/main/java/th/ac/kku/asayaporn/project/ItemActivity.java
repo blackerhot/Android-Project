@@ -157,11 +157,13 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 saveData();
                 if(currentFirebaseUser!=null){
+                    Toast.makeText(ItemActivity.this,"hh",Toast.LENGTH_SHORT).show();
                     timestr = para.getString("timest");
                     timestr = timestr.substring(4);
                     timeEndstr = para.getString("timeed");
                     timeEndstr = timeEndstr.substring(4);
                     Map<String,Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/title",title);
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/" + para.getString("title") + "/TimeStart",timestr);
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/TimeEnd",timeEndstr);
                     childUpdates.put("/"+currentFirebaseUser.getUid()+"/Activities_me/"+  para.getString("title") +"/DateStart",para.getString("detest"));
