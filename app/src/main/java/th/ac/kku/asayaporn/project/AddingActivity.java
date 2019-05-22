@@ -122,19 +122,33 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url = eurl.getText() + "";
+                String image = imgurl+"";
+                String title = etitle.getText()+"";
+                String place = eplace.getText() + "";
+                String content = econtent.getText() + "";
+                String phone = ephone.getText() + "";
+                String website = eurl.getText() + "";
+                String sponsor = esponsor.getText() + "";
+                if (title.isEmpty() || image.isEmpty() && dateSt.equals("ยังว่าง") || dateEd.equals("ยังว่าง") || timeSt.equals("ยังว่าง")
+                        || timeEd.equals("ยังว่าง") || content.isEmpty() || place.isEmpty() || sponsor.isEmpty()
+                        || url.isEmpty() || phone.isEmpty() || website.isEmpty() || imgurl.isEmpty()){
+                    Toast.makeText(AddingActivity.this,"Check information",Toast.LENGTH_LONG).show();
+                }else {
+                    if (year_start <= year_end && month_start < month_end) {
+                        addEvent();
+                    } else if (year_start <= year_end && month_start == month_end && day_start < day_end) {
+                        addEvent();
+                    } else if (year_start <= year_end && month_start == month_end && day_start == day_end &&
+                            hour_start < hour_end) {
+                        addEvent();
+                    } else if (year_start <= year_end && month_start == month_end && day_start == day_end &&
+                            hour_start == hour_end && minute_start <= minute_end) {
+                        addEvent();
+                    } else {
+                        Toast.makeText(AddingActivity.this, "Please Check Start Date And End Date incorrect", Toast.LENGTH_LONG).show();
+                    }
 
-                if (year_start <= year_end && month_start < month_end) {
-                    addEvent();
-                } else if (year_start <= year_end && month_start == month_end && day_start < day_end) {
-                    addEvent();
-                } else if (year_start <= year_end && month_start == month_end && day_start == day_end &&
-                        hour_start < hour_end) {
-                    addEvent();
-                } else if (year_start <= year_end && month_start == month_end && day_start == day_end &&
-                        hour_start == hour_end && minute_start <= minute_end) {
-                    addEvent();
-                } else {
-                    Toast.makeText(AddingActivity.this, "Please Check Start Date And End Date incorrect", Toast.LENGTH_LONG).show();
                 }
 
             }
