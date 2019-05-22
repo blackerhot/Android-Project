@@ -160,14 +160,14 @@
 
                 <Button
                     android:id="@+id/send_But"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
                     android:background="@drawable/selector_click2"
                     android:padding="16dp"
                     android:fontFamily="@font/pb"
                     android:text="Send"
-                    android:textSize="35dp"
+                    android:textSize="20dp"
                     android:textAllCaps="false"
                     android:textColor="@drawable/selector_text2" />
 

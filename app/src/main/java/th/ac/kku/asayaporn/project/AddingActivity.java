@@ -114,7 +114,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         myRef = database.getReference("activities");
         btnstartdate = (Button) findViewById(R.id.edatest);
         btnenddate = (Button) findViewById(R.id.edateend);
-
+        sendBut.setText("Upload Picture");
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -242,7 +242,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                         Toast.makeText(AddingActivity.this,
                                 "Uploading picture Already! " ,
                                 Toast.LENGTH_LONG).show();
-
+                        sendBut.setText("Sending Event");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

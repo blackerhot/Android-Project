@@ -190,7 +190,7 @@ public class ItemActivity extends AppCompatActivity {
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/title", para.getString("title"));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timestart", timestr);
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/timeend", timeEndstr);
-                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detest", para.getString("detest"));
+                childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detest", para.getString("datest")+"");
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/dateend", para.getString("dateend"));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/detail", para.getString("detail"));
                 childUpdates.put("/" + currentFirebaseUser.getUid() + "/Activities_me/" + para.getString("title") + "/address", para.getString("address"));
