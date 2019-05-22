@@ -303,9 +303,9 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         pd.setMessage("Please wait");
         pd.setCancelable(false);
         pd.show();
-        if(imgTv.getText().length()!=0){
+        if(eimg.getText().length()!=0){
             String url = eurl.getText() +"";
-            String image = imgTv.getText()+"";
+            String image = eimg.getText()+"";
             String title = etitle.getText() + "";
             String place = eplace.getText() + "";
             String content = econtent.getText() + "";
