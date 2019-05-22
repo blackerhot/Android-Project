@@ -44,7 +44,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:fontFamily="@font/pb"
-                    android:text="To day"
+                    android:text="Today"
                     android:textColor="@color/black"/>
 
                 <View

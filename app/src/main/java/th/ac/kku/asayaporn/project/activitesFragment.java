@@ -58,6 +58,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
@@ -72,6 +73,9 @@ public class activitesFragment extends Fragment {
     int year, month, day, aftermonth;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    DatabaseReference myRef2;
+    FirebaseUser currentFirebaseUser;
+    private FirebaseAuth mAuth;
     ConnectivityManager manager;
     private static final String TAG = "MainActivity";
     String today_str;
@@ -80,6 +84,7 @@ public class activitesFragment extends Fragment {
     Date endDate = null;
     Date todate = null;
     Date after_two_monthdate = null;
+    TextView todayTv;
 
     @Nullable
     @Override
@@ -89,11 +94,64 @@ public class activitesFragment extends Fragment {
         final SwipeMenuListView all_ev_listview;
         today_event_listView = (SwipeMenuListView) view.findViewById(R.id.lst);
         all_ev_listview = (SwipeMenuListView) view.findViewById(R.id.all_swip);
+        todayTv = (TextView) view.findViewById(R.id.tv_to_day);
         getActivity().setTitle("ํActivities");
         ((AppCompatActivity) getActivity()).getSupportActionBar().
                 setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         setHasOptionsMenu(true);
+        SharedPreferences sharedPreferences = this.getActivity().
+                getSharedPreferences("shared preferences", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        mAuth = FirebaseAuth.getInstance();
+        currentFirebaseUser = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+
+        if (currentFirebaseUser != null) {
+            myRef2 = database.getReference().child("user").child(currentFirebaseUser.getUid()).child("Activities_me");
+        }
         loadData();
+        myRef2.addValueEventListener(new ValueEventListener() {
+            private String TAG = "TAGGGG";
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                if (currentFirebaseUser != null) {
+                    String s0 = "";
+                    Gson gson = new Gson();
+                    String s1="";
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //Here you can access the child.getKey()
+                        ExampleItem user = child.getValue(ExampleItem.class);
+                        s0 += gson.toJson(user.toMap()) + ",";
+
+                    }
+                    if (s0.length() != 0) {
+                        s0 = s0.substring(0, s0.length() - 1);
+                        String result="["+s0+"]";
+
+                        editor.putString("task list", result);
+                        editor.apply();
+                        editor.commit();
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+        loadData();
+
+
         final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
         final List<HashMap<String, String>> bList = new ArrayList<HashMap<String, String>>();
         // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
@@ -106,6 +164,7 @@ public class activitesFragment extends Fragment {
         aftermonth = month - 2;
         day = c.get(Calendar.DAY_OF_MONTH);
         today_str = year + "-" + month + "-" + day;
+        todayTv.setText("Today is " + today_str);
         after_two_month_str = year + "-" + aftermonth + "-" + day;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -113,35 +172,32 @@ public class activitesFragment extends Fragment {
         final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
 
 
-        if (mExampleList.size() != 0) {
+        if (mExampleList != null) {
 
             for (int i = 0; i < mExampleList.size(); i++) {
                 try {
-                    Log.e("actiti",mExampleList.get(i).getDateStart()+"") ;
-                    strDate = sdf.parse(mExampleList.get(i).getDateStart());
-                    endDate = sdf.parse(mExampleList.get(i).getDateEnd());
+                    Log.e("actiti", mExampleList.get(i).getTitle() + "");
+                    strDate = sdf.parse(mExampleList.get(i).getDatest());
+                    endDate = sdf.parse(mExampleList.get(i).getDateend());
                     after_two_monthdate = sdf.parse(after_two_month_str);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    if (after_two_monthdate.after(strDate)) {
-                        if (after_two_monthdate.after(endDate)) {
-                            mExampleList.remove(i);
-                        }
-                    }
+                    
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
             }
         }
-        saveData();
-        if (mExampleList.size() != 0) {
+
+        if (mExampleList != null) {
             for (int i = 0; i < mExampleList.size(); i++) {
                 try {
-                    strDate = sdf.parse(mExampleList.get(i).getDateStart());
-                    endDate = sdf.parse(mExampleList.get(i).getDateEnd());
+                    strDate = sdf.parse(mExampleList.get(i).getDatest());
+                    endDate = sdf.parse(mExampleList.get(i).getDateend());
                     todate = sdf.parse(today_str);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -165,12 +221,10 @@ public class activitesFragment extends Fragment {
                             all_event_item = (ExampleItem) mExampleList.get(i);
                             all_exampe.add(all_event_item);
                         }
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
 
             }
         }
@@ -181,12 +235,12 @@ public class activitesFragment extends Fragment {
                 Date time1 = null;
                 Date time2 = null;
                 try {
-                    time1 = formatter2.parse(t0.getDateStart() + " " + t0.getTimeStart());
+                    time1 = formatter2.parse(t0.getDatest() + " " + t0.getDatest());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    time2 = formatter2.parse(t1.getDateStart() + " " + t1.getTimeStart());
+                    time2 = formatter2.parse(t1.getDatest() + " " + t1.getDatest());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -205,12 +259,12 @@ public class activitesFragment extends Fragment {
                 Date date1 = null;
                 Date date2 = null;
                 try {
-                    date1 = formatter2.parse(p0.getDateStart() + " " + p0.getTimeStart());
+                    date1 = formatter2.parse(p0.getDatest() + " " + p0.getDatest());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 try {
-                    date2 = formatter2.parse(p1.getDateStart() + " " + p1.getTimeStart());
+                    date2 = formatter2.parse(p1.getDatest() + " " + p1.getDatest());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -234,19 +288,19 @@ public class activitesFragment extends Fragment {
 
             for (int i = 0; i < to_day_exampe.size(); i++) {
                 HashMap<String, String> hm_td = new HashMap<String, String>();
-                hm_td.put("listview_datestr", to_day_exampe.get(i).getTimeStart());
+                hm_td.put("listview_datestr", to_day_exampe.get(i).getDatest());
                 hm_td.put("listview_title", to_day_exampe.get(i).getTitle());
-                hm_td.put("listview_comment", to_day_exampe.get(i).getContent());
+                hm_td.put("listview_comment", to_day_exampe.get(i).getDetail());
                 bList.add(hm_td);
             }
         }
         if (all_exampe.size() != 0) {
             for (int i = 0; i < all_exampe.size(); i++) {
                 HashMap<String, String> hm = new HashMap<String, String>();
-                hm.put("listview_timestr", all_exampe.get(i).getTimeStart());
-                hm.put("listview_datestr", all_exampe.get(i).getDateStart());
+                hm.put("listview_timestr", all_exampe.get(i).getTimestart());
+                hm.put("listview_datestr", all_exampe.get(i).getDatest());
                 hm.put("listview_title", all_exampe.get(i).getTitle());
-                hm.put("listview_comment", all_exampe.get(i).getContent());
+                hm.put("listview_comment", all_exampe.get(i).getDetail());
                 aList.add(hm);
             }
         }
@@ -290,8 +344,14 @@ public class activitesFragment extends Fragment {
                     case 0:
                         all_ev_listview.smoothOpenMenu(position);
                         for (int i = 0; i < mExampleList.size(); i++) {
-                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimeStart())) {
+                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimestart())) {
                                 if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
+
+
+                                    String key =mExampleList.get(i).getTitle();
+
+                                    myRef2.child(key).removeValue();
+
                                     mExampleList.remove(i);
                                     saveData();
                                 }
@@ -320,8 +380,12 @@ public class activitesFragment extends Fragment {
                     case 0:
                         today_event_listView.smoothOpenMenu(position);
                         for (int i = 0; i < mExampleList.size(); i++) {
-                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimeStart())) {
+                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())) {
                                 if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
+                                    String key =mExampleList.get(i).getTitle();
+
+                                    myRef2.child(key).removeValue();
+
                                     mExampleList.remove(i);
                                     saveData();
                                 }
@@ -379,20 +443,25 @@ public class activitesFragment extends Fragment {
         String json = gson.toJson(mExampleList);
         editor.putString("task list", json);
         editor.apply();
+        editor.commit();
     }
 
     private void loadData() {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        editor= sharedPreferences.edit();
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
-
+        Type type = new TypeToken<ArrayList<ExampleItem>>() {
+        }.getType();
+        Log.e("acfirebase2", json + "");
         mExampleList = gson.fromJson(json, type);
 
         if (mExampleList == null) {
             mExampleList = new ArrayList<>();
         }
+        editor.commit();
 
     }
 
