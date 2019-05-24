@@ -69,7 +69,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     EditText ephone;
     EditText eplace;
     EditText esponsor;
-    EditText econtent,eimg;
+    EditText econtent;
     Button sendBut;
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -106,7 +106,6 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         etitle = (EditText) findViewById(R.id.etitle);
         eurl = (EditText) findViewById(R.id.eurl);
         ephone = (EditText) findViewById(R.id.ephone);
-        eimg = (EditText) findViewById(R.id.eimg);
         eplace = (EditText) findViewById(R.id.eplace);
         esponsor = (EditText) findViewById(R.id.esponsor);
         econtent = (EditText) findViewById(R.id.econtent);
@@ -303,28 +302,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         pd.setMessage("Please wait");
         pd.setCancelable(false);
         pd.show();
-        if(imgTv.getText().length()!=0){
-            String url = eurl.getText() +"";
-            String image = imgTv.getText()+"";
-            String title = etitle.getText() + "";
-            String place = eplace.getText() + "";
-            String content = econtent.getText() + "";
-            String phone = ephone.getText() + "";
-            String website = eurl.getText() + "";
-            String sponsor = esponsor.getText() + "";
-            writeNewPost(null, url, image, title, place, content,
-                    dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
-            readNewUser();
-            if (pd.isShowing()) {
-                pd.dismiss();
-                Toast.makeText(AddingActivity.this,
-                        "Event is pending to accept!!", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-            }
-        }else {
-            uploadFile(imgurl);
-        }
-
+        uploadFile(imgurl);
 
     }
 
