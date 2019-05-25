@@ -4,45 +4,74 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="1dp">
+    android:padding="2dp">
 
     <LinearLayout
         android:id="@+id/bgActivity"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="@drawable/selector_btn_notify"
+        android:background="@drawable/bg_notify1"
         android:orientation="horizontal"
-        android:paddingTop="16dp"
-        android:paddingLeft="35dp"
-        android:layout_margin="10dp">
+        android:padding="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp">
+
             <TextView
                 android:id="@+id/lstTime"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:fontFamily="@font/pb"
-                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="10:00"
+                android:textColor="@color/bg_notify"
                 android:textSize="35sp"
                 android:textStyle="bold" />
+        </LinearLayout>
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="40dp">
-                <TextView
-                    android:id="@+id/lstTitle"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:weightSum="2">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pb"
-                    android:text="Title"
-                    android:inputType="textAutoComplete"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:orientation="vertical"
+                    android:layout_marginRight="60dp"
+                    android:layout_weight="0.7">
+                    <TextView
+                        android:id="@+id/lstTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pb"
+                        android:text="Title"
+                        android:inputType="textAutoComplete"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/white_grey"/>
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/lstItems"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pr"
                     android:text="message"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     android:inputType="textAutoComplete"
                     android:textColor="@color/grey"
                     android:textSize="12sp" />

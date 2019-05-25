@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/bg1"
+            android:src="@drawable/bg"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

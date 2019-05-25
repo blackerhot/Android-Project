@@ -15,6 +15,7 @@
     <color name="red">#FF0000</color>
     <color name="primary">#ff7c00</color>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorGrey">#3D3D3D</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryText">#050505</color>
@@ -22,5 +23,7 @@
     <color name="colorwhiteblue">#8D292929</color>
     <color name="colorclick">#e24f3b</color>
     <color name="colorbgaddmin">#94FFFFFF</color>
+    <color name="colornotify">#f0f0f0</color>
+    <color name="bg_notify">#ff6565</color>
 
 </resources>

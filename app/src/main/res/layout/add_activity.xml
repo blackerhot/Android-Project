@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/feed_bg"
                 android:orientation="vertical"
                 android:layout_margin="16dp">
 
@@ -38,6 +38,8 @@
                     android:inputType="textAutoCorrect"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     android:textSize="25sp" />
 
                 <EditText
@@ -49,135 +51,204 @@
                     android:fontFamily="@font/pr"
                     android:hint="img url"
                     android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     android:gravity="center"
                     android:inputType="text"
                     android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="250dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bgfeed">
+                    android:background="@drawable/feed_bg1"
+                    android:layout_margin="16dp">
 
                     <ImageButton
                         android:id="@+id/imgAc"
                         android:layout_width="match_parent"
-                        android:layout_height="251dp"
+                        android:layout_height="200dp"
                         android:background="@drawable/icon_camera"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/pr"
                         android:id="@+id/imgTv"
                         android:text="สถาณะ : เลือกรูป"
                         android:textSize="20sp"
-                        android:textColor="@color/colorOrange"
+                        android:textColor="@color/bg_notify"
                         />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
                     <Button
                         android:id="@+id/edatest"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:background="@drawable/border_add"
                         android:fontFamily="@font/pb"
-                        android:text="Start Date,Time"
-                        android:textColor="@color/white" />
+                        android:text="วันเริ่มต้น,เวลา"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"/>
 
                     <Button
                         android:id="@+id/edateend"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/grey"
                         android:fontFamily="@font/pb"
-                        android:text="End Date,Time"
-                        android:textColor="@color/white" />
+                        android:background="@drawable/border_add"
+                        android:text="วันสิ้นสุด,เวลา"
+                        android:textColor="@color/grey"
+                        android:textSize="16dp"/>
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/econtent"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bgfeed"
-                    android:fontFamily="@font/pr"
-                    android:gravity="center"
-                    android:hint="Content"
-                    android:textColor="@color/grey"
-                    android:inputType="textAutoCorrect"
-                    android:textSize="25sp"
-                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:background="@drawable/feed_bg"
+                    android:layout_margin="20dp">
+                    <EditText
+                        android:id="@+id/econtent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/pr"
+                        android:gravity="top"
+                        android:hint="Content"
+                        android:textColor="@color/grey"
+                        android:textSize="20sp"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <EditText
-                        android:id="@+id/eplace"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginLeft="20dp">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/pr"
-                        android:textColor="@color/grey"
-                        android:hint="สถานที่จัดงาน**"
-                        android:inputType="text"
-                        android:textSize="18sp" />
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginTop="20dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="สาถที่จัดงาน: "
+                            android:textColor="@color/bg_notify"/>
+                        <EditText
+                            android:id="@+id/eplace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pr"
+                            android:layout_marginRight="20dp"
+                            android:textColor="@color/grey"
+                            android:hint="สถานที่จัดงาน**"
+                            android:inputType="text"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ผู้จัดทำ"
+                            android:textColor="@color/bg_notify"/>
+
+                        <EditText
+                            android:id="@+id/esponsor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pr"
+                            android:textColor="@color/grey"
+                            android:hint="ผู้จัดงาน"
+                            android:layout_marginRight="20dp"
+                            android:inputType="text"
+                            android:textSize="18sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
 
-                <EditText
-                    android:id="@+id/esponsor"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginLeft="20dp">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/pr"
-                    android:textColor="@color/grey"
-                    android:hint="ผู้จัดงาน"
-                    android:inputType="text"
-                    android:textSize="18sp" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/bg_notify"
+                        android:text="เว็ปไซต์"/>
+                    <EditText
+                        android:id="@+id/eurl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
+                        android:fontFamily="@font/pr"
+                        android:hint="เว็ปไซต์เกี่ยวกับงาน"
+                        android:inputType="text"
+                        android:layout_marginRight="20dp"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/eurl"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/grey"
-                    android:fontFamily="@font/pr"
-                    android:hint="เว็ปไซต์เกี่ยวกับงาน"
-                    android:inputType="text"
-                    android:textSize="18sp" />
+                    android:textColor="@color/bg_notify"
+                    android:text="เบอร์โทรศัพท์"/>
 
                 <EditText
                     android:id="@+id/ephone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:textColor="@color/grey"
+                    android:layout_marginRight="20dp"
                     android:fontFamily="@font/pr"
                     android:hint="เบอร์ติดต่อ"
                     android:inputType="text"
                     android:textSize="18sp" />
+            </LinearLayout>
+            </LinearLayout>
 
 
                 <Button
                     android:id="@+id/send_But"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
                     android:background="@drawable/selector_click2"
-                    android:padding="16dp"
+                    android:layout_margin="30dp"
                     android:fontFamily="@font/pb"
                     android:text="Send"
                     android:textSize="20dp"
@@ -195,13 +266,6 @@
 
                 </RelativeLayout>
 
-                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

@@ -88,7 +88,7 @@ public class activitesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activites, container, false);
         final SwipeMenuListView today_event_listView;
         final SwipeMenuListView all_ev_listview;
@@ -132,289 +132,297 @@ public class activitesFragment extends Fragment {
                         if (s0.length() != 0) {
                             s0 = s0.substring(0, s0.length() - 1);
                             s1 = s1.substring(0, s1.length() - 1);
-                            Type type = new TypeToken<ArrayList<ExampleItem>>() {
-                            }.getType();
 
+
+                            Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
                             mExampleList = gson.fromJson("[" + s1 + "]", type);
                             Log.e("activi", "[" + s1 + "]");
-                            if (mExampleList == null) {
+                            if(mExampleList==null){
                                 mExampleList = new ArrayList<>();
                             }
 
-                            final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
-                            final List<HashMap<String, String>> bList = new ArrayList<HashMap<String, String>>();
-                            // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
-                            ExampleItem all_event_item;
-                            ExampleItem today_event_item;
-                            Calendar c = Calendar.getInstance();
-                            year = c.get(Calendar.YEAR);
-                            month = c.get(Calendar.MONTH);
-                            month = month + 1;
-                            aftermonth = month - 2;
-                            day = c.get(Calendar.DAY_OF_MONTH);
-                            today_str = year + "-" + month + "-" + day;
-                            todayTv.setText("Today is " + today_str);
-                            after_two_month_str = year + "-" + aftermonth + "-" + day;
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        }
+                        final List<HashMap<String, String>> aList = new ArrayList<HashMap<String, String>>();
+                        final List<HashMap<String, String>> bList = new ArrayList<HashMap<String, String>>();
+                        // LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bgActivity);
+                        ExampleItem all_event_item;
+                        ExampleItem today_event_item;
+                        Calendar c = Calendar.getInstance();
+                        year = c.get(Calendar.YEAR);
+                        month = c.get(Calendar.MONTH);
+                        month = month + 1;
+                        aftermonth = month - 2;
+                        day = c.get(Calendar.DAY_OF_MONTH);
+                        today_str = year + "-" + month + "-" + day;
+                        todayTv.setText("Today is " + today_str);
+                        after_two_month_str = year + "-" + aftermonth + "-" + day;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-                            final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
-                            final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
+                        final ArrayList<ExampleItem> all_exampe = new ArrayList<>();
+                        final ArrayList<ExampleItem> to_day_exampe = new ArrayList<>();
 
 
-                            if (mExampleList != null) {
+                        if (mExampleList != null) {
 
-                                for (int i = 0; i < mExampleList.size(); i++) {
-                                    try {
-                                        Log.e("actiti", mExampleList.get(i).getTitle() + "");
-                                        strDate = sdf.parse(mExampleList.get(i).getDatest());
-                                        endDate = sdf.parse(mExampleList.get(i).getDateend());
-                                        after_two_monthdate = sdf.parse(after_two_month_str);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-
-                                        if (after_two_monthdate.after(strDate)) {
-                                            if (after_two_monthdate.after(endDate)) {
-                                                mExampleList.remove(i);
-                                            }
-                                        }
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
+                            for (int i = 0; i < mExampleList.size(); i++) {
+                                try {
+                                    Log.e("actiti", mExampleList.get(i).getTitle() + "");
+                                    strDate = sdf.parse(mExampleList.get(i).getDatest());
+                                    endDate = sdf.parse(mExampleList.get(i).getDateend());
+                                    after_two_monthdate = sdf.parse(after_two_month_str);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
                                 }
-                            }
+                                try {
 
-                            if (mExampleList != null) {
-                                for (int i = 0; i < mExampleList.size(); i++) {
-                                    try {
-                                        strDate = sdf.parse(mExampleList.get(i).getDatest());
-                                        endDate = sdf.parse(mExampleList.get(i).getDateend());
-                                        todate = sdf.parse(today_str);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
+                                    if (after_two_monthdate.after(strDate)) {
+                                        if (after_two_monthdate.after(endDate)) {
+                                            mExampleList.remove(i);
+                                        }
                                     }
-                                    try {
-                                        if (strDate.equals(todate)) {
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                        if (mExampleList != null) {
+                            for (int i = 0; i < mExampleList.size(); i++) {
+                                try {
+                                    strDate = sdf.parse(mExampleList.get(i).getDatest());
+                                    endDate = sdf.parse(mExampleList.get(i).getDateend());
+                                    todate = sdf.parse(today_str);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    if (strDate.equals(todate)) {
+                                        today_event_item = (ExampleItem) mExampleList.get(i);
+                                        to_day_exampe.add(today_event_item);
+
+                                    } else if (strDate.before(todate)) {
+                                        if (endDate.after(todate)) {
                                             today_event_item = (ExampleItem) mExampleList.get(i);
                                             to_day_exampe.add(today_event_item);
-
-                                        } else if (strDate.before(todate)) {
-                                            if (endDate.after(todate)) {
-                                                today_event_item = (ExampleItem) mExampleList.get(i);
-                                                to_day_exampe.add(today_event_item);
-                                            } else if (endDate.equals(todate)) {
-                                                today_event_item = (ExampleItem) mExampleList.get(i);
-                                                to_day_exampe.add(today_event_item);
-                                            }
-
-                                        } else if (strDate.after(todate)) {
-                                            if (endDate.after(todate)) {
-                                                all_event_item = (ExampleItem) mExampleList.get(i);
-                                                all_exampe.add(all_event_item);
-                                            }
+                                        } else if (endDate.equals(todate)) {
+                                            today_event_item = (ExampleItem) mExampleList.get(i);
+                                            to_day_exampe.add(today_event_item);
                                         }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
 
+                                    } else if (strDate.after(todate)) {
+                                        if (endDate.after(todate)) {
+                                            all_event_item = (ExampleItem) mExampleList.get(i);
+                                            all_exampe.add(all_event_item);
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
+
                             }
-                            Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
-                                @Override
-                                public int compare(ExampleItem t0, ExampleItem t1) {
-                                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
-                                    Date time1 = null;
-                                    Date time2 = null;
-                                    try {
-                                        time1 = formatter2.parse(t0.getDatest() + " " + t0.getDatest());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        time2 = formatter2.parse(t1.getDatest() + " " + t1.getDatest());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    if (time1.compareTo(time2) < 0) {
+                        }
+                        Collections.sort(to_day_exampe, new Comparator<ExampleItem>() {
+                            @Override
+                            public int compare(ExampleItem t0, ExampleItem t1) {
+                                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
+                                Date time1 = null;
+                                Date time2 = null;
+                                try {
+                                    time1 = formatter2.parse(t0.getDatest() + " " + t0.getDatest());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    time2 = formatter2.parse(t1.getDatest() + " " + t1.getDatest());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                try {
+                                    if (time1.compareTo(time2) <= 0) {
+                                        return -1;
+                                    } else {
+                                        return 1;
+                                    } }catch (Exception e) {
+
+                                    e.printStackTrace();
+                                }
+                                return 1;
+
+                            }
+                        });
+                        Collections.sort(all_exampe, new Comparator<ExampleItem>() {
+                            @Override
+                            public int compare(ExampleItem p0, ExampleItem p1) {
+                                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
+                                Date date1 = null;
+                                Date date2 = null;
+                                try {
+                                    date1 = formatter2.parse(p0.getDatest() + " " + p0.getDatest());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    date2 = formatter2.parse(p1.getDatest() + " " + p1.getDatest());
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    if (date1.compareTo(date2) < 0) {
                                         return -1;
                                     } else {
                                         return 1;
                                     }
+                                } catch (Exception e) {
 
+                                    e.printStackTrace();
                                 }
-                            });
-                            Collections.sort(all_exampe, new Comparator<ExampleItem>() {
-                                @Override
-                                public int compare(ExampleItem p0, ExampleItem p1) {
-                                    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH.SS");
-                                    Date date1 = null;
-                                    Date date2 = null;
-                                    try {
-                                        date1 = formatter2.parse(p0.getDatest() + " " + p0.getDatest());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        date2 = formatter2.parse(p1.getDatest() + " " + p1.getDatest());
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        if (date1.compareTo(date2) < 0) {
-                                            return -1;
-                                        } else {
-                                            return 1;
-                                        }
-                                    } catch (Exception e) {
-
-                                        e.printStackTrace();
-                                    }
 
 
-                                    return 1;
-                                }
-                            });
-                            if (to_day_exampe.size() != 0) {
-
-
-                                for (int i = 0; i < to_day_exampe.size(); i++) {
-                                    HashMap<String, String> hm_td = new HashMap<String, String>();
-                                    hm_td.put("listview_datestr", to_day_exampe.get(i).getTimestart());
-                                    hm_td.put("listview_title", to_day_exampe.get(i).getTitle());
-                                    hm_td.put("listview_comment", to_day_exampe.get(i).getDetail());
-                                    bList.add(hm_td);
-                                }
+                                return 1;
                             }
-                            if (all_exampe.size() != 0) {
-                                for (int i = 0; i < all_exampe.size(); i++) {
-                                    HashMap<String, String> hm = new HashMap<String, String>();
-                                    hm.put("listview_timestr", all_exampe.get(i).getTimestart());
-                                    hm.put("listview_datestr", all_exampe.get(i).getDatest());
-                                    hm.put("listview_title", all_exampe.get(i).getTitle());
-                                    hm.put("listview_comment", all_exampe.get(i).getDetail());
-                                    aList.add(hm);
-                                }
+                        });
+                        if (to_day_exampe.size() != 0) {
+
+
+                            for (int i = 0; i < to_day_exampe.size(); i++) {
+                                HashMap<String, String> hm_td = new HashMap<String, String>();
+                                hm_td.put("listview_datestr", to_day_exampe.get(i).getTimestart());
+                                hm_td.put("listview_title", to_day_exampe.get(i).getTitle());
+                                hm_td.put("listview_comment", to_day_exampe.get(i).getDetail());
+                                bList.add(hm_td);
                             }
-
-                            String[] from = {"listview_datestr", "listview_title", "listview_comment"};
-                            final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
-                            String[] from_other_event = {"listview_timestr", "listview_datestr", "listview_title", "listview_comment"};
-                            final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event, R.id.lstItems_other_event};
-                            final SimpleAdapter aAdapter = new SimpleAdapter(getContext(),
-                                    aList, R.layout.listview_other_event, from_other_event, to_other_event);
-                            final SimpleAdapter bAdapter = new SimpleAdapter(getContext(),
-                                    bList, R.layout.listview_activity, from, to);
-                            all_ev_listview.setAdapter(aAdapter);
-                            today_event_listView.setAdapter(bAdapter);
-                            // class
-                            ListUtils.setDynamicHeight(all_ev_listview);
-                            ListUtils.setDynamicHeight(today_event_listView);
-
-                            SwipeMenuCreator creator = new SwipeMenuCreator() {
-                                SwipeMenuItem deleteItem;
-
-                                @Override
-                                public void create(SwipeMenu menu) {
-                                    // deleteItem
-                                    deleteItem = new SwipeMenuItem(getContext());
-                                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0xcc, 0x00, 0x00)));
-                                    deleteItem.setWidth(180);
-
-                                    deleteItem.setTitle("Delete");
-                                    deleteItem.setTitleSize(12);
-                                    deleteItem.setTitleColor(Color.WHITE);
-                                    menu.addMenuItem(deleteItem);
-                                }
-                            };
-
-                            all_ev_listview.setMenuCreator(creator);
-                            all_ev_listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-                                @Override
-                                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                                    switch (index) {
-                                        case 0:
-                                            all_ev_listview.smoothOpenMenu(position);
-                                            for (int i = 0; i < mExampleList.size(); i++) {
-                                                if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimestart())) {
-                                                    if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
-
-
-                                                        String key = mExampleList.get(i).getTitle();
-
-                                                        myRef2.child(key).removeValue();
-
-                                                        mExampleList.remove(i);
-
-                                                    }
-                                                }
-                                            }
-                                            aList.remove(position);
-                                            all_ev_listview.setAdapter(aAdapter);
-                                            ListUtils.setDynamicHeight(all_ev_listview);
-
-                                            break;
-                  /*  case 1:
-                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
-                        break; */
-                                    }
-                                    // false : close the menu; true : not close the menu
-                                    return false;
-                                }
-
-
-                            });
-                            today_event_listView.setMenuCreator(creator);
-                            today_event_listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-                                @Override
-                                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                                    switch (index) {
-                                        case 0:
-                                            today_event_listView.smoothOpenMenu(position);
-                                            for (int i = 0; i < mExampleList.size(); i++) {
-                                                if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())) {
-                                                    if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
-                                                        String key = mExampleList.get(i).getTitle();
-
-                                                        myRef2.child(key).removeValue();
-
-                                                        mExampleList.remove(i);
-
-                                                    }
-                                                }
-                                            }
-                                            bList.remove(position);
-                                            today_event_listView.setAdapter(bAdapter);
-                                            ListUtils.setDynamicHeight(today_event_listView);
-                                            break;
-                  /*  case 1:
-                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
-                        break; */
-                                    }
-
-                                    return false;
-                                }
-                            });
-                            today_event_listView.setCloseInterpolator(new BounceInterpolator());
-                            today_event_listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-                                @Override
-                                public void onSwipeStart(int position) {
-
-                                }
-
-                                @Override
-                                public void onSwipeEnd(int position) {
-
-                                }
-                            });
-
-
                         }
+                        if (all_exampe.size() != 0) {
+                            for (int i = 0; i < all_exampe.size(); i++) {
+                                HashMap<String, String> hm = new HashMap<String, String>();
+                                hm.put("listview_timestr", all_exampe.get(i).getTimestart());
+                                hm.put("listview_datestr", all_exampe.get(i).getDatest());
+                                hm.put("listview_title", all_exampe.get(i).getTitle());
+                                hm.put("listview_comment", all_exampe.get(i).getDetail());
+                                aList.add(hm);
+                            }
+                        }
+
+                        String[] from = {"listview_datestr", "listview_title", "listview_comment"};
+                        final int[] to = {R.id.lstTime, R.id.lstTitle, R.id.lstItems};
+                        String[] from_other_event = {"listview_timestr", "listview_datestr", "listview_title", "listview_comment"};
+                        final int[] to_other_event = {R.id.lsttime_other_event, R.id.lstdate_other_event, R.id.lstTitle_other_event, R.id.lstItems_other_event};
+
+                        final SimpleAdapter aAdapter = new SimpleAdapter(inflater.getContext(),
+                                aList, R.layout.listview_other_event, from_other_event, to_other_event);
+                        final SimpleAdapter bAdapter = new SimpleAdapter(inflater.getContext(),
+                                bList, R.layout.listview_activity, from, to);
+
+                        all_ev_listview.setAdapter(aAdapter);
+                        today_event_listView.setAdapter(bAdapter);
+                        // class
+                        ListUtils.setDynamicHeight(all_ev_listview);
+                        ListUtils.setDynamicHeight(today_event_listView);
+
+                        SwipeMenuCreator creator = new SwipeMenuCreator() {
+                            SwipeMenuItem deleteItem;
+
+                            @Override
+                            public void create(SwipeMenu menu) {
+                                // deleteItem
+                                deleteItem = new SwipeMenuItem(getContext());
+                                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xcc, 0x00, 0x00)));
+                                deleteItem.setWidth(180);
+
+                                deleteItem.setTitle("Delete");
+                                deleteItem.setTitleSize(12);
+                                deleteItem.setTitleColor(Color.WHITE);
+                                menu.addMenuItem(deleteItem);
+                            }
+                        };
+
+                        all_ev_listview.setMenuCreator(creator);
+                        all_ev_listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                                switch (index) {
+                                    case 0:
+                                        all_ev_listview.smoothOpenMenu(position);
+                                        for (int i = 0; i < mExampleList.size(); i++) {
+                                            if (aList.get(position).get("listview_timestr").equals(mExampleList.get(i).getTimestart())) {
+                                                if (aList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
+
+
+                                                    String key = mExampleList.get(i).getTitle();
+
+                                                    myRef2.child(key).removeValue();
+
+                                                    mExampleList.remove(i);
+
+                                                }
+                                            }
+                                        }
+                                        aList.remove(position);
+                                        all_ev_listview.setAdapter(aAdapter);
+                                        ListUtils.setDynamicHeight(all_ev_listview);
+
+                                        break;
+                  /*  case 1:
+                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
+                        break; */
+                                }
+                                // false : close the menu; true : not close the menu
+                                return false;
+                            }
+
+
+                        });
+                        today_event_listView.setMenuCreator(creator);
+                        today_event_listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                                switch (index) {
+                                    case 0:
+                                        today_event_listView.smoothOpenMenu(position);
+                                        for (int i = 0; i < mExampleList.size(); i++) {
+                                            if (bList.get(position).get("listview_datestr").equals(mExampleList.get(i).getTimestart())) {
+                                                if (bList.get(position).get("listview_title").equals(mExampleList.get(i).getTitle())) {
+                                                    String key = mExampleList.get(i).getTitle();
+
+                                                    myRef2.child(key).removeValue();
+
+                                                    mExampleList.remove(i);
+
+                                                }
+                                            }
+                                        }
+                                        bList.remove(position);
+                                        today_event_listView.setAdapter(bAdapter);
+                                        ListUtils.setDynamicHeight(today_event_listView);
+                                        break;
+                  /*  case 1:
+                        Log.d(TAG, "onMenuItemClick: clicked item " + index);
+                        break; */
+                                }
+
+                                return false;
+                            }
+                        });
+                        today_event_listView.setCloseInterpolator(new BounceInterpolator());
+                        today_event_listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+                            @Override
+                            public void onSwipeStart(int position) {
+
+                            }
+
+                            @Override
+                            public void onSwipeEnd(int position) {
+
+                            }
+                        });
 
 
                     }
+
+
                 }
 
                 @Override

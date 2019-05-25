@@ -7,122 +7,122 @@
     android:orientation="vertical"
     android:padding="1dp"
     android:focusableInTouchMode="true"
-    android:background="@color/white">
+    android:background="@color/colornotify">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-         <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@color/white"
             android:layout_marginBottom="3dp">
 
-         </LinearLayout>
+        </LinearLayout>
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true" >
 
-         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
-
-                <TextView
-                    android:id="@+id/tv_to_day"
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:fontFamily="@font/pb"
-                    android:text="Today"
-                    android:textColor="@color/black"/>
+                    android:layout_centerVertical="true">
 
-                <View
+                    <TextView
+                        android:id="@+id/tv_to_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/pb"
+                        android:text="Today"
+                        android:textColor="@color/black"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toLeftOf="@id/tv_to_day"
+                        android:background="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@id/tv_to_day"
+                        android:background="@color/black"
+                        />
+
+                </RelativeLayout>
+                <com.baoyz.swipemenulistview.SwipeMenuListView
+                    android:id="@+id/lst"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tv_to_day"
-                    android:background="@color/black"
-                    />
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:divider="@null"
+                    android:dividerHeight="1dp"
+                    android:focusable="true">
 
-                <View
+                </com.baoyz.swipemenulistview.SwipeMenuListView>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tv_to_day"
-                    android:background="@color/black"
-                    />
-
-            </RelativeLayout>
-            <com.baoyz.swipemenulistview.SwipeMenuListView
-                android:id="@+id/lst"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:divider="@null"
-                android:dividerHeight="1dp"
-                android:focusable="true">
-
-            </com.baoyz.swipemenulistview.SwipeMenuListView>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                >
-
-                <TextView
-                    android:id="@+id/tv_all_event"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Upcoming Event"
-                    android:fontFamily="@font/pb"
-                    android:textColor="@color/black"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tv_all_event"
-                    android:background="@color/black"
-                    />
+                    >
 
-                <View
+                    <TextView
+                        android:id="@+id/tv_all_event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Upcoming Event"
+                        android:fontFamily="@font/pb"
+                        android:textColor="@color/black"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toLeftOf="@id/tv_all_event"
+                        android:background="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@id/tv_all_event"
+                        android:background="@color/black"
+                        />
+
+                </RelativeLayout>
+                <com.baoyz.swipemenulistview.SwipeMenuListView
+                    android:id="@+id/all_swip"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tv_all_event"
-                    android:background="@color/black"
-                    />
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:divider="@null"
+                    android:dividerHeight="1dp"
+                    android:focusable="true">
 
-            </RelativeLayout>
-             <com.baoyz.swipemenulistview.SwipeMenuListView
-                 android:id="@+id/all_swip"
-                 android:layout_width="match_parent"
-                 android:layout_height="300dp"
-                 android:layout_gravity="center"
-                 android:divider="@null"
-                 android:dividerHeight="1dp"
-                 android:focusable="true">
-
-             </com.baoyz.swipemenulistview.SwipeMenuListView>
-        </LinearLayout>
+                </com.baoyz.swipemenulistview.SwipeMenuListView>
+            </LinearLayout>
 
         </ScrollView>
 
