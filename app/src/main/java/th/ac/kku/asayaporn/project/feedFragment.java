@@ -168,6 +168,7 @@ public class feedFragment extends Fragment {
             Log.e("result1all", fromeall);
             showData(fromeall);
         }
+        sortlates();
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -510,6 +511,53 @@ public class feedFragment extends Fragment {
 
         string = string.substring(0, string.length() - 1);
         return string;
+
+    }
+
+    public void sortlates(){
+        ActivityKKU activityKKU;
+        final ArrayList<ActivityKKU> arra = new ArrayList<>();
+
+
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            activityKKU = (ActivityKKU) mAdapter.getItem(i);
+            arra.add(activityKKU);
+
+        }
+
+        Collections.sort(arra, new Comparator<ActivityKKU>() {
+            @Override
+            public int compare(ActivityKKU p0, ActivityKKU p1) {
+                SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = null;
+                Date date2 = null;
+                try {
+                    date1 = formatter2.parse(p0.getDateSt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    date2 = formatter2.parse(p1.getDateSt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (date1.compareTo(date2) < 0) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+
+                return -1;
+
+            }
+        });
+        mListView.setAdapter(new CustomAdapter(getActivity(), arra));
 
     }
 }

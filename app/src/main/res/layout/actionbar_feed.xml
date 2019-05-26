@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Search in Feed"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:singleLine="true"

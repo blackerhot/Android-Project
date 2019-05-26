@@ -76,6 +76,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -197,7 +198,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ผู้จัดทำ"
+                            android:text="ผู้จัดงาน"
                             android:textColor="@color/bg_notify"/>
 
                         <EditText
