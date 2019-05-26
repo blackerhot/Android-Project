@@ -106,6 +106,7 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
                         etitle.setText(ds.child("title").getValue() + "");
                         eurl.setText(ds.child("url").getValue() + "");
                         ephone.setText(ds.child("phone").getValue() + "");
+                        eimg.setText(ds.child("image").getValue() + "");
                         eplace.setText(ds.child("place").getValue() + "");
                         esponsor.setText(ds.child("sponsor").getValue() + "");
                         econtent.setText(ds.child("content").getValue() + "");

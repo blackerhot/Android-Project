@@ -84,6 +84,7 @@
                         xmlns:facebook="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/loginFace"
                         android:layout_width="wrap_content"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         facebook:com_facebook_login_text="Login with facebook" />
 

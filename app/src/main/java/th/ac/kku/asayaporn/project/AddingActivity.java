@@ -1,4 +1,5 @@
 package th.ac.kku.asayaporn.project;
+
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -32,7 +33,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -69,7 +69,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
     EditText ephone;
     EditText eplace;
     EditText esponsor;
-    EditText econtent;
+    EditText econtent,eimg;
     Button sendBut;
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -106,6 +106,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         etitle = (EditText) findViewById(R.id.etitle);
         eurl = (EditText) findViewById(R.id.eurl);
         ephone = (EditText) findViewById(R.id.ephone);
+        eimg = (EditText) findViewById(R.id.eimg);
         eplace = (EditText) findViewById(R.id.eplace);
         esponsor = (EditText) findViewById(R.id.esponsor);
         econtent = (EditText) findViewById(R.id.econtent);
@@ -114,7 +115,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         myRef = database.getReference("activities");
         btnstartdate = (Button) findViewById(R.id.edatest);
         btnenddate = (Button) findViewById(R.id.edateend);
-        sendBut.setText("Upload Picture");
+        sendBut.setText("Send Event");
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -123,7 +124,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             @Override
             public void onClick(View v) {
                 String url = eurl.getText() + "";
-                String image = imgurl+"";
+                String image = eimg.getText()+"";
                 String title = etitle.getText()+"";
                 String place = eplace.getText() + "";
                 String content = econtent.getText() + "";
@@ -132,7 +133,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
                 String sponsor = esponsor.getText() + "";
                 if (title.isEmpty() || image.isEmpty() && dateSt.equals("ยังว่าง") || dateEd.equals("ยังว่าง") || timeSt.equals("ยังว่าง")
                         || timeEd.equals("ยังว่าง") || content.isEmpty() || place.isEmpty() || sponsor.isEmpty()
-                        || url.isEmpty() || phone.isEmpty() || website.isEmpty() || imgurl.isEmpty()){
+                        || url.isEmpty() || phone.isEmpty() || website.isEmpty() ){
                     Toast.makeText(AddingActivity.this,"Please fill all a box",Toast.LENGTH_LONG).show();
                 }else {
                     if (year_start <= year_end && month_start < month_end) {
@@ -208,8 +209,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             final String pic = cursor.getString(columnIndex);
             imgurl=pic;
             cursor.close();
-            ImageView imgv = (ImageView) findViewById(R.id.imgshow);
-            imgv.setImageBitmap(BitmapFactory.decodeFile(pic));
+            ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
+            btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
             imgTv.setText("สถาณะ : เลือกรูปเรียบร้อย");
         }
     }
@@ -302,8 +303,25 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         pd.setMessage("Please wait");
         pd.setCancelable(false);
         pd.show();
-        uploadFile(imgurl);
+      //  uploadFile(imgurl);
 
+        String url = eurl.getText() +"";
+        String image = eimg.getText()+"";
+        String title = etitle.getText() + "";
+        String place = eplace.getText() + "";
+        String content = econtent.getText() + "";
+        String phone = ephone.getText() + "";
+        String website = eurl.getText() + "";
+        String sponsor = esponsor.getText() + "";
+        writeNewPost(null, url, image, title, place, content,
+                dateSt, dateEd, phone, website, timeSt, timeEd, sponsor);
+        readNewUser();
+        if (pd.isShowing()) {
+            pd.dismiss();
+            Toast.makeText(AddingActivity.this,
+                    "Event is pending to accept!!", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        }
     }
 
     private void writeNewPost(JsonObject contact, String url, String image, String title, String place,

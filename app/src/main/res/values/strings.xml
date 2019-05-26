@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Activities in KKU</string>
+    <string name="app_name">KKU Event</string>
     <string name="login">Login</string>
     <string name="register">Sign Up</string>
     <string name="title_activity_list">List</string>
