@@ -24,6 +24,12 @@
     <color name="colorclick">#e24f3b</color>
     <color name="colorbgaddmin">#94FFFFFF</color>
     <color name="colornotify">#f0f0f0</color>
-    <color name="bg_notify">#ff6565</color>
+    <color name="bg_notify">#FE876F</color>
+    <color name="text">#442c2e</color>
+    <color name="title">#5D5C5C</color>
+    <color name="img">#9F808080</color>
+    <color name="textred">#FF6969</color>
+    <color name="textgreen">#8DBE3E</color>
+    <color name="bg_notify2">#A8FE876F</color>
 
 </resources>

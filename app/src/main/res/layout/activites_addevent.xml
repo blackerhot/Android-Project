@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/bgfeed"
+                android:background="@drawable/feed_bg1"
                 android:orientation="vertical">
 
 
@@ -37,6 +37,8 @@
                     android:fontFamily="@font/pb"
                     android:gravity="center"
                     android:hint="Title"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:inputType="textAutoCorrect" />
 
                 <LinearLayout
@@ -44,48 +46,63 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:layout_margin="16dp">
 
                     <Button
                         android:id="@+id/btn_start_date_for_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/grey"
+                        android:background="@drawable/border_add"
                         android:fontFamily="@font/pb"
-                        android:text="Start Date,Time"
-                        android:textColor="@color/white" />
+                        android:text="วันเริ่มต้น, เวลา"
+                        android:textColor="@drawable/selector_text2" />
 
                     <Button
                         android:id="@+id/btn_end_date_for_me"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/grey"
+                        android:background="@drawable/border_add"
                         android:fontFamily="@font/pb"
-                        android:text="End Date,Time"
-                        android:textColor="@color/white" />
+                        android:text="วันสิ้นสุด, เวลา"
+                        android:textColor="@drawable/selector_text2" />
 
                 </LinearLayout>
-
-                <EditText
-                    android:id="@+id/edt_command_for_me"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bgfeed"
-                    android:fontFamily="@font/pr"
-                    android:gravity="center"
-                    android:hint="Content"
-                    android:textColor="@color/grey"
-                    android:textSize="25sp"
-                    android:lines="8" />
+                    android:background="@drawable/feed_bg1">
+                    <EditText
+                        android:id="@+id/edt_command_for_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/pr"
+                        android:gravity="top"
+                        android:hint="Content"
+                        android:textColor="@color/grey"
+                        android:textSize="25sp"
+                        android:lines="8"
+                        android:layout_margin="20dp"/>
+                </LinearLayout>
 
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="สถานที่"
+                    android:textColor="@color/bg_notify"/>
                 <EditText
                     android:id="@+id/edt_place_for_me"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:textColor="@color/grey"
                     android:fontFamily="@font/pr"
                     android:hint="สถานที่จัดงาน**"
@@ -94,7 +111,7 @@
 
                 <Button
                     android:id="@+id/btn_send_for_me"
-                    android:layout_width="250dp"
+                    android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:background="@drawable/selector_click2"
@@ -103,7 +120,8 @@
                     android:text="Send"
                     android:textAllCaps="false"
                     android:textColor="@drawable/selector_text2"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:layout_margin="16dp"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -9,17 +9,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:ignore="MissingConstraints">
+    tools:ignore="MissingConstraints"
+    android:gravity="center">
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:hint="Search in Feed"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:singleLine="true"
+        android:textColor="@drawable/selector_text2"
         android:id="@+id/edit_search"
-
+        android:background="@drawable/border_add"
         android:layout_weight="1"
         android:drawableLeft="@drawable/ic_searchbut" />
 

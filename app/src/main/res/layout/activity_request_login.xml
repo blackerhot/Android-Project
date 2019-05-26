@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg1"
+        android:src="@drawable/bg"
         android:scaleType="fitXY"/>
     <Button
         android:id="@+id/btn_requ_login_id"

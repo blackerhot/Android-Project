@@ -5,13 +5,14 @@
     <item
         android:id="@+id/activiteBar"
         android:enabled="true"
-        android:icon="@drawable/iconbell"
+        android:icon="@drawable/icons_alarm"
         android:title="My Activities"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        />
     <item
         android:id="@+id/feedBar"
         android:enabled="true"
-        android:icon="@drawable/iconfeed"
+        android:icon="@drawable/icons_feednews"
         android:title="Feed Event"
         app:showAsAction="ifRoom" />
 

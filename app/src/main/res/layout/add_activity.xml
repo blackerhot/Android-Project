@@ -59,21 +59,45 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="210dp"
                     android:orientation="vertical"
                     android:background="@drawable/feed_bg1"
-                    android:layout_margin="16dp">
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp">
 
-                    <ImageButton
-                        android:id="@+id/imgAc"
+                    <ImageView
+                        android:id="@+id/imgshow"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="@drawable/icon_camera"/>
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="20dp"
+                    >
+
+                    <Button
+                        android:id="@+id/imgAc"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:text="Load Picture"
+                        android:textAllCaps="false"
+                        android:textSize="10sp"
+                        android:textColor="@color/bg_notify"
+                        android:background="@drawable/border_add"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/pr"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/imgTv"
                         android:text="สถาณะ : เลือกรูป"
                         android:textSize="20sp"

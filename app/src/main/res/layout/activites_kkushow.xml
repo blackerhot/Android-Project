@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,16 +6,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgfeed"
+        android:background="@drawable/feed_bg1"
         android:orientation="vertical"
         android:paddingBottom="1dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginBottom="1dp">
+        android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bgfeed">
+            android:background="@color/white_grey">
             <ImageView
                 android:id="@+id/post_pic"
                 android:layout_width="match_parent"
@@ -49,7 +46,7 @@
             android:fontFamily="@font/pb"
             android:text="Title"
             android:layout_gravity="center"
-            android:textColor="@color/colorOrange"
+            android:textColor="@color/bg_notify"
             android:textSize="20sp"
             android:textStyle="bold"
             android:paddingTop="3dp"
@@ -60,7 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -83,7 +82,9 @@
             android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -109,6 +110,7 @@
             android:layout_below="@id/post_date"
             android:layout_gravity="end"
             android:clickable="true"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/pb"
             android:text="อ่านต่อ.."
             android:textStyle="bold"

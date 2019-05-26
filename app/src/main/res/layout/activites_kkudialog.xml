@@ -69,138 +69,211 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-
-                android:background="@drawable/bgfeed">
+                android:background="@drawable/feed_bg1">
 
                 <TextView
                     android:id="@+id/post_title"
                     android:padding="12dp"
                     android:textSize="30sp"
-                    android:layout_marginTop="12dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/text"
                     android:fontFamily="@font/pb"
                     android:text="@string/recent_news"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
 
-
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
 
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/icon_location"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="สถานที่จัดงาน"
+                                android:fontFamily="@font/pb"
+                                android:textColor="@color/bg_notify"/>
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@id/tv_all_event"
+                                android:background="@color/title"/>
+                        </LinearLayout>
 
-                    <TextView
-                        android:layout_gravity="center_vertical"
-                        android:padding="12dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:id="@+id/post_address"
-                        android:textColor="@color/colorPrimaryText"
-                        android:text="Address"
-                        android:fontFamily="@font/pb"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:id="@+id/post_address"
+                            android:textColor="@color/title"
+                            android:text="Address"
+                            android:fontFamily="@font/pb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ผู้จัดทำ"
+                                android:fontFamily="@font/pb"
+                                android:textColor="@color/bg_notify"/>
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@id/tv_all_event"
+                                android:background="@color/title"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:id="@+id/post_sponser"
+                            android:fontFamily="@font/pb"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/title"
+                            android:text="ผู้จัด"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/icon_calendar"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="วันเริ่มต้น, เวลา"
+                            android:fontFamily="@font/pb"
+                            android:textColor="@color/bg_notify"/>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tv_all_event"
+                            android:background="@color/title"/>
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_gravity="center_vertical"
-                        android:padding="20dp"
-                        android:textSize="18sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:id="@+id/post_date"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/title"
                         android:text="@string/publish_date"
+                        android:layout_marginLeft="10dp"
                         android:fontFamily="@font/pb"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
 
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/end"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="วันสิ้นสุด, เวลา"
+                            android:textColor="@color/bg_notify"
+                            android:fontFamily="@font/pb"/>
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tv_all_event"
+                            android:background="@color/title"/>
+                    </LinearLayout>
+
 
                     <TextView
                         android:layout_gravity="center_vertical"
-                        android:padding="12dp"
-                        android:textSize="18sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:id="@+id/post_dateEnd"
-                        android:textColor="@color/colorPrimaryText"
+                        android:textColor="@color/title"
+                        android:layout_marginLeft="10dp"
                         android:fontFamily="@font/pb"
                         android:text="@string/publish_date"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/icon_web"
-                        android:layout_gravity="center"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
-
-                    <TextView
-                        android:layout_gravity="center_vertical"
-                        android:padding="12dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:id="@+id/post_sponser"
-                        android:fontFamily="@font/pb"
-                        android:textColor="@color/colorPrimaryText"
-                        android:text="ผู้จัด"
-                        android:layout_width="0dp"
-                        android:layout_weight="9"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
+            </LinearLayout>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="12dp"
+                   android:text="รายละเอียด"
+                   android:fontFamily="@font/pb"
+                   android:layout_marginLeft="20dp"
+                   android:textColor="@color/bg_notify"
+                   android:textSize="30sp"/>
 
                 <TextView
                     android:id="@+id/post_detail"
                     android:padding="12dp"
                     android:textSize="16sp"
+                    android:layout_marginLeft="20dp"
                     android:lineSpacingMultiplier="1.5"
-                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/pr"
                     android:text="@string/in_news"
                     android:layout_width="wrap_content"
@@ -213,31 +286,31 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:weightSum="3"
-                    android:layout_margin="5dp">
+                    android:layout_margin="20dp">
                     <ImageButton
                         android:id="@+id/post_phone"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_weight="0.1"
-                        android:src="@drawable/icon_phone"
+                        android:src="@drawable/icons_phone"
                         android:scaleType="centerCrop"
                         android:background="@color/transparent"/>
 
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
                         android:id="@+id/butAddEvent"
                         android:textColor="@drawable/selector_text2"
                         android:layout_weight="1"
                         android:text="Add Event"
                         android:fontFamily="@font/pr"
-                        android:background="@drawable/selector_join"/>
+                        android:background="@drawable/selector_click2"/>
                     <ImageButton
                         android:id="@+id/post_website"
                         android:layout_weight="0.1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/icon_web2"
                         android:scaleType="centerCrop"
                         android:background="@color/transparent"/>

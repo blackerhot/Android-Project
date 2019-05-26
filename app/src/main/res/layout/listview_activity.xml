@@ -10,16 +10,16 @@
         android:id="@+id/bgActivity"
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="@drawable/bg_notify1"
+        android:background="@drawable/noti"
         android:orientation="horizontal"
         android:padding="1dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="5dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp">
+            android:layout_marginLeft="16dp">
 
             <TextView
                 android:id="@+id/lstTime"
@@ -54,11 +54,11 @@
                         android:fontFamily="@font/pb"
                         android:text="Title"
                         android:inputType="textAutoComplete"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text"
                         android:textSize="20sp"
                         />
                     <View
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="2dp"
                         android:background="@color/white_grey"/>
                 </LinearLayout>
@@ -73,7 +73,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
                     android:inputType="textAutoComplete"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/grey_white"
                     android:textSize="12sp" />
             </LinearLayout>
 

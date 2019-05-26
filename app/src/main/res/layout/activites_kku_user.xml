@@ -3,11 +3,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colornotify"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgfeed_data"
+        android:background="@drawable/feed_bg1"
         android:orientation="vertical"
         android:paddingBottom="5dp"
         android:layout_marginLeft="16dp"
@@ -16,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bgfeed_data">
+            android:background="@drawable/feed_bg1">
             <ImageView
                 android:id="@+id/post_pic"
                 android:layout_width="match_parent"
@@ -34,8 +35,8 @@
             android:fontFamily="@font/pb"
             android:text="Title"
             android:layout_gravity="center"
-            android:textColor="@color/grey"
-            android:textSize="18sp"
+            android:textColor="@color/text"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:paddingTop="3dp"
             android:paddingLeft="10dp"
@@ -45,7 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -68,7 +71,9 @@
             android:paddingTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
@@ -90,13 +95,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             >
             <TextView
                 android:textColor="@color/colorOrange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ddddddd"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:id="@+id/stateTv"/>
 
         </LinearLayout>
@@ -105,43 +112,37 @@
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:id="@+id/keyTv"
-            android:text="xxxxxxxxxxxxxxxxxxxxxxxxx"/>
+            android:text="xxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:textSize="16dp"
                 android:layout_gravity="center"
                 android:id="@+id/editBut"
+                android:textColor="@color/textgreen"
+                android:background="@drawable/border_add"
                 android:text="Edit"/>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:textSize="16dp"
                 android:layout_gravity="center"
                 android:id="@+id/deleteBut"
+                android:textColor="@color/textred"
+                android:background="@drawable/border_add"
                 android:text="Delete"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/clickmore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/post_date"
-            android:layout_gravity="end"
-            android:clickable="true"
-            android:fontFamily="@font/pb"
-            android:text="อ่านต่อ.."
-            android:textStyle="bold"
-            android:textColor="@color/grey"
-            android:textSize="16sp"
-            android:paddingBottom="10dp"/>
-
 
     </LinearLayout>
 

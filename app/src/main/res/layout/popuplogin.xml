@@ -13,7 +13,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:background="@mipmap/rectangle">
+            android:background="@color/bg_notify"
+            android:layout_margin="20dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,24 +37,25 @@
                 android:background="@drawable/pass"/>
             <Button
                 android:id="@+id/but_login"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_login2"
                 android:padding="16dp"
                 android:text="@string/login"
                 android:textAllCaps="false"
-                android:textColor="@drawable/btn_text" />
+                android:textColor="@color/bg_notify"
+                android:layout_margin="10dp"
+                android:background="@drawable/border_add" />
             <Button
                 android:id="@+id/but_signup"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_login2"
                 android:padding="16dp"
                 android:text="Sign Up"
                 android:textAllCaps="false"
-                android:textColor="@drawable/btn_text" />
+                android:textColor="@color/bg_notify"
+                android:background="@drawable/border_add"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,5 +1,4 @@
 package th.ac.kku.asayaporn.project;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -33,6 +32,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -179,7 +179,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             }
         });
         // load img form media
-        ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
+        Button btnImg = (Button) findViewById(R.id.imgAc);
         btnImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,8 +208,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             final String pic = cursor.getString(columnIndex);
             imgurl=pic;
             cursor.close();
-            ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
-            btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
+            ImageView imgv = (ImageView) findViewById(R.id.imgshow);
+            imgv.setImageBitmap(BitmapFactory.decodeFile(pic));
             imgTv.setText("สถาณะ : เลือกรูปเรียบร้อย");
         }
     }

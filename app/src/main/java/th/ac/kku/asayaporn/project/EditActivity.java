@@ -1,5 +1,4 @@
 package th.ac.kku.asayaporn.project;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -21,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -62,7 +62,7 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
     String dateEd = "ยังว่าง";
     String timeSt = "ยังว่าง";
     String timeEd = "ยังว่าง";
-   Bundle para;
+    Bundle para;
     String stausfi="pending";
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_EX = 1;
@@ -94,7 +94,7 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
         btnenddate = (Button) findViewById(R.id.edateend);
         mAuth = FirebaseAuth.getInstance();
         currentFirebaseUser = mAuth.getCurrentUser();
-       para = getIntent().getExtras();
+        para = getIntent().getExtras();
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -170,7 +170,7 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
             }
         });
         // load img form media
-        ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
+        Button btnImg = (Button) findViewById(R.id.imgAc);
         btnImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,8 +197,8 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
             final String pic = cursor.getString(columnIndex);
             cursor.close();
             verifyStoragePermissions(EditActivity.this);
-            ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
-            btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
+            ImageView imgv = (ImageView) findViewById(R.id.imgshow);
+            imgv.setImageBitmap(BitmapFactory.decodeFile(pic));
         }
     }
 
@@ -438,4 +438,3 @@ public class EditActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 }
-

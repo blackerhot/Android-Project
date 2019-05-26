@@ -1,131 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="1dp"
-    android:focusableInTouchMode="true"
-    android:background="@color/colornotify">
+    android:background="@color/colornotify"
+    tools:context="edmt.dev.androidcollapsingtoolbar.MainActivity">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/colornotify"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            android:fitsSystemWindows="true"
+            >
+
+            <ImageView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@drawable/title"
+                app:layout_collapseMode="parallax" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Activites"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="60sp"/>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:popupTheme="@style/AppTheme.CustomTheme"
+                android:background="@color/colornotify"
+                app:layout_collapseMode="pin"
+                android:id="@+id/toolbar" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/colornotify"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginBottom="3dp">
+            android:background="@color/colornotify">
 
-        </LinearLayout>
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true" >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colornotify"
+                android:layout_marginBottom="3dp">
 
-                    <TextView
-                        android:id="@+id/tv_to_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:fontFamily="@font/pb"
-                        android:text="Today"
-                        android:textColor="@color/black"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:layout_toLeftOf="@id/tv_to_day"
-                        android:background="@color/black"
-                        />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_toRightOf="@id/tv_to_day"
-                        android:background="@color/black"
-                        />
-
-                </RelativeLayout>
-                <com.baoyz.swipemenulistview.SwipeMenuListView
-                    android:id="@+id/lst"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center"
-                    android:divider="@null"
-                    android:dividerHeight="1dp"
-                    android:focusable="true">
-
-                </com.baoyz.swipemenulistview.SwipeMenuListView>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    >
-
-                    <TextView
-                        android:id="@+id/tv_all_event"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="Upcoming Event"
-                        android:fontFamily="@font/pb"
-                        android:textColor="@color/black"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:layout_toLeftOf="@id/tv_all_event"
-                        android:background="@color/black"
-                        />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:layout_toRightOf="@id/tv_all_event"
-                        android:background="@color/black"
-                        />
-
-                </RelativeLayout>
-                <com.baoyz.swipemenulistview.SwipeMenuListView
-                    android:id="@+id/all_swip"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center"
-                    android:divider="@null"
-                    android:dividerHeight="1dp"
-                    android:focusable="true">
-
-                </com.baoyz.swipemenulistview.SwipeMenuListView>
             </LinearLayout>
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:background="@color/colornotify">
 
-        </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true">
 
-    </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_to_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:fontFamily="@font/pb"
+                            android:text="Today"
+                            android:textColor="@color/text"/>
 
-</LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toLeftOf="@id/tv_to_day"
+                            android:background="@color/text"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="16dp"
+                            android:layout_toRightOf="@id/tv_to_day"
+                            android:background="@color/text"
+                            />
+
+                    </RelativeLayout>
+                    <com.baoyz.swipemenulistview.SwipeMenuListView
+                        android:id="@+id/lst"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:divider="@null"
+                        android:dividerHeight="1dp"
+                        android:focusable="true">
+
+                    </com.baoyz.swipemenulistview.SwipeMenuListView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:id="@+id/tv_all_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Upcoming Event"
+                            android:fontFamily="@font/pb"
+                            android:textColor="@color/text"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toLeftOf="@id/tv_all_event"
+                            android:background="@color/text"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="16dp"
+                            android:layout_toRightOf="@id/tv_all_event"
+                            android:background="@color/text"
+                            />
+
+                    </RelativeLayout>
+                    <com.baoyz.swipemenulistview.SwipeMenuListView
+                        android:id="@+id/all_swip"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:divider="@null"
+                        android:dividerHeight="1dp"
+                        android:focusable="true">
+
+                    </com.baoyz.swipemenulistview.SwipeMenuListView>
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
