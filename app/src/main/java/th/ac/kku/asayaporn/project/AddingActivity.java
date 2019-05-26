@@ -209,9 +209,8 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
             final String pic = cursor.getString(columnIndex);
             imgurl=pic;
             cursor.close();
-            ImageButton btnImg = (ImageButton) findViewById(R.id.imgAc);
-            btnImg.setImageBitmap(BitmapFactory.decodeFile(pic));
-            imgTv.setText("สถาณะ : เลือกรูปเรียบร้อย");
+
+
         }
     }
 
@@ -227,7 +226,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         }
     }
 
-    private void uploadFile(final String picturePath) {
+   /* private void uploadFile(final String picturePath) {
         final Uri file = Uri.fromFile(new File(picturePath));
         final StorageReference riversRef = mStorageRef.child("images/" + file.getLastPathSegment());
         UploadTask uploadTask = riversRef.putFile(file);
@@ -296,6 +295,7 @@ public class AddingActivity extends AppCompatActivity implements DatePickerDialo
         });
 
     }
+    */
 
     private void addEvent() {
 

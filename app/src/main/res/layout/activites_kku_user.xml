@@ -143,6 +143,20 @@
                 android:background="@drawable/border_add"
                 android:text="Delete"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/clickmore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_date"
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:fontFamily="@font/pb"
+            android:text="อ่านต่อ.."
+            android:textStyle="bold"
+            android:textColor="@color/bg_notify"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"/>
 
     </LinearLayout>
 

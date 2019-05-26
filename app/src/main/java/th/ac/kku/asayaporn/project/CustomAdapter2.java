@@ -150,7 +150,7 @@ public class CustomAdapter2 extends BaseAdapter {
                 mViewHolder.statusTv.setTextColor(Color.RED);
                 mViewHolder.statusTv.setText("Status : Hiding ");
             }
-        }else {
+        }else if (mActivite.status.equals("pending")) {
             mViewHolder.statusTv.setTextColor(Color.YELLOW);
             mViewHolder.statusTv.setText("Status : Pending");
             mViewHolder.butoff.setVisibility(View.VISIBLE);
