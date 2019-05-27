@@ -176,7 +176,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="สาถที่จัดงาน: "
+                            android:text="สถานที่จัดงาน"
                             android:textColor="@color/bg_notify"/>
                         <EditText
                             android:id="@+id/eplace"

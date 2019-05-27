@@ -109,7 +109,7 @@ public class ItemActivity2 extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
+        Picasso.get().load(para.getString("img")). error(R.drawable.imgnotfound).resize(width, 0).into(pic);
 
 
         title.setText(para.getString("title"));

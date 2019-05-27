@@ -64,6 +64,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.graphics.Color.parseColor;
+
 public class ItemActivity extends AppCompatActivity {
     public boolean create;
     Button butAddEvent;
@@ -103,6 +105,7 @@ public class ItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         pic = (ImageView) findViewById(R.id.post_pic);
         title = (TextView) findViewById(R.id.post_title);
         detail = (TextView) findViewById(R.id.post_detail);
@@ -124,7 +127,8 @@ public class ItemActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Picasso.get().load(para.getString("img")).resize(width, 0).into(pic);
+        Picasso.get().load(para.getString("img")).resize(width, 0).
+                error(R.drawable.imgnotfound).into(pic);
 
 
         title.setText(para.getString("title"));

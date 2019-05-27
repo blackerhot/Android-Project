@@ -14,6 +14,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true"
 
+
         >
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -21,7 +22,7 @@
             android:id="@+id/collap"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/grey"
+            app:contentScrim="@color/bg_notify"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:fitsSystemWindows="true"
             >
@@ -30,7 +31,7 @@
                 android:id="@+id/post_pic"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/white_grey"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -328,7 +329,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatAlert"
-
+        android:backgroundTint="@color/bg_notify"
         android:src="@drawable/ic_addbutwhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

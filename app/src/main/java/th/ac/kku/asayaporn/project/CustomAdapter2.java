@@ -129,7 +129,7 @@ public class CustomAdapter2 extends BaseAdapter {
         mActivite = mActivites.get(position);
 
             Picasso.get().load(mActivite.image).resize(2048, 1600).
-                    onlyScaleDown().into(mViewHolder.pic);//wait for img
+                    onlyScaleDown().error(R.drawable.imgnotfound).into(mViewHolder.pic);//wait for img
         mViewHolder.title.setText(mActivite.title);
         mViewHolder.address.setText("สถานที่จัดงาน : " + mActivite.place);
         mViewHolder.datest.setText("วันที่เริ่มงาน : " + mActivite.dateSt + " (" + mActivite.timeSt + ")");

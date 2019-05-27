@@ -4,16 +4,16 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#FFFFFF</item>
-        <item name="colorPrimaryDark">#292929</item>
+        <item name="colorPrimaryDark">#A8FE876F</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/grey</item>
     </style>
 
     <style name="AppTheme.CustomTheme">
         <item name="colorPrimary">#FFFFFF</item>
-        <item name="colorPrimaryDark">#292929</item>
+        <item name="colorPrimaryDark">#A8FE876F</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/grey</item>
+        <item name="colorControlHighlight">#A8FE876F</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
@@ -24,7 +24,7 @@
 
     </style>
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorGrey</item>
+        <item name="colorPrimary">#A8FE876F</item>
 
     </style>
 
